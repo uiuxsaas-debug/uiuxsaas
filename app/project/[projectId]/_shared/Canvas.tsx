@@ -56,22 +56,35 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot }: Props)
         // let iconify/tailwind apply
         await new Promise((r) => setTimeout(r, 250));
 
-        const target = doc.body; // or doc.documentElement
-        const w = doc.documentElement.scrollWidth;
-        const h = doc.documentElement.scrollHeight;
+        // Re-check validity after wait
+        if (!iframe.isConnected || !iframe.contentWindow || !iframe.contentDocument) {
+            console.warn("Iframe detached/invalid during capture");
+            return document.createElement("canvas");
+        }
 
-        const canvas = await html2canvas(target, {
-            backgroundColor: null,
-            useCORS: true,
-            allowTaint: true,
-            width: w,
-            height: h,
-            windowWidth: w,
-            windowHeight: h,
-            scale: window.devicePixelRatio || 1,
-        });
+        const currentDoc = iframe.contentDocument;
+        const target = currentDoc.body;
+        const w = currentDoc.documentElement.scrollWidth;
+        const h = currentDoc.documentElement.scrollHeight;
 
-        return canvas;
+        try {
+            const canvas = await html2canvas(target, {
+                backgroundColor: null,
+                useCORS: true,
+                allowTaint: true,
+                width: w,
+                height: h,
+                windowWidth: w,
+                windowHeight: h,
+                scale: window.devicePixelRatio || 1,
+            });
+            return canvas;
+        } catch (error) {
+            console.error("html2canvas failed:", error);
+            return document.createElement("canvas");
+        }
+
+
     };
 
     const onTakeScreenshot = async (saveOnly: any) => {

@@ -1,5 +1,5 @@
 import { db } from "@/config/db";
-import { openrouter } from "@/config/openroute";
+import { openai } from "@/config/openai";
 import { ProjectTable, ScreenConfigTable } from "@/config/schema";
 import { APP_LAYOUT_CONFIG_PROMPT, GENRATE_NEW_SCREEN_IN_EXISITING_PROJECT_PROJECT } from "@/data/Prompt";
 import { currentUser } from "@clerk/nextjs/server";
@@ -9,8 +9,9 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
     const { userInput, deviceType, projectId, oldScreenDescription, theme } = await req.json();
 
-    const aiResult = await openrouter.chat.send({
-        model: "openai/gpt-5.1-codex-mini",//You replace with any other Free Model
+    const aiResult = await openai.chat.completions.create({
+        model: "gpt-4o",
+        response_format: { type: "json_object" },
         messages: [
             {
                 role: 'system',
@@ -33,11 +34,9 @@ export async function POST(req: NextRequest) {
                 ]
             }
         ],
-        stream: false
     });
 
-
-    const JSONAiResult = JSON.parse(aiResult?.choices[0]?.message?.content as string)
+    const JSONAiResult = JSON.parse(aiResult.choices[0].message.content as string)
 
     if (JSONAiResult) {
         //Update Project Table with Project Name

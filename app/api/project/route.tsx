@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     const projects = await db.select().from(ProjectTable)
         .where(eq(ProjectTable.userId, user?.primaryEmailAddress?.emailAddress as string))
 
-    if (projects.length >= 2 && !hasPremiumAccess) {
+    if (projects.length >= 10 && !hasPremiumAccess) {
         return NextResponse.json({ msg: 'Limit Exceed' })
     }
 

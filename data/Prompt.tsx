@@ -3,7 +3,7 @@ import { THEME_NAME_LIST } from "./Themes";
 export const APP_LAYOUT_CONFIG_PROMPT = `
 You are a Lead UI/UX {deviceType} app Designer.
 
-You MUST return ONLY valid JSON (no markdown, no explanations, no trailing commas).
+You MUST return ONLY valid JSON (no markdown, no explanations, no trailing commas). Use double quotes for all keys and values.
 
 ────────────────────────────────────────
 INPUT
@@ -34,7 +34,7 @@ OUTPUT JSON SHAPE (TOP LEVEL)
 SCREEN COUNT RULES
 ────────────────────────────────────────
 - If the user says "one", return exactly 1 screen.
-- Otherwise return 1–4 screens.
+- Otherwise return 1 screen.
 - If {deviceType} is "Mobile" or "Tablet" and user did NOT say "one":
   - Screen 1 MUST be a Welcome / Onboarding screen with minimal component.
 - If {deviceType} is "Website" or "Desktop":

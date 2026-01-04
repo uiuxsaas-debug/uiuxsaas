@@ -1,5 +1,5 @@
 import { db } from "@/config/db";
-import { openrouter } from "@/config/openroute";
+import { openai } from "@/config/openai";
 import { ScreenConfigTable } from "@/config/schema";
 import { GENERATE_SCREEN_PROMPT } from "@/data/Prompt";
 import { and, eq } from "drizzle-orm";
@@ -14,8 +14,8 @@ export async function POST(req: NextRequest) {
     screen Description:${screenDescription}
     `
     try {
-        const aiResult = await openrouter.chat.send({
-            model: "openai/gpt-5.2-chat",//You replace with any other Free Model
+        const aiResult = await openai.chat.completions.create({
+            model: "gpt-4o",
             messages: [
                 {
                     role: 'system',
@@ -36,10 +36,9 @@ export async function POST(req: NextRequest) {
                     ]
                 }
             ],
-            stream: false
         });
 
-        const code = aiResult?.choices[0]?.message?.content;
+        const code = aiResult.choices[0].message.content;
         const updateResult = await db.update(ScreenConfigTable)
             .set({
                 code: code as string

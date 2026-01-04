@@ -1,5 +1,5 @@
 import { db } from "@/config/db";
-import { openrouter } from "@/config/openroute";
+import { openai } from "@/config/openai";
 import { ScreenConfigTable } from "@/config/schema";
 import { and, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
@@ -11,8 +11,8 @@ export async function POST(req: NextRequest) {
     Do not change it. Just make user requested changes. and keep all other code as it is. Only return HTML Tailwindcss code and no raw text. UserInput is:  +`+ userInput
 
     try {
-        const aiResult = await openrouter.chat.send({
-            model: "openai/gpt-5.2-chat",//You replace with any other Free Model
+        const aiResult = await openai.chat.completions.create({
+            model: "gpt-4o",
             messages: [
                 {
                     "role": "user",
@@ -24,10 +24,9 @@ export async function POST(req: NextRequest) {
                     ]
                 }
             ],
-            stream: false
         });
 
-        const code = aiResult?.choices[0]?.message?.content;
+        const code = aiResult.choices[0].message.content;
         const updateResult = await db.update(ScreenConfigTable)
             .set({
                 code: code as string

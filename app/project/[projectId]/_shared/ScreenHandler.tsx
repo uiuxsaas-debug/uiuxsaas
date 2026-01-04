@@ -125,7 +125,7 @@ function ScreenHandler({ screen, theme, iframeRef, projectId }: Props) {
 
             <div className='flex'>
                 <Dialog>
-                    <DialogTrigger>
+                    <DialogTrigger asChild>
                         <Button variant={'ghost'} ><Code2Icon /></Button>
                     </DialogTrigger>
                     <DialogContent className='max-w-5xl w-full h-[70vh] flex flex-col'>
@@ -173,7 +173,7 @@ function ScreenHandler({ screen, theme, iframeRef, projectId }: Props) {
                 </Button>
 
                 <Popover>
-                    <PopoverTrigger>
+                    <PopoverTrigger asChild>
                         <Button variant={'ghost'}> <SparkleIcon /> </Button>
                     </PopoverTrigger>
                     <PopoverContent>
@@ -189,7 +189,7 @@ function ScreenHandler({ screen, theme, iframeRef, projectId }: Props) {
                 </Popover>
 
                 <DropdownMenu>
-                    <DropdownMenuTrigger><Button variant={'ghost'} >
+                    <DropdownMenuTrigger asChild><Button variant={'ghost'} >
                         <MoreVertical />
                     </Button></DropdownMenuTrigger>
                     <DropdownMenuContent>

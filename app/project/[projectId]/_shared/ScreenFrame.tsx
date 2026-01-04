@@ -50,6 +50,9 @@ function ScreenFrame({
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
     useEffect(() => {
         if (iframeRef_) iframeRef_(iframeRef.current);
+        return () => {
+            if (iframeRef_) iframeRef_(null);
+        }
     }, [iframeRef_]);
     // ✅ keep manual resize + auto height in same state
     const [size, setSize] = useState({ width, height });
