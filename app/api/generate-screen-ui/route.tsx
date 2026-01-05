@@ -5,6 +5,11 @@ import { GENERATE_SCREEN_PROMPT } from "@/data/Prompt";
 import { and, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * Generates screen code using the OpenAI chat model, stores the generated code on the corresponding screen record, and returns the updated record.
+ *
+ * @returns The updated screen configuration record as JSON when successful. On failure, returns a JSON object with `{ msg: 'Internal Server Error!' }`.
+ */
 export async function POST(req: NextRequest) {
     const { projectId, screenId, screenName, purpose, screenDescription, projectVisualDescription } = await req.json();
 

@@ -4,6 +4,13 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { and, asc, desc, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * Create a new project record for the authenticated user.
+ *
+ * Enforces a free-tier limit of 10 projects per user; if the limit is reached and the user lacks the 'unlimted' plan, responds with a limit message. The new record is associated with the authenticated user's primary email address.
+ *
+ * @returns The created project record object on success, or `{ msg: 'Limit Exceed' }` when the user has reached the free-tier project limit.
+ */
 export async function POST(req: NextRequest) {
     const { userInput, device, projectId } = await req.json();
     const user = await currentUser();
