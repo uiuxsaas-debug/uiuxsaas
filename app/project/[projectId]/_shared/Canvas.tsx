@@ -16,6 +16,15 @@ type Props = {
     takeScreenshot: any
 }
 
+/**
+ * Render an interactive canvas of project screens with zooming, panning, and screenshot capture.
+ *
+ * @param projectDetail - Project metadata (device, theme, projectId, projectName) used to size screens and update screenshots.
+ * @param screenConfig - Array of screen configurations; each entry supplies HTML to render a screen frame.
+ * @param loading - Optional flag indicating whether screen content is still loading (used for placeholder rendering).
+ * @param takeScreenshot - Trigger value; when changed, initiates a screenshot capture and optionally saves or downloads the stitched image.
+ * @returns The React element that displays the zoomable/pannable collection of screens and provides controls for zoom and screenshot capture.
+ */
 function Canvas({ projectDetail, screenConfig, loading, takeScreenshot }: Props) {
 
     const [panningEnabled, setPanningEnabled] = useState(true);

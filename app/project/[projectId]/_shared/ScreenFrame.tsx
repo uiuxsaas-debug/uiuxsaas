@@ -28,6 +28,20 @@ type Props = {
     iframeRef_: any
 };
 
+/**
+ * Render a draggable, resizable frame containing a themed iframe that auto-sizes its height to its content.
+ *
+ * @param x - Initial x position of the frame
+ * @param y - Initial y position of the frame
+ * @param setPanningEnabled - Callback invoked with `false`/`true` to disable/enable parent panning during drag/resize
+ * @param width - Initial width of the frame; manual resizes become the new baseline
+ * @param height - Initial height of the frame; used as a baseline when themes change
+ * @param htmlCode - HTML string to render inside the iframe (wrapped with the selected theme)
+ * @param projectDetail - Project metadata (used to select theme and supply `projectId` to the handler)
+ * @param screen - Screen configuration passed to the ScreenHandler
+ * @param iframeRef_ - Optional external setter to receive the iframe element; will be called with `null` on unmount
+ * @returns The React element for the draggable/resizable screen frame with an auto-height themed iframe
+ */
 function ScreenFrame({
     x,
     y,
@@ -221,4 +235,3 @@ function ScreenFrame({
 
 
 export default ScreenFrame;
-

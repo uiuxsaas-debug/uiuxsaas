@@ -49,6 +49,15 @@ type Props = {
     iframeRef: any,
     projectId: string | undefined
 }
+/**
+ * Render the screen header with actions to view code, capture a screenshot, regenerate edits, and delete the screen.
+ *
+ * @param screen - The screen configuration to display (may be undefined).
+ * @param theme - Theme information used to wrap the screen's HTML code.
+ * @param iframeRef - Ref to the iframe element containing the rendered screen; used for screenshot capture.
+ * @param projectId - The current project identifier used for edit and delete requests.
+ * @returns A JSX element containing the screen title and associated action controls.
+ */
 function ScreenHandler({ screen, theme, iframeRef, projectId }: Props) {
 
     const htmlCode = HtmlWrapper(theme, screen?.code as string)

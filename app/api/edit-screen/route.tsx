@@ -4,6 +4,12 @@ import { ScreenConfigTable } from "@/config/schema";
 import { and, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * Handle POST requests that update a screen's code by generating modifications via the OpenAI chat model and persisting the result to the database.
+ *
+ * @param req - NextRequest whose JSON body must include `projectId`, `screenId`, `oldCode`, and `userInput`. `oldCode` is the current screen HTML/Tailwind code and `userInput` describes requested changes.
+ * @returns The updated screen configuration row as JSON on success; on failure returns a JSON object with `{ msg: 'Internal Server Error!' }`.
+ */
 export async function POST(req: NextRequest) {
     const { projectId, screenId, oldCode, userInput } = await req.json();
 
