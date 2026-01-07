@@ -1,5 +1,5 @@
 import { db } from "@/config/db";
-import { openai } from "@/config/openai";
+import { geminiModel } from "@/config/gemini";
 import { ScreenConfigTable } from "@/config/schema";
 import { GENERATE_SCREEN_PROMPT } from "@/data/Prompt";
 import { and, eq } from "drizzle-orm";
@@ -14,34 +14,22 @@ export async function POST(req: NextRequest) {
     screen Description:${screenDescription}
     `
     try {
-        const aiResult = await openai.chat.completions.create({
-            model: "gpt-4o",
-            messages: [
+        const result = await geminiModel.generateContent({
+            contents: [
                 {
-                    role: 'system',
-                    content: [
-                        {
-                            type: 'text',
-                            text: GENERATE_SCREEN_PROMPT
-                        }
-                    ]
-                },
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": userInput
-                        },
-                    ]
+                    role: "user",
+                    parts: [{ text: GENERATE_SCREEN_PROMPT + "\n\nUser Input: " + userInput }]
                 }
             ],
         });
 
-        const code = aiResult.choices[0].message.content;
+        let code = result.response.text();
+        // Ensure clean HTML output by removing markdown blocks if they exist
+        code = code.replace(/```html/g, '').replace(/```/g, '').trim();
+
         const updateResult = await db.update(ScreenConfigTable)
             .set({
-                code: code as string
+                code: code
             }).where(and(eq(ScreenConfigTable.projectId, projectId),
                 eq(ScreenConfigTable?.screenId, screenId as string)))
             .returning()
