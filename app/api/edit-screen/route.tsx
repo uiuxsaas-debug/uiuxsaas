@@ -33,7 +33,14 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json(updateResult[0])
     }
-    catch (e) {
-        return NextResponse.json({ msg: 'Internal Server Error!' })
+    catch (e: any) {
+    console.error("Gemini API Error in edit-screen:", e);
+    if (e.status === 429 || e.message?.includes('429')) {
+        return NextResponse.json(
+            { error: "AI Rate Limit Exceeded. Please try again later." },
+            { status: 429 }
+        );
     }
+    return NextResponse.json({ error: 'Internal Server Error!' }, { status: 500 })
+}
 }

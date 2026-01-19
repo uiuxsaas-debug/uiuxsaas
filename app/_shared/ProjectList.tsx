@@ -15,10 +15,15 @@ function ProjectList() {
 
     const GetProjectList = async () => {
         setLoading(true);
-        const result = await axios.get('/api/project');
-        console.log(result.data);
-        setProjectList(result?.data);
-        setLoading(false);
+        try {
+            const result = await axios.get('/api/project');
+            setProjectList(Array.isArray(result.data) ? result.data : []);
+        } catch (error) {
+            console.error("Failed to fetch project list:", error);
+            setProjectList([]);
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (

@@ -11,7 +11,7 @@ export const usersTable = pgTable("users", {
 
 export const ProjectTable = pgTable('project', {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    projectId: varchar().notNull(),
+    projectId: varchar().notNull().unique(),
     projectName: varchar(),
     theme: varchar(),
     userInput: varchar(),
@@ -25,7 +25,7 @@ export const ProjectTable = pgTable('project', {
 
 export const ScreenConfigTable = pgTable('screenConfig', {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    projectId: varchar().references(() => ProjectTable.projectId),
+    projectId: varchar(), // Linked to ProjectTable.projectId (no formal FK to avoid migration issues)
     screenId: varchar(),
     screenName: varchar(),
     purpose: varchar(),

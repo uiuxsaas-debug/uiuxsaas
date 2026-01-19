@@ -528,25 +528,238 @@ export const THEMES = {
 
         chart: ["#F24E1E", "#A259FF", "#1ABCFE", "#0ACF83", "#FF7262"],
     },
+
+    // ✅ NEW: Professional Light Themes with better contrast
+
+    CLEAN_WHITE: {
+        background: "#ffffff",
+        foreground: "#111827",
+
+        card: "#f9fafb",
+        cardForeground: "#111827",
+
+        popover: "#ffffff",
+        popoverForeground: "#111827",
+
+        primary: "#2563eb",
+        primaryRgb: "37, 99, 235",
+        primaryForeground: "#ffffff",
+
+        secondary: "#f3f4f6",
+        secondaryForeground: "#111827",
+
+        muted: "#f3f4f6",
+        mutedForeground: "#6b7280",
+
+        accent: "#10b981",
+        accentForeground: "#ffffff",
+
+        destructive: "#ef4444",
+
+        border: "#e5e7eb",
+        input: "#ffffff",
+        ring: "#2563eb",
+        radius: "0.75rem",
+
+        chart: ["#2563eb", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"],
+    },
+
+    SOFT_CREAM: {
+        background: "#fefcf8",
+        foreground: "#1c1917",
+
+        card: "#ffffff",
+        cardForeground: "#1c1917",
+
+        popover: "#ffffff",
+        popoverForeground: "#1c1917",
+
+        primary: "#d97706",
+        primaryRgb: "217, 119, 6",
+        primaryForeground: "#ffffff",
+
+        secondary: "#fef3e2",
+        secondaryForeground: "#1c1917",
+
+        muted: "#f5f0e8",
+        mutedForeground: "#78716c",
+
+        accent: "#0891b2",
+        accentForeground: "#ffffff",
+
+        destructive: "#dc2626",
+
+        border: "#e7e5e4",
+        input: "#ffffff",
+        ring: "#d97706",
+        radius: "1rem",
+
+        chart: ["#d97706", "#0891b2", "#16a34a", "#dc2626", "#7c3aed"],
+    },
+
+    OCEAN_BREEZE: {
+        background: "#f0f9ff",
+        foreground: "#0c4a6e",
+
+        card: "#ffffff",
+        cardForeground: "#0c4a6e",
+
+        popover: "#ffffff",
+        popoverForeground: "#0c4a6e",
+
+        primary: "#0284c7",
+        primaryRgb: "2, 132, 199",
+        primaryForeground: "#ffffff",
+
+        secondary: "#e0f2fe",
+        secondaryForeground: "#0c4a6e",
+
+        muted: "#e0f2fe",
+        mutedForeground: "#64748b",
+
+        accent: "#06b6d4",
+        accentForeground: "#ffffff",
+
+        destructive: "#e11d48",
+
+        border: "#bae6fd",
+        input: "#ffffff",
+        ring: "#0284c7",
+        radius: "0.875rem",
+
+        chart: ["#0284c7", "#06b6d4", "#22c55e", "#f59e0b", "#ec4899"],
+    },
+
+    // ✅ NEW: Professional Dark Themes with better contrast
+
+    MIDNIGHT_TEAL: {
+        background: "#0a1214",
+        foreground: "#f0fdfa",
+
+        card: "#0f1a1d",
+        cardForeground: "#f0fdfa",
+
+        popover: "#0f1a1d",
+        popoverForeground: "#f0fdfa",
+
+        primary: "#14b8a6",
+        primaryRgb: "20, 184, 166",
+        primaryForeground: "#0a1214",
+
+        secondary: "#134e4a",
+        secondaryForeground: "#f0fdfa",
+
+        muted: "#0d1618",
+        mutedForeground: "#99f6e4",
+
+        accent: "#2dd4bf",
+        accentForeground: "#0a1214",
+
+        destructive: "#f43f5e",
+
+        border: "#164e47",
+        input: "#164e47",
+        ring: "#14b8a6",
+        radius: "0.85rem",
+
+        chart: ["#14b8a6", "#2dd4bf", "#60a5fa", "#f59e0b", "#f43f5e"],
+    },
+
+    CHARCOAL_EMBER: {
+        background: "#18181b",
+        foreground: "#fafafa",
+
+        card: "#27272a",
+        cardForeground: "#fafafa",
+
+        popover: "#27272a",
+        popoverForeground: "#fafafa",
+
+        primary: "#f97316",
+        primaryRgb: "249, 115, 22",
+        primaryForeground: "#18181b",
+
+        secondary: "#3f3f46",
+        secondaryForeground: "#fafafa",
+
+        muted: "#27272a",
+        mutedForeground: "#a1a1aa",
+
+        accent: "#fb923c",
+        accentForeground: "#18181b",
+
+        destructive: "#ef4444",
+
+        border: "#3f3f46",
+        input: "#3f3f46",
+        ring: "#f97316",
+        radius: "0.75rem",
+
+        chart: ["#f97316", "#fb923c", "#22c55e", "#3b82f6", "#a855f7"],
+    },
+
+    LAVENDER_MIST: {
+        background: "#faf5ff",
+        foreground: "#3b0764",
+
+        card: "#ffffff",
+        cardForeground: "#3b0764",
+
+        popover: "#ffffff",
+        popoverForeground: "#3b0764",
+
+        primary: "#9333ea",
+        primaryRgb: "147, 51, 234",
+        primaryForeground: "#ffffff",
+
+        secondary: "#f3e8ff",
+        secondaryForeground: "#3b0764",
+
+        muted: "#f3e8ff",
+        mutedForeground: "#7c3aed",
+
+        accent: "#c026d3",
+        accentForeground: "#ffffff",
+
+        destructive: "#e11d48",
+
+        border: "#e9d5ff",
+        input: "#ffffff",
+        ring: "#9333ea",
+        radius: "1rem",
+
+        chart: ["#9333ea", "#c026d3", "#06b6d4", "#22c55e", "#f59e0b"],
+    },
 } as const;
 
 export const THEME_NAME_LIST = [
+    // Light Themes (Good for Health, Lifestyle, E-commerce apps)
+    "CLEAN_WHITE",
+    "SOFT_CREAM",
+    "OCEAN_BREEZE",
+    "LAVENDER_MIST",
+    "DUSTY_ORCHID",
+    "MOSS_PARCHMENT",
+    "POLAR_MINT",
+
+    // Dark Themes (Good for Fintech, Entertainment, Social apps)
     "NETFLIX",
-    "SHOPIFY",
-    "AMAZON",
-    "GOOGLE",
     "SPOTIFY",
     "APPLE",
     "GITHUB",
     "DISCORD",
+    "MIDNIGHT_TEAL",
+    "CHARCOAL_EMBER",
+    "AURORA_INK",
+    "CITRUS_SLATE",
+    "OBSIDIAN_BLOOM",
+
+    // Brand Themes
+    "SHOPIFY",
+    "AMAZON",
+    "GOOGLE",
     "SLACK",
     "FIGMA",
-    "AURORA_INK",
-    "DUSTY_ORCHID",
-    "CITRUS_SLATE",
-    "MOSS_PARCHMENT",
-    "POLAR_MINT",
-    "OBSIDIAN_BLOOM",
 ] as const;
 
 export type ThemeKey = keyof typeof THEMES;
@@ -555,44 +768,47 @@ export type Theme = (typeof THEMES)[ThemeKey];
 
 
 export function themeToCssVars(theme: any) {
+    // Fallback to NETFLIX if theme is undefined
+    const t = theme ?? THEMES['NETFLIX'];
+
     return `
   :root {
-    --background: ${theme?.background};
-    --foreground: ${theme?.foreground};
+    --background: ${t?.background};
+    --foreground: ${t?.foreground};
   
-    --card: ${theme?.card};
-    --card-foreground: ${theme?.cardForeground};
+    --card: ${t?.card};
+    --card-foreground: ${t?.cardForeground};
   
-    --popover: ${theme?.popover};
-    --popover-foreground: ${theme?.popoverForeground};
+    --popover: ${t?.popover};
+    --popover-foreground: ${t?.popoverForeground};
   
-    --primary: ${theme?.primary};
-    --primary-rgb: ${theme?.primaryRgb};
-    --primary-foreground: ${theme?.primaryForeground};
+    --primary: ${t?.primary};
+    --primary-rgb: ${t?.primaryRgb};
+    --primary-foreground: ${t?.primaryForeground};
   
-    --secondary: ${theme?.secondary};
-    --secondary-foreground: ${theme?.secondaryForeground};
+    --secondary: ${t?.secondary};
+    --secondary-foreground: ${t?.secondaryForeground};
   
-    --muted: ${theme?.muted};
-    --muted-foreground: ${theme?.mutedForeground};
+    --muted: ${t?.muted};
+    --muted-foreground: ${t?.mutedForeground};
   
-    --accent: ${theme?.accent};
-    --accent-foreground: ${theme?.accentForeground};
+    --accent: ${t?.accent};
+    --accent-foreground: ${t?.accentForeground};
   
-    --destructive: ${theme?.destructive};
+    --destructive: ${t?.destructive};
   
-    --border: ${theme?.border};
-    --input: ${theme?.input};
-    --ring: ${theme?.ring};
+    --border: ${t?.border};
+    --input: ${t?.input};
+    --ring: ${t?.ring};
   
-    --radius: ${theme?.radius};
+    --radius: ${t?.radius};
   
     /* charts */
-    --chart-1: ${theme?.chart?.[0]};
-    --chart-2: ${theme?.chart?.[1]};
-    --chart-3: ${theme?.chart?.[2]};
-    --chart-4: ${theme?.chart?.[3]};
-    --chart-5: ${theme?.chart?.[4]};
+    --chart-1: ${t?.chart?.[0]};
+    --chart-2: ${t?.chart?.[1]};
+    --chart-3: ${t?.chart?.[2]};
+    --chart-4: ${t?.chart?.[3]};
+    --chart-5: ${t?.chart?.[4]};
   }
   `;
 }

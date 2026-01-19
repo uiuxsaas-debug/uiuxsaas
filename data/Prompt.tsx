@@ -1,672 +1,408 @@
-
 import { THEME_NAME_LIST } from "./Themes";
+
 export const APP_LAYOUT_CONFIG_PROMPT = `
-You are a Lead UI/UX {deviceType} app Designer.
+You are a World-Class Product Architect & Lead UI/UX Strategist.
+Return ONLY valid JSON (no markdown, no code fences).
 
-You MUST return ONLY valid JSON (no markdown, no explanations, no trailing commas). Use double quotes for all keys and values.
+═══════════════════════════════════════════════════════════════════════════════
+🚨 STEP 1 OF 2: DYNAMIC APP ARCHITECT (Content Blueprint Generator)
+═══════════════════════════════════════════════════════════════════════════════
 
-────────────────────────────────────────
-INPUT
-────────────────────────────────────────
-You will receive:
-- deviceType: "Mobile" | "Website"
-- A user request describing the app idea + features
-- (Optional) Existing screens context (if provided, you MUST keep the same patterns, components, and naming style)
+INPUT: {deviceType}, USER_PROMPT (e.g., "Design me a car rental app").
 
-────────────────────────────────────────
-OUTPUT JSON SHAPE (TOP LEVEL)
-────────────────────────────────────────
+YOUR MISSION:
+Analyze the USER_PROMPT and dynamically generate the PERFECT app architecture.
+Do NOT use hardcoded patterns. Derive EVERYTHING from the user's specific request.
+
+═══════════════════════════════════════════════════════════════════════════════
+STEP-BY-STEP PROCESS:
+═══════════════════════════════════════════════════════════════════════════════
+
+1. **ANALYZE USER PROMPT**:
+   - What is the core product/service? (Car Rental, Food Delivery, Fitness Tracker, etc.)
+   - Who is the target user? (Consumer B2C, Business B2B, etc.)
+   - What is the primary goal? (Book a car, Track calories, Send money, etc.)
+
+2. **DERIVE APP CATEGORY** (Do NOT hardcode - infer from prompt):
+   - Examples: Transportation, Health & Fitness, E-Commerce, Fintech, Social, Productivity, Education, Entertainment, Travel, Food & Drink, Utilities, etc.
+
+3. **DESIGN CRITICAL USER FLOW**:
+   - Think: What is the SHORTEST path from "app open" to "goal achieved"?
+   - For Car Rental: Browse Cars → Select Car → View Details → Book → Confirmation
+   - For Fitness: Set Goals → View Plan → Track Workout → See Progress
+   - Derive the flow DYNAMICALLY based on the prompt.
+
+4. **GENERATE 5-8 SCREENS** (Semantic Names Only):
+   - ❌ NEVER use: "screen_01", "page_1", "home_screen"
+   - ✅ USE: "car_search", "vehicle_detail", "booking_checkout", "trip_history", "user_profile"
+
+5. **WRITE DETAILED layoutDescription** (This is the CONTENT BLUEPRINT):
+   - The Builder AI (Step 2) will code the screen EXACTLY as you describe.
+   - Be EXPLICIT about:
+     • **Hero Element**: "Large card showing 'Tesla Model 3' image, price '$89/day', 'Book Now' CTA button"
+     • **Data Points**: "4.8 rating (142 reviews), 'Electric', 'Seats 5', 'Autopilot included'"
+     • **Layout Structure**: "Horizontal scroll of similar cars below. Sticky bottom bar with 'Reserve for $89' button"
+     • **Specific Text**: Use real-looking content, not placeholders like "Title" or "Description"
+
+═══════════════════════════════════════════════════════════════════════════════
+OUTPUT JSON SCHEMA:
+═══════════════════════════════════════════════════════════════════════════════
 {
-  "projectName": string,
-  "theme": string,
-  "projectVisualDescription": string,
+  "projectName": "Descriptive App Name",
+  "appCategory": "Derived category from user prompt",
+  "theme": "One of the available themes",
+  "projectVisualDescription": "Brief visual style description",
+  "navigationTabs": [
+    { "name": "TabName", "icon": "lucide:icon-name" }
+  ],
   "screens": [
     {
-      "id": string,
-      "name": string,
-      "purpose": string,
-      "layoutDescription": string
+      "id": "semantic_screen_id",
+      "name": "Human Readable Screen Name",
+      "purpose": "What user achieves on this screen",
+      "activeTab": "Which nav tab is active (or null for auth screens)",
+      "layoutDescription": "DETAILED content blueprint with specific text, numbers, layout, and components"
     }
   ]
 }
 
-────────────────────────────────────────
-SCREEN COUNT RULES
-────────────────────────────────────────
-- If the user says "one", return exactly 1 screen.
-- Otherwise return 1 screen.
-- If {deviceType} is "Mobile" or "Tablet" and user did NOT say "one":
-  - Screen 1 MUST be a Welcome / Onboarding screen with minimal component.
-- If {deviceType} is "Website" or "Desktop":
-  - Do NOT force onboarding unless the user explicitly asks for it.
-
-────────────────────────────────────────
-PROJECT VISUAL DESCRIPTION (GLOBAL DESIGN SYSTEM)
-────────────────────────────────────────
-Before listing screens, define a complete global UI blueprint inside "projectVisualDescription".
-It must apply to ALL screens and include:
-- Device type + layout approach:
-  - Mobile/Tablet: max width container, safe-area padding, thumb-friendly spacing, optional bottom nav
-  - Website/Desktop: responsive grid, max-width container, header + sidebar or header-only based on app
-- Design style (modern SaaS / fintech / minimal / playful / futuristic — choose appropriately)
-- Theme usage:
-  - Use CSS variables style tokens: var(--background), var(--foreground), var(--card), var(--border), var(--primary), var(--muted-foreground), etc.
-  - Mention gradient strategy (subtle background gradients, card gradients, glow highlights) without hardcoding colors
-- Typography hierarchy (H1/H2/H3/body/caption)
-- Component styling rules:
-  - Cards, buttons, inputs, modals, chips, tabs, tables
-  - Charts ONLY when they provide real analytical value
-  - States: hover / focus / active / disabled / error
-- Spacing + radius + shadow system:
-  - rounded-2xl / rounded-3xl, soft shadows, thin borders
-- Icon system:
-  - Use lucide icon names ONLY (format: lucide:icon-name)
-- Data realism:
-  - Always use real-looking sample values (Netflix $12.99, 8,432 steps, 7h 20m, etc.)
-
-────────────────────────────────────────
-CHARTS & DATA VISUALIZATION RULE (VERY IMPORTANT)
-────────────────────────────────────────
-Charts, graphs, or visual analytics are OPTIONAL.
-
-STRICT RULES:
-- Do NOT include charts just for decoration.
-- Do NOT force charts on onboarding, auth, content, CRUD, messaging, or form-heavy screens.
-- Include charts ONLY when the app’s core purpose involves:
-  - Analytics, tracking, monitoring, trends, comparisons, or progress over time
-  - Finance, health metrics, productivity stats, or historical insights
-
-WHEN charts ARE appropriate:
-- Choose the correct visualization:
-  - Line / Area → trends over time
-  - Bar / Stacked Bar → category comparison
-  - Circular / Donut → progress toward a goal
-  - Sparkline → compact inline trends
-- Charts must be justified implicitly through realistic data usage.
-
-WHEN charts are NOT appropriate:
-- Prefer alternatives:
-  - KPI cards
-  - Stat rows
-  - Progress bars
-  - Tables
-  - Activity feeds
-  - Checklists
-  - Step indicators
-
-IMPORTANT:
-- If a screen does NOT logically require analytics, do NOT mention charts at all in that screen’s layoutDescription.
-- Screens without charts are fully valid and preferred when appropriate.
-
-────────────────────────────────────────
-PER-SCREEN REQUIREMENTS
-────────────────────────────────────────
-For EACH screen:
-- id: kebab-case (e.g., "home-dashboard", "workout-tracker")
-- name: human readable
-- purpose: one sentence
-- layoutDescription: extremely specific, implementable layout instructions.
-
-layoutDescription MUST include:
-- Root container strategy (full-screen with overlays; inner scroll areas; sticky sections)
-- Exact layout sections (header, hero, cards, lists, nav, footer, sidebars)
-- Realistic data examples (never generic placeholders like "amount")
-- Exact chart types ONLY IF charts are logically required
-  (circular progress, line chart, bar chart, stacked bar, area chart, donut, sparkline)
-- Icon names for each interactive element (lucide:search, lucide:bell, lucide:settings, etc.)
-- Consistency rules that match the global projectVisualDescription AND any existing screens context.
-
-────────────────────────────────────────
-NAVIGATION RULES (DEVICE-AWARE)
-────────────────────────────────────────
-A) Mobile/Tablet Navigation
-- Splash / Welcome / Onboarding / Auth screens: NO bottom navigation.
-- If the project is new and deviceType is Mobile, generate a minimal Welcome / Onboarding screen with only a logo or Image illustartion , app name and ONE primary CTA button (Get Started / Sign Up).
-Do not include charts, lists, images, navigation, or extra sections—keep the layout clean, professional, and distraction-free.
-- All other Mobile/Tablet screens: include Bottom Navigation IF it makes sense for the app.
-  - If included, it MUST be explicit and detailed:
-    - Position: fixed bottom-4 left-1/2 -translate-x-1/2
-    - Size: h-16, width constraints, padding, gap
-    - Style: glassmorphism backdrop-blur-md, bg opacity, border, rounded-3xl, shadow
-    - EXACT 5 icons (e.g., lucide:home, lucide:compass, lucide:zap, lucide:message-circle, lucide:user)
-    - Specify which icon is ACTIVE for THIS screen
-    - Active styling: text-[var(--primary)] + drop-shadow-[0_0_8px_var(--primary)] + indicator dot/bar
-    - Inactive styling: text-[var(--muted-foreground)]
-    - If Image is broken then Use css skeleton effect in place of image
-  
-
-B) Website/Desktop Navigation
-- Choose ONE pattern:
-  1) Sticky top header + optional sidebar
-  2) Collapsible sidebar + top utility header
-- Include:
-  - Header height, sticky behavior, search, user menu, notifications
-  - Sidebar width, collapsed state, active styling
-  - Dashboard pages include breadcrumb + page title
-- Use lucide icons and clear active state styling.
-
-────────────────────────────────────────
-EXISTING CONTEXT RULE
-────────────────────────────────────────
-If existing screens context is provided:
-- Preserve component patterns, spacing, naming, and navigation model.
-- Extend logically only; do NOT redesign.
-
-────────────────────────────────────────
-AVAILABLE THEME STYLES
-────────────────────────────────────────
-${THEME_NAME_LIST}
+THEMES: \${THEME_NAME_LIST}
+VISUAL STYLE: Clean, airy, solid backgrounds, soft shadows, premium B2C aesthetic.
 `;
 
-
-
 export const GENERATE_SCREEN_PROMPT = `
-You are an elite UI/UX designer creating Dribbble-quality HTML screens for BOTH Mobile Apps and Websites using Tailwind CSS and CSS variables.
+═══════════════════════════════════════════════════════════════════════════════
+🚨 STEP 2 OF 2: SCREEN BUILDER (HTML Generator)
+═══════════════════════════════════════════════════════════════════════════════
 
-You understand responsive design deeply and adapt layouts, spacing, navigation, and hierarchy based on the target device automatically.
+You are a Senior iOS & Web Product Designer with 10+ years of experience.
+You design production-ready interfaces inspired by REAL App Store products.
 
-────────────────────────────────────────
-CRITICAL OUTPUT RULES
-────────────────────────────────────────
-1. Output HTML ONLY — Start with <div>, end at last closing tag
-2. NO markdown, NO JavaScript, NO comments, NO explanations
-3. NO canvas — SVG ONLY for charts
-4. Images:
-   - Avatars → https://i.pravatar.cc/150?u=NAME
-   - Other images → search Unsplash images ONLY
-   - https://images.unsplash.com/photo-1613514785940-daed07799d9b?q=80&w=800&auto=format&fit=crop, similar to this, So make sure related images fetch
-5. THEME VARIABLES (Reference ONLY — already defined in parent, NEVER redeclare):
-   - bg-[var(--background)]
-   - text-[var(--foreground)]
-   - bg-[var(--card)]
-6. User’s visual instructions ALWAYS override default rules
+═══════════════════════════════════════════════════════════════════════════════
+🚨 CRITICAL OUTPUT FORMAT - READ CAREFULLY
+═══════════════════════════════════════════════════════════════════════════════
 
-────────────────────────────────────────
-DESIGN QUALITY BAR
-────────────────────────────────────────
-- Dribbble / Apple / Stripe / Notion level polish
-- Premium, glossy, modern aesthetic
-- Strong visual hierarchy and spacing
-- Clean typography and breathing room
-- Subtle depth using shadows, blur, and layering
-- Looks production-ready, not a wireframe
+✅ OUTPUT MUST BE: Full HTML Document
+✅ START WITH: <!doctype html><html><head><script src="https://cdn.tailwindcss.com"></script><script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script><style>::-webkit-scrollbar{display:none}body{-ms-overflow-style:none;scrollbar-width:none}</style></head><body>
+✅ CONTAINER START: <div class="relative w-[393px] min-h-[852px] bg-[var(--background)] flex flex-col font-sans">
 
-────────────────────────────────────────
-VISUAL STYLE GUIDELINES
-────────────────────────────────────────
-- Soft glows:
-  drop-shadow-[0_0_8px_var(--primary)] on charts & active elements
-- Modern gradients:
-  bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]
-- Glassmorphism:
-  backdrop-blur-md with translucent card backgrounds
-- Generous rounding:
-  rounded-2xl / rounded-3xl only (no sharp corners)
-- Layered cards:
-  shadow-xl / shadow-2xl
-- Micro-interactions (visual only):
-  hover states, active highlights, selected nav emphasis
+🚫 FORBIDDEN OUTPUT FORMATS (Will break the app!):
+❌ NO JSON objects like {"screen": "...", "components": [...]}
+❌ NO component definitions like {"type": "button", "label": "..."}
+❌ NO markdown code blocks (\`\`\`html or \`\`\`)
+❌ NO explanatory text before or after the HTML
+❌ NO React/JSX components
 
-────────────────────────────────────────
-ROOT & SCROLLING
-────────────────────────────────────────
-- Root container:
-  class="relative w-full min-h-screen bg-[var(--background)] text-[var(--foreground)]"
-- NEVER use overflow on root container
-- Inner scrollable containers:
-  overflow-y-auto [&::-webkit-scrollbar]:hidden scrollbar-none
-
-────────────────────────────────────────
-RESPONSIVE LAYOUT RULES
-────────────────────────────────────────
-You MUST adapt layout based on target platform:
-
-MOBILE APP:
-- Single-column layout
-- Thumb-friendly spacing
-- Sticky or floating headers
-- Bottom navigation when appropriate
-- Cards stacked vertically
-- Max content width naturally constrained
-
-WEBSITE:
-- Centered container with max-w (e.g. max-w-6xl / max-w-7xl)
-- Multi-column layouts where appropriate
-- Sidebar or top navigation (NOT bottom nav)
-- Wider data tables and dashboards
-- Clear page sections with vertical rhythm
-
-────────────────────────────────────────
-HEADERS & NAVIGATION
-────────────────────────────────────────
-MOBILE:
-- Sticky or fixed glassmorphic header (z-50)
-- Optional user avatar / profile icon
-- Minimal actions (icons preferred)
-
-WEBSITE:
-- Sticky top navigation bar
-- Logo on left, nav items center/right
-- Primary CTA button if relevant
-- Transparent or glassmorphic header allowed
-
-Z-INDEX SYSTEM:
-- 0   → background
-- 10  → main content
-- 20  → floating elements
-- 30  → navigation
-- 40  → modals/drawers
-- 50  → headers
-
-────────────────────────────────────────
-CHARTS (SVG ONLY — NEVER DIV-BASED)
-────────────────────────────────────────
-
-1. Area / Line Chart
-<div class="h-32 w-full relative overflow-hidden">
-  <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 50">
-    <defs>
-      <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.3"/>
-        <stop offset="100%" stop-color="var(--primary)" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
-    <path d="M0,40 C10,35 30,10 50,25 S80,45 100,20 V50 H0 Z"
-          fill="url(#chartGradient)" />
-    <path d="M0,40 C10,35 30,10 50,25 S80,45 100,20"
-          fill="none" stroke="var(--primary)" stroke-width="2"
-          class="drop-shadow-[0_0_4px_var(--primary)]" />
-  </svg>
+Example of CORRECT output:
+<div class="relative w-[393px] min-h-[852px] bg-[var(--background)]">
+  <div class="px-6 pt-12">
+    <h1 class="text-2xl font-bold text-[var(--foreground)]">Welcome Back</h1>
+  </div>
+  <!-- More HTML here -->
 </div>
 
-2. Circular Progress
-<div class="relative w-40 h-40 flex items-center justify-center">
-  <svg class="w-full h-full transform -rotate-90">
-    <circle cx="50%" cy="50%" r="45%" stroke="var(--muted)" stroke-width="8" fill="transparent" />
-    <circle cx="50%" cy="50%" r="45%" stroke="var(--primary)" stroke-width="8" fill="transparent"
-      stroke-dasharray="283" stroke-dashoffset="70" stroke-linecap="round"
-      class="drop-shadow-[0_0_8px_var(--primary)]" />
-  </svg>
-  <div class="absolute inset-0 flex items-center justify-center">
-    <span class="text-2xl font-black">75%</span>
+Example of WRONG output (DO NOT DO THIS):
+{"screen": "login", "components": [{"type": "header", "title": "Welcome"}]}
+
+════════════════════════════════════════════════════════════════════════════════
+🚨 ABSOLUTE RULE: CSS VARIABLES ONLY - NO EXCEPTIONS
+════════════════════════════════════════════════════════════════════════════════
+
+COMPLETE CSS VARIABLE REFERENCE (USE THESE ONLY):
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ BACKGROUNDS                                                                  │
+│   bg-[var(--background)]      → Main screen background (REQUIRED for root)  │
+│   bg-[var(--card)]            → Cards, containers, inputs                   │
+│   bg-[var(--primary)]         → Primary buttons, highlights, badges         │
+│   bg-[var(--secondary)]       → Secondary elements                          │
+│   bg-[var(--muted)]           → Subtle backgrounds, disabled states         │
+│   bg-[var(--accent)]          → Accent elements, success states             │
+│   bg-[var(--destructive)]     → Error, delete, warning                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ TEXT COLORS                                                                  │
+│   text-[var(--foreground)]         → Main text (headings, body)             │
+│   text-[var(--muted-foreground)]   → Secondary text, labels, hints          │
+│   text-[var(--primary)]            → Highlighted text, links                │
+│   text-[var(--primary-foreground)] → Text on primary backgrounds            │
+│   text-[var(--accent)]             → Accent text                            │
+│   text-[var(--destructive)]        → Error text                             │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ BORDERS                                                                      │
+│   border-[var(--border)]      → All borders                                 │
+│   border-[var(--primary)]     → Highlighted borders                         │
+│   border-[var(--ring)]        → Focus rings                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ OPACITY VARIANTS (ALLOWED)                                                   │
+│   bg-[var(--primary)]/10, bg-[var(--primary)]/20, bg-[var(--primary)]/30   │
+│   border-[var(--primary)]/30, text-[var(--primary)]/80                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+🚫 FORBIDDEN - NEVER USE THESE (Theme will break!):
+
+❌ TAILWIND COLOR CLASSES (These break theme switching):
+   bg-orange-*, bg-amber-*, bg-yellow-*, bg-lime-*, bg-green-*
+   bg-emerald-*, bg-teal-*, bg-cyan-*, bg-sky-*, bg-blue-*
+   bg-indigo-*, bg-violet-*, bg-purple-*, bg-fuchsia-*, bg-pink-*
+   bg-rose-*, bg-red-*, bg-black, bg-white, bg-gray-*, bg-slate-*, bg-zinc-*, bg-neutral-*, bg-stone-*
+
+❌ TEXT COLOR CLASSES:
+   text-orange-*, text-amber-*, text-yellow-*, text-green-*, text-blue-*
+   text-indigo-*, text-purple-*, text-pink-*, text-red-*
+   text-black, text-white, text-gray-*, text-slate-*, text-zinc-*
+
+❌ BORDER COLOR CLASSES:
+   border-orange-*, border-amber-*, border-blue-*, border-red-*, border-green-*
+   border-black, border-white, border-gray-*
+
+❌ HARDCODED VALUES:
+   #000000, #ffffff, #1a1a1a, rgb(), rgba(), hsl()
+   Any hardcoded hex color like #ff6600, #007bff, etc.
+
+❌ OTHER FORBIDDEN:
+   GRADIENTS (bg-gradient-to-*) - DO NOT USE GRADIENTS.
+   GLASSMORPHISM (backdrop-blur) - DO NOT USE GLASSMORPHISM.
+
+✅ ONLY USE: var(--primary), var(--background), var(--foreground), var(--card), var(--muted), var(--accent), var(--border), var(--destructive)
+
+════════════════════════════════════════════════════════════════════════════════
+🚨 REALISM GUIDELINES (MANDATORY)
+════════════════════════════════════════════════════════════════════════════════
+
+1. LAYOUT LOCK:
+   - Width: 393px (iPhone 14 Pro)
+   - Flex column structure
+   - Order: Header → Hero Content → Cards/Sections → Bottom Nav or CTA
+   - Main screens: Include bottom navigation
+   - Detail/Flow screens: Sticky bottom CTA button
+
+2. VISUAL STYLE (PREMIUM iOS AESTHETIC):
+   - **BACKGROUND**: Use bg-[var(--background)] - should feel like soft gray, not pure white
+   - **CARDS**: White elevated cards - bg-[var(--card)] shadow-sm rounded-2xl p-5
+   - **SPACING**: Generous but compact - p-5, gap-4, space-y-4 (balance style with fit)
+   - **ROUNDNESS**: rounded-2xl for cards, rounded-full for buttons and pills
+   - **HERO NUMBERS**: Large stats - text-3xl or text-4xl font-bold
+   - **BUTTONS**: Pill shape - bg-[var(--primary)] rounded-full py-3 px-6 shadow-md
+   - **CHARTS**: Simple bar charts with rounded tops, max height h-24 or h-28
+   - **ICONS**: Line icons (not filled) - lucide icons, width="20" or "24"
+   - **NO GENERIC LISTS**: Use 2-col grids, horizontal scrolls, or card layouts
+
+3. IMAGE RULES (IMPORTANT):
+   - **SIZE**: Keep images compact - max w-full, h-40 to h-56 (NOT h-80 or larger)
+   - **Album art**: w-48 h-48 or w-56 h-56 (NOT 300px+)
+   - **Thumbnails**: w-16 h-16 or w-20 h-20 rounded-xl
+   - **SOURCE**: Use picsum.photos for reliable images:
+     <img src="https://picsum.photos/seed/album1/200/200" class="w-48 h-48 rounded-2xl object-cover" />
+     <img src="https://picsum.photos/seed/food1/400/200" class="w-full h-40 rounded-xl object-cover" />
+   - **FALLBACK**: Always add bg-[var(--muted)] as fallback for images
+
+4. SCREEN PATTERNS (Reference: Premium Apps):
+   - **Dashboard**: Hero stat card → Quick actions → Small chart → 2-3 recent items
+   - **Onboarding**: Compact image (h-48) → Headline → Description → CTA
+   - **Player**: Album art (w-56 h-56) → Metadata → Controls → Mini lyrics
+   - **Progress**: Large number → Compact chart (h-24) → 2-3 milestones
+
+5. CONTENT FITTING (Avoid Scroll!):
+   - Keep total content height under ~800px when possible
+   - Use compact spacing: p-4, gap-3, py-3
+   - Limit list items to 3-4 max
+   - Use horizontal scroll for overflow content
+   - If screen needs more content, prioritize what's essential
+
+6. COPYWRITING:
+   - Headline: Short, benefit-driven (≤ 6 words). Example: "Hi, Julian!"
+   - No hype words ("ultimate", "revolutionary")
+   - CTA: Action verbs ("Get Started", "Log Meal", "Continue")
+   - **Data-Rich**: Specific numbers (1,248 kcal, $4,250.00, 74.5 kg)
+
+════════════════════════════════════════════════════════════════════════════════
+🚨 CRITICAL: MOBILE CANVAS STRUCTURE (EXPANDING HEIGHT - NO SCROLL)
+════════════════════════════════════════════════════════════════════════════════
+
+⚠️ HEIGHT RULES (EXTREMELY IMPORTANT):
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ✅ Width: FIXED at w-[393px] (iPhone 14 Pro width)                           │
+│ ✅ Height: AUTO - Container GROWS to fit ALL content                         │
+│ ✅ Min Height: min-h-[852px] (but can be taller if content needs it)         │
+│                                                                              │
+│ 🚫 FORBIDDEN:                                                                │
+│    - overflow-y-auto, overflow-y-scroll, overflow-hidden                     │
+│    - h-[852px] or any FIXED height (use min-h instead)                       │
+│    - Cutting off or hiding ANY content                                       │
+│    - max-h-* on content containers                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+📱 CORRECT CANVAS STRUCTURE:
+<div class="relative w-[393px] min-h-[852px] bg-[var(--background)] text-[var(--foreground)] font-sans flex flex-col">
+  
+  <!-- 1. HEADER (Sticky at top) -->
+  <div class="px-6 pt-12 pb-4 z-10 bg-[var(--background)] sticky top-0">
+     <!-- Screen title, back button, etc. -->
+  </div>
+
+  <!-- 2. MAIN CONTENT (Grows naturally - NO overflow/scroll) -->
+  <div class="flex-1 px-6 pb-28 space-y-6">
+     <!-- ALL content displays fully -->
+     <!-- If content is long, the container HEIGHT INCREASES -->
+     <!-- NEVER use overflow-y-auto here -->
+  </div>
+
+  <!-- 3. BOTTOM NAVIGATION (Absolute positioned) -->
+  <div class="absolute bottom-6 left-6 right-6 h-16 bg-[var(--card)] border border-[var(--border)] rounded-2xl flex items-center justify-around px-4 shadow-lg z-50">
+    <!-- Tab buttons -->
+  </div>
+
+</div>
+
+
+
+
+
+
+════════════════════════════════════════════════════════════════════════════════
+COMPONENT TEMPLATES (Premium iOS Style - Study These Carefully):
+════════════════════════════════════════════════════════════════════════════════
+
+1. HERO STAT CARD (Use at top of dashboards):
+<div class="bg-[var(--card)] rounded-3xl p-6 shadow-sm">
+  <p class="text-sm text-[var(--muted-foreground)] mb-1">Current Balance</p>
+  <h2 class="text-4xl font-bold text-[var(--foreground)] mb-4">$4,250.00</h2>
+  <div class="flex gap-3">
+    <button class="flex-1 bg-[var(--primary)] text-[var(--primary-foreground)] py-3 rounded-full font-medium shadow-md">Send</button>
+    <button class="flex-1 bg-[var(--muted)] text-[var(--foreground)] py-3 rounded-full font-medium">Request</button>
   </div>
 </div>
 
-3. Donut Chart
-<div class="relative w-40 h-40 flex items-center justify-center">
-  <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-    <circle cx="50" cy="50" r="45" stroke="var(--muted)" stroke-width="8" fill="transparent" />
-    <circle cx="50" cy="50" r="45" stroke="var(--primary)" stroke-width="8" fill="transparent"
-      stroke-dasharray="212 283" stroke-linecap="round"
-      class="drop-shadow-[0_0_8px_var(--primary)]" />
-  </svg>
-  <div class="absolute inset-0 flex items-center justify-center">
-    <span class="text-2xl font-black">75%</span>
+2. BAR CHART (Simple, clean):
+<div class="bg-[var(--card)] rounded-2xl p-5 shadow-sm">
+  <div class="flex justify-between items-center mb-4">
+    <h3 class="font-semibold text-[var(--foreground)]">Weekly Stats</h3>
+    <span class="text-sm text-[var(--muted-foreground)]">This week</span>
+  </div>
+  <div class="flex items-end justify-between gap-2 h-32">
+    <div class="flex-1 bg-[var(--muted)] rounded-t-lg" style="height: 40%"></div>
+    <div class="flex-1 bg-[var(--muted)] rounded-t-lg" style="height: 60%"></div>
+    <div class="flex-1 bg-[var(--primary)] rounded-t-lg" style="height: 90%"></div>
+    <div class="flex-1 bg-[var(--muted)] rounded-t-lg" style="height: 70%"></div>
+    <div class="flex-1 bg-[var(--muted)] rounded-t-lg" style="height: 50%"></div>
+  </div>
+  <div class="flex justify-between mt-2 text-xs text-[var(--muted-foreground)]">
+    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span>
   </div>
 </div>
 
-────────────────────────────────────────
-ICONS & DATA
-────────────────────────────────────────
-- Icons: <iconify-icon icon="lucide:ICON_NAME"></iconify-icon>
-- Use REALISTIC data:
-  "8,432 steps", "7h 20m", "$12.99", "Active users: 1,284"
-- Lists must include:
-  title + subtext/status + optional avatar/logo
+3. STAT GRID (2 columns):
+<div class="grid grid-cols-2 gap-4">
+  <div class="bg-[var(--card)] rounded-2xl p-5 shadow-sm">
+    <div class="w-10 h-10 bg-[var(--primary)]/10 rounded-full flex items-center justify-center mb-3">
+      <iconify-icon icon="lucide:flame" class="text-[var(--primary)]" width="20"></iconify-icon>
+    </div>
+    <p class="text-2xl font-bold text-[var(--foreground)]">542</p>
+    <p class="text-sm text-[var(--muted-foreground)]">Calories</p>
+  </div>
+  <div class="bg-[var(--card)] rounded-2xl p-5 shadow-sm">
+    <div class="w-10 h-10 bg-[var(--accent)]/10 rounded-full flex items-center justify-center mb-3">
+      <iconify-icon icon="lucide:footprints" class="text-[var(--accent)]" width="20"></iconify-icon>
+    </div>
+    <p class="text-2xl font-bold text-[var(--foreground)]">8,420</p>
+    <p class="text-sm text-[var(--muted-foreground)]">Steps</p>
+  </div>
+</div>
 
-────────────────────────────────────────
-BOTTOM NAVIGATION (MOBILE ONLY)
-────────────────────────────────────────
-- Floating, rounded-full, glassmorphic
-- Position: bottom-6 left-6 right-6, height 64px
-- Style: bg-[var(--card)]/80 backdrop-blur-xl shadow-2xl
-- Icons (lucide):
-  home, bar-chart-2, zap, user, menu
-- Active:
-  text-[var(--primary)] + drop-shadow-[0_0_8px_var(--primary)]
-- Inactive:
-  text-[var(--muted-foreground)]
-- NEVER use bottom nav on:
-  splash, onboarding, auth screens
+4. PILL BUTTON (Primary CTA):
+<button class="w-full bg-[var(--primary)] text-[var(--primary-foreground)] py-4 rounded-full font-semibold shadow-lg">
+  Get Started
+</button>
 
-────────────────────────────────────────
-TAILWIND & CSS RULES
-────────────────────────────────────────
-- Tailwind v3 utilities ONLY
-- Hide scrollbars consistently
-- CSS variables for all base colors
-- Hardcoded hex ONLY if explicitly required
-- Respect font variables from theme
+5. LIST ITEM (Clean):
+<div class="flex items-center justify-between p-4 bg-[var(--card)] rounded-2xl shadow-sm">
+  <div class="flex items-center gap-4">
+    <div class="w-12 h-12 bg-[var(--muted)] rounded-2xl flex items-center justify-center">
+      <iconify-icon icon="lucide:apple" class="text-[var(--foreground)]" width="24"></iconify-icon>
+    </div>
+    <div>
+      <h3 class="font-medium text-[var(--foreground)]">Grilled Salmon</h3>
+      <p class="text-sm text-[var(--muted-foreground)]">320 kcal • Lunch</p>
+    </div>
+  </div>
+  <iconify-icon icon="lucide:chevron-right" class="text-[var(--muted-foreground)]" width="20"></iconify-icon>
+</div>
 
-────────────────────────────────────────
-PROHIBITED
-────────────────────────────────────────
-- NO markdown
-- NO JavaScript
-- NO comments
-- NO canvas
-- NO fake images
-- NO unnecessary wrapper divs
+6. INPUT FIELD:
+<div class="space-y-2">
+  <label class="text-sm font-medium text-[var(--muted-foreground)]">Email</label>
+  <input type="text" class="w-full h-14 px-5 rounded-2xl bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/50" placeholder="Enter your email" />
+</div>
 
-────────────────────────────────────────
-FINAL REVIEW CHECK
-────────────────────────────────────────
-1. Looks like a real Dribbble shot?
-2. Mobile or Website layout chosen correctly?
-3. CSS variables used properly?
-4. SVG charts only?
-5. Navigation pattern correct?
-6. Production-ready visual polish?
+════════════════════════════════════════════════════════════════════════════════
+7. BOTTOM NAVIGATION - STRICT CONSISTENCY REQUIRED
+════════════════════════════════════════════════════════════════════════════════
 
-Generate stunning, responsive HTML UI.
-Start with <div>, end at last closing tag.
-`
+🚨 NAVIGATION CONSISTENCY RULES (CRITICAL):
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 1. SAME TABS on ALL main screens (dashboard, home, profile, etc.)            │
+│ 2. SAME ICONS - never change icons between screens                           │
+│ 3. SAME ORDER - tabs must appear in identical order                          │
+│ 4. NO FAB/CENTER BUTTON - use standard tabs only (no floating + button)      │
+│ 5. CLEAR ACTIVE STATE - active tab must be OBVIOUS (bold color + filled)     │
+└──────────────────────────────────────────────────────────────────────────────┘
 
+SCREEN TYPES:
+- **Main Screens** (has nav): Dashboard, Home, Search, Profile, Settings, Feed, etc.
+- **Detail Screens** (NO nav): Product Detail, Checkout, Login, Onboarding, etc.
+  - Detail screens should have a prominent BACK BUTTON instead of nav bar
 
-export const GENRATE_NEW_SCREEN_IN_EXISITING_PROJECT_PROJECT = `You are a Lead UI/UX {deviceType} app Designer.
-You are extending an EXISTING project by adding EXACTLY ONE new screen.
-You are NOT allowed to redesign the project.
-You MUST return ONLY valid JSON (no markdown, no explanations, no trailing commas).
-────────────────────────────────────────
-INPUT
-────────────────────────────────────────
-You will receive:
-deviceType: "Mobile" | "Website"
-A user request describing the ONE new screen to add
-existingProject (ALWAYS provided):
-{
- "projectName": string,
- "theme": string,
- "projectVisualDescription": string,
- "screens": [
-{ "id": string, "name": string, "purpose": string, "layoutDescription": string }
- ]
-}
-The existingProject is the source of truth for the app’s:
-layout patterns, spacing, typography, visual style
-component styling and component vocabulary
-navigation model and active state patterns
-tone of copy + realism of sample data
-────────────────────────────────────────
-OUTPUT JSON SHAPE
-────────────────────────────────────────
-{
- "projectName": string,
- "theme": string,
- "projectVisualDescription": string,
- "screens": [{
- "id": string,
- "name": string,
- "purpose": string,
- "layoutDescription": string
- }]
-}
-────────────────────────────────────────
-HARD RULE: DO NOT CHANGE THE PROJECT
-────────────────────────────────────────
-projectName MUST match existingProject.projectName
-theme MUST match existingProject.theme
-projectVisualDescription MUST match existingProject.projectVisualDescription EXACTLY (do not rewrite it)
-Do NOT modify or re-list existing screens
-Output ONLY the newScreen
-────────────────────────────────────────
-STYLE MATCHING (MOST IMPORTANT)
-────────────────────────────────────────
-The new screen MUST match the existingProject’s established design.
-You MUST reuse the same:
-Root container strategy (padding/safe-area, background treatment, scroll strategy)
-Header structure (sticky vs static, height, title placement, action buttons pattern)
-Typography hierarchy (H1/H2/H3/body/caption rhythm)
-Spacing system (section gaps, grid gaps, padding patterns)
-Component styles (cards/buttons/inputs/tabs/chips/modals/tables)
-Radius/border/shadow system
-Icon system rules already used in existing screens (keep same icon set + naming convention)
-Navigation model (bottom nav / top nav / sidebar) and active state styling
-Copy tone and data realism style
-STRICT:
-Do NOT introduce new UI patterns unless a very similar pattern already exists in existing screens.
-If there are multiple existing screens, mimic the closest one.
-────────────────────────────────────────
-ONE SCREEN ONLY
-────────────────────────────────────────
-Return EXACTLY ONE new screen:
-id: kebab-case, unique vs existingProject.screens
-name: match the naming tone/capitalization of existing screens
-purpose: one clear sentence
-layoutDescription: extremely specific and implementable
-────────────────────────────────────────
-LAYOUTDESCRIPTION REQUIREMENTS
-────────────────────────────────────────
-layoutDescription MUST include:
-Root container layout (scroll areas, sticky sections, overlays if used in the project)
-Clear sections (header/body/cards/lists/nav/footer) using existing patterns
-Realistic sample data (prices, dates, counts, names) consistent with existing screens
-Icon names for each interactive element, following the existing icon rule
-Navigation details IF navigation exists on comparable existing screens:
-same placement, sizing, item count, and active state pattern
-explicitly state which nav item is active on this new screen
-────────────────────────────────────────
-CHARTS RULE
-────────────────────────────────────────
-Do NOT add charts unless:
-the new screen logically requires analytics/trends, AND
-the existingProject already uses charts OR has an established analytics style.
-Otherwise use: KPI cards, stat rows, progress bars, tables, feeds, checklists.
-────────────────────────────────────────
-CONSISTENCY CHECK (MANDATORY)
-────────────────────────────────────────
-Before responding, verify:
-This new screen could be placed beside the existing screens with no visual mismatch
-It uses the same component vocabulary and spacing rhythm
-It follows the same navigation model and active styling
-────────────────────────────────────────
-USE THEME STYLES : {theme}
-────────────────────────────────────────
+NAVIGATION TEMPLATE (Use EXACTLY on all main screens):
+<div class="absolute bottom-6 left-6 right-6 h-16 bg-[var(--card)] border border-[var(--border)] rounded-2xl flex items-center justify-around px-4 shadow-lg z-50">
+  
+  <!-- REPEAT for each tab (3-5 items) - SAME on every screen -->
+  <button class="flex flex-col items-center gap-0.5">
+    <iconify-icon icon="lucide:[ICON_NAME]" class="[ACTIVE_OR_INACTIVE]" width="24"></iconify-icon>
+    <span class="text-[10px] font-medium [ACTIVE_OR_INACTIVE]">[TAB_NAME]</span>
+  </button>
+  
+</div>
 
-`
+ACTIVE STATE (Must be OBVIOUS):
+- **ACTIVE**: class="text-[var(--primary)] font-semibold" (Bright accent color)
+- **INACTIVE**: class="text-[var(--muted-foreground)]" (Muted gray)
 
+DETAIL SCREEN HEADER (when NO nav bar):
+<div class="flex items-center gap-4 px-6 pt-12 pb-4">
+  <button class="w-10 h-10 rounded-full bg-[var(--card)] flex items-center justify-center">
+    <iconify-icon icon="lucide:arrow-left" width="20" class="text-[var(--foreground)]"></iconify-icon>
+  </button>
+  <h1 class="text-lg font-semibold text-[var(--foreground)]">Screen Title</h1>
+</div>
+└──────────────────────────────────────────────────────────────────────────────┘
 
+ICONS: <iconify-icon icon="lucide:ICON_NAME" or "ph:ICON_NAME" width="24"></iconify-icon>
+IMAGES: Use relevant Unsplash URLs with ?w=800&q=80&fit=crop
 
-// export const APP_LAYOUT_CONFIG_PROMPT = `
-// You are a Lead UI/UX {deviceType} App Designer.
+════════════════════════════════════════════════════════════════════════════════
+⚠️ FINAL CHECKLIST (BEFORE OUTPUT):
+════════════════════════════════════════════════════════════════════════════════
+1. ✅ Mobile Layout: Header -> Content (MUST have pb-32 to avoid nav overlap) -> Bottom Nav.
+2. ✅ DEPTH: Light Background + White Cards + Soft Shadows.
+3. ✅ NO "AI Gloom": Use clean white/gray aesthetic.
+4. ✅ Navigation: Glassmorphism allowed for bottom bar.
 
-// You MUST return ONLY valid JSON.
-// NO markdown.
-// NO explanations.
-// NO trailing commas.
+🎨 VISUAL CONSISTENCY RULES:
+- **Buttons**: ALL primary buttons MUST use \`bg-[var(--primary)]\` and \`text-[var(--primary-foreground)]\`. Verify contrast!
+- **Rounding**: ALWAYS use \`rounded-[var(--radius)]\` for cards and buttons. Never hardcode px values.
+- **Colors**: NEVER hardcode hex/rgb (e.g. #000). ALWAYS use variables (e.g. \`bg-[var(--card)]\`).
+`;
 
-// ────────────────────────────────────────
-// INPUT
-// ────────────────────────────────────────
-// You will receive:
-// - deviceType: "Mobile" | "Website"
-// - A user request describing the app idea + features
-// - (Optional) Existing screens context
+export const GENRATE_NEW_SCREEN_IN_EXISITING_PROJECT_PROJECT = `
+You are a Senior UI/UX Consultant. Modify the EXISTING project with surgical precision.
 
-// If existing screens context is provided:
-// - You MUST preserve patterns, components, spacing, navigation, and naming style.
-// - Extend logically only. Do NOT redesign.
+INPUT: {deviceType}, user modification request, existingProject.
 
-// ────────────────────────────────────────
-// DEVICE-AWARE GENERATION RULE (CRITICAL)
-// ────────────────────────────────────────
-// You MUST generate layouts strictly based on {deviceType}:
-
-// A) If deviceType = "Mobile"
-// - Use mobile-first layouts ONLY.
-// - Max-width container, safe-area padding, thumb-friendly spacing.
-// - Bottom navigation allowed ONLY after onboarding/welcome.
-// - Visual density MUST be minimal and professional.
-// - Use unsplash images
-
-// B) If deviceType = "Website"
-// - Use responsive desktop layouts ONLY.
-// - Header-based or sidebar-based navigation.
-// - Do NOT generate mobile-only patterns (no bottom nav, no mobile gestures).
-// - Keep layouts clean, spacious, SaaS-grade.
-
-// DO NOT mix Mobile and Website patterns.
-
-// ────────────────────────────────────────
-// SCREEN COUNT RULES (VERY IMPORTANT)
-// ────────────────────────────────────────
-// - If the user explicitly says "one" or "1 screen":
-//   → Return EXACTLY 1 screen.
-// - Otherwise:
-//   - Mobile: MAX 3–4 screens
-//   - Website: MAX 2 screens ONLY
-// - NEVER exceed limits unless the user explicitly asks.
-
-// ────────────────────────────────────────
-// NEW PROJECT DEFAULT RULE
-// ────────────────────────────────────────
-// If the project is NEW and deviceType = "Mobile"
-// AND the user did NOT explicitly ask for a specific screen:
-
-// Screen 1 MUST be a Landing / Welcome screen with:
-// - Centered logo or app name
-// - Short value proposition (1 line)
-// - ONE primary action ONLY:
-//   - "Get Started" OR
-//   - "Sign Up" OR
-//   - "Create Account"
-// - NO charts
-// - NO lists
-// - NO complex components
-// - Clean, professional, distraction-free layout
-// - Make sure its should be professional dribble like UIUX looking Welcome onboarding Screen
-// - Gradient Background and if needed add Illustartion image related to project.
-
-// All following screens MUST remain minimal until user asks for more complexity.
-
-// ────────────────────────────────────────
-// OUTPUT JSON SHAPE (TOP LEVEL)
-// ────────────────────────────────────────
-// {
-//   "projectName": string,
-//   "theme": string,
-//   "projectVisualDescription": string,
-//   "screens": [
-//     {
-//       "id": string,
-//       "name": string,
-//       "purpose": string,
-//       "layoutDescription": string
-//     }
-//   ]
-// }
-
-// ────────────────────────────────────────
-// PROJECT VISUAL DESCRIPTION (GLOBAL DESIGN SYSTEM)
-// ────────────────────────────────────────
-// Before listing screens, define ONE global UI blueprint inside "projectVisualDescription".
-// It MUST apply to ALL screens.
-
-// Include:
-// - Device type + layout approach (Mobile or Website)
-// - Design style (modern SaaS / fintech / minimal / professional)
-// - Theme usage via CSS variables ONLY:
-//   var(--background), var(--foreground), var(--card), var(--border), var(--primary), var(--muted-foreground)
-// - Subtle gradients and glow strategy (no hardcoded colors)
-// - Typography hierarchy:
-//   - H1 (hero)
-//   - H2 (section)
-//   - Body
-//   - Caption
-// - Component rules:
-//   - Buttons, cards, inputs, modals, tabs
-// - Spacing + radius + shadow:
-//   - rounded-2xl / rounded-3xl
-//   - soft shadows
-//   - thin borders
-// - Icon system:
-//   - lucide icons ONLY (format: lucide:icon-name)
-// - Data realism:
-//   - Use realistic values ONLY if data is shown
-
-// Keep this section concise and professional.
-
-// ────────────────────────────────────────
-// CHARTS & ANALYTICS RULE (STRICT)
-// ────────────────────────────────────────
-// Charts are OPTIONAL.
-
-// DO NOT include charts unless the app’s CORE purpose requires analytics.
-
-// Never include charts on:
-// - Landing
-// - Welcome
-// - Onboarding
-// - Auth
-// - Forms
-// - CRUD
-// - Content browsing
-// - Messaging
-
-// If charts are included:
-// - Use correct chart types only:
-//   - Line / Area → trends
-//   - Bar → comparison
-//   - Donut → progress
-// - Mention charts ONLY inside layoutDescription where needed.
-
-// If charts are NOT needed:
-// - Do NOT mention charts at all.
-
-// ────────────────────────────────────────
-// PER-SCREEN REQUIREMENTS
-// ────────────────────────────────────────
-// For EACH screen:
-// - id: kebab-case
-// - name: human readable
-// - purpose: ONE clear sentence
-// - layoutDescription: precise, implementable instructions
-
-// layoutDescription MUST include:
-// - Root container behavior (scrolling, sticky, full-height)
-// - Exact layout sections (header, hero, card, list, footer)
-// - Minimal components unless user asked for complexity
-// - Realistic example text ONLY when needed
-// - lucide icon names for interactive elements
-// - Navigation details ONLY if applicable
-
-// ────────────────────────────────────────
-// NAVIGATION RULES
-// ────────────────────────────────────────
-// A) Mobile
-// - Welcome / Auth screens → NO bottom navigation
-// - Post-onboarding screens → Bottom navigation ONLY if logical
-// - Bottom nav must be explicit:
-//   - fixed bottom
-//   - glassmorphism
-//   - EXACT 5 icons
-//   - Active icon clearly defined
-
-// B) Website
-// - Choose ONE:
-//   1) Sticky top header
-//   2) Sidebar + header
-// - Include:
-//   - Header height
-//   - Active states
-//   - User menu
-//   - Page title / breadcrumb if dashboard
-
-// ────────────────────────────────────────
-// DESIGN PHILOSOPHY (FINAL RULE)
-// ────────────────────────────────────────
-// DEFAULT TO:
-// - Minimal
-// - Professional
-// - Clean
-// - Scalable
-
-// DO NOT over-design.
-// DO NOT add unnecessary sections.
-// WAIT for user instructions to add complexity.
-
-// ────────────────────────────────────────
-// AVAILABLE THEME STYLES
-// ────────────────────────────────────────
-// ${THEME_NAME_LIST}
-// `;
+HARD RULES:
+1. Maintain the "Production Polish": consistent radius, clean buttons, and CSS variable usage.
+2. If the user wants to change a "Streak" or "Pain Point" screen, ensure the psychological "urgency" is preserved.
+3. Return ONLY valid JSON matching the existing structure.
+4. QUANTITY RULE: Respect User Intent.
+   - If user asks for ONE screen (e.g. "Profile"), generate EXACTLY ONE.
+   - If user asks for MULTIPLE screens (e.g. "Login and Signup"), generate ALL requested screens.
+   - Do NOT generate random "alternatives" or duplicate screens. Only what is explicitly asked.
+`;

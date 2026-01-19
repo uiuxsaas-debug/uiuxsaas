@@ -55,6 +55,8 @@ function ScreenHandler({ screen, theme, iframeRef, projectId }: Props) {
     const { refreshData, setRefreshData } = useContext(RefreshDataContext);
     const [editUserInput, setEditUserInput] = useState<string>()
     const [loading, setLoading] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const [isEditPopoverOpen, setIsEditPopoverOpen] = useState(false);
     // console.log(iframeRef)
     const takeIframeScreenshot = async () => {
         const iframe = iframeRef.current;
@@ -89,25 +91,39 @@ function ScreenHandler({ screen, theme, iframeRef, projectId }: Props) {
     };
 
     const onDelete = async () => {
-        const result = await axios.delete('/api/generate-config?projectId=' + projectId + "&screenId=" + screen?.screenId);
-        toast.success('Screen Deleted')
-        setRefreshData({ method: 'screenConfig', date: Date.now() })
+        try {
+            setDeleting(true);
+            // Use the unique database 'id' instead of 'screenId' to avoid deleting duplicates
+            const result = await axios.delete('/api/generate-config?id=' + screen?.id);
+            toast.success('Screen Deleted')
+            setRefreshData({ method: 'screenConfig', date: Date.now() })
+        } catch (e) {
+            console.error(e);
+            toast.error('Failed to delete screen')
+        } finally {
+            setDeleting(false);
+        }
     }
 
     const editScreen = async () => {
-        setLoading(true);
-        toast.info('Regeneraing New Screen, Please Wait...')
-        const result = await axios.post('/api/edit-screen', {
-            projectId: projectId,
-            screenId: screen?.screenId,
-            userInput: editUserInput,
-            oldCode: screen?.code
-        });
-        toast.success('Screen Edited succesfully!')
-        setRefreshData({ method: 'screenConfig', date: Date.now() })
-        setLoading(false);
+        try {
+            setLoading(true);
+            const result = await axios.post('/api/edit-screen', {
+                projectId: projectId,
+                screenId: screen?.screenId,
+                userInput: editUserInput,
+                oldCode: screen?.code
+            });
 
-
+            setRefreshData({ method: 'screenConfig', date: Date.now() })
+            toast.success('Screen Edited successfully!')
+            setIsEditPopoverOpen(false)
+        } catch (error: any) {
+            console.error("Edit Screen Error:", error);
+            toast.error(error?.response?.data?.error || 'Failed to edit screen')
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -172,7 +188,7 @@ function ScreenHandler({ screen, theme, iframeRef, projectId }: Props) {
                     <Download />
                 </Button>
 
-                <Popover>
+                <Popover open={isEditPopoverOpen} onOpenChange={setIsEditPopoverOpen}>
                     <PopoverTrigger asChild>
                         <Button variant={'ghost'}> <SparkleIcon /> </Button>
                     </PopoverTrigger>
@@ -188,14 +204,9 @@ function ScreenHandler({ screen, theme, iframeRef, projectId }: Props) {
                     </PopoverContent>
                 </Popover>
 
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild><Button variant={'ghost'} >
-                        <MoreVertical />
-                    </Button></DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <DropdownMenuItem variant='destructive' onClick={() => onDelete()} ><Trash /> Delete</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <Button variant={'ghost'} size={'icon'} disabled={deleting} className="text-red-500 hover:text-red-600 hover:bg-red-50" onClick={() => onDelete()}>
+                    {deleting ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <Trash className="w-4 h-4" />}
+                </Button>
 
             </div>
 

@@ -6,8 +6,12 @@ export type ProjectType = {
     createdOn: string,
     projectName?: string,
     theme?: string,
-    screenshot?: string
-
+    screenshot?: string,
+    projectVisualDescription?: string,
+    config?: {
+        navigationTabs?: Array<{ name: string, icon: string }>,
+        appCategory?: string
+    }
 }
 
 export type ScreenConfig = {

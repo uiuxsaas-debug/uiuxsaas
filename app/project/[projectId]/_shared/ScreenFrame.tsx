@@ -25,7 +25,8 @@ type Props = {
     htmlCode: string | undefined;
     projectDetail: ProjectType | undefined;
     screen: ScreenConfig | undefined,
-    iframeRef_: any
+    iframeRef_: any,
+    isGenerating?: boolean
 };
 
 function ScreenFrame({
@@ -37,15 +38,16 @@ function ScreenFrame({
     htmlCode,
     projectDetail,
     screen,
-    iframeRef_
+    iframeRef_,
+    isGenerating = false
 }: Props) {
     const { settingsDetail } = useContext(SettingContext);
 
     const selectedThemeKey = (settingsDetail?.theme ??
         projectDetail?.theme) as keyof typeof THEMES;
 
-    // @ts-ignore (if theme key can be undefined in your types)
-    const theme = THEMES[selectedThemeKey];
+    // ✅ Fallback to NETFLIX if theme key doesn't exist in THEMES
+    const theme = THEMES[selectedThemeKey] ?? THEMES['NETFLIX'];
 
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
     useEffect(() => {
@@ -61,9 +63,11 @@ function ScreenFrame({
     const resizingLockedRef = useRef(false);
     const lastThemeRef = useRef<string | undefined>(undefined);
 
-    // ✅ build html with theme css vars
-
-    const html = HtmlWrapper(theme, htmlCode as string)
+    // ✅ build html with theme css vars - use useMemo to ensure it updates when theme changes
+    const isMobile = projectDetail?.device === 'mobile';
+    const html = useMemo(() => {
+        return HtmlWrapper(theme, htmlCode as string, isMobile);
+    }, [theme, htmlCode, isMobile]);
 
     // ✅ if parent width/height props change, update state (but don't "fight" manual resize)
     useEffect(() => {
@@ -95,8 +99,13 @@ function ScreenFrame({
                 body?.offsetHeight ?? 0
             );
 
-            // clamps
-            const next = Math.min(Math.max(contentH + headerH, 160), 2000);
+            // Mobile: min 852px (iPhone height), max 4000px (allow long content)
+            // Desktop: min 160px, max 2000px
+            const isMobileDevice = projectDetail?.device === 'mobile';
+            const minH = isMobileDevice ? 852 + headerH : 160;
+            const maxH = isMobileDevice ? 4000 : 2000;
+
+            const next = Math.min(Math.max(contentH + headerH, minH), maxH);
 
             setSize((s) =>
                 Math.abs(s.height - next) > 3 ? { ...s, height: next } : s
@@ -104,7 +113,7 @@ function ScreenFrame({
         } catch {
             // if sandbox/origin blocks access, we can't measure
         }
-    }, []);
+    }, [projectDetail?.device]);
 
     // ✅ handle iframe load + DOM changes inside iframe
     useEffect(() => {
@@ -209,9 +218,13 @@ function ScreenFrame({
                     projectId={projectDetail?.projectId} />
             </div>
 
+            {/* iframe height = total container - header (40px from p-4) - gap (12px from mt-3) = calc(100% - 52px) */}
+            {/* Key includes theme to force iframe remount when theme changes */}
             <iframe
+                key={`iframe-${selectedThemeKey}`}
                 ref={iframeRef}
-                className="w-full h-[calc(100%-40px)] bg-white rounded-2xl mt-3"
+                className="w-full bg-white rounded-2xl mt-3"
+                style={{ height: 'calc(100% - 52px)' }}
                 sandbox="allow-same-origin allow-scripts"
                 srcDoc={html}
             />
