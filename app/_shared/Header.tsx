@@ -8,7 +8,7 @@ import React from 'react'
 function Header() {
     const { user, isLoaded } = useUser();
     return (
-        <div className='flex items-center justify-between px-4 py-3 md:px-6 lg:px-8 border-b md:border-none backdrop-blur-xl bg-transparent fixed top-0 w-full z-50'>
+        <div className='flex items-center justify-between px-4 py-3 md:px-6 lg:px-8 md:border-none backdrop-blur-xl bg-transparent fixed top-0 w-full z-50'>
             <Link href={'/'}>
                 <div className='flex gap-2 items-center hover:scale-105 transition-transform'>
                     <Image src={'/logo.png'} alt='logo' width={40} height={40} className="w-8 h-8 md:w-10 md:h-10" />

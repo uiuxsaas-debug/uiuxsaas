@@ -54,6 +54,69 @@ function ProjectCanvasPlayground() {
 
     }, [refreshData])
 
+    useEffect(() => {
+        const handleFigmaExport = () => {
+            setTakeScreenshot('figma-export'); // Figma Export Mode
+        };
+
+        const handleDownloadCode = async () => {
+            try {
+                // Dynamic import of JSZip to avoid SSR issues
+                const JSZip = (await import('jszip')).default;
+                const zip = new JSZip();
+
+                // Add each screen's code as an HTML file
+                screenConfig.forEach((screen, index) => {
+                    if (screen?.code) {
+                        const fileName = `${screen.screenName?.replace(/[^a-zA-Z0-9]/g, '_') || `screen_${index + 1}`}.html`;
+                        // Create a complete HTML file
+                        const fullHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${screen.screenName || 'Screen'}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        body { margin: 0; padding: 0; }
+    </style>
+</head>
+<body>
+${screen.code}
+</body>
+</html>`;
+                        zip.file(fileName, fullHtml);
+                    }
+                });
+
+                // Generate and download the ZIP
+                const content = await zip.generateAsync({ type: 'blob' });
+                const url = URL.createObjectURL(content);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${projectDetail?.projectName || 'project'}_code.zip`;
+                a.click();
+                URL.revokeObjectURL(url);
+
+                window.dispatchEvent(new Event('download-code-complete'));
+            } catch (error) {
+                console.error('Failed to create ZIP:', error);
+                toast.error('Failed to download code');
+                window.dispatchEvent(new Event('download-code-complete'));
+            }
+        };
+
+        window.addEventListener('trigger-download-figma', handleFigmaExport);
+        window.addEventListener('trigger-download-code', handleDownloadCode);
+        return () => {
+            window.removeEventListener('trigger-download-figma', handleFigmaExport);
+            window.removeEventListener('trigger-download-code', handleDownloadCode);
+        };
+    }, [screenConfig, projectDetail]);
+
     const GetProjectDetail = async () => {
         // Always set loading state with message for continuity
         setLoading(true);
@@ -103,7 +166,11 @@ function ProjectCanvasPlayground() {
                 // Set loading immediately to prevent gap
                 setLoading(true);
                 setLoadingMsg(`Preparing to generate ${unfinishedScreens.length} screens...`);
-                GenerateScreenUIUX();
+
+                // Use a small timeout to ensure the state update processes before the heavy async start
+                setTimeout(() => {
+                    GenerateScreenUIUX();
+                }, 100);
             }
         }
     }, [projectDetail, screenConfigOriginal])
@@ -122,6 +189,11 @@ function ProjectCanvasPlayground() {
             setLoadingMsg('Loading screens...');
             // Don't set loading to false here - it will continue in GenerateScreenUIUX
             GetProjectDetail();
+
+            // Safety check: if for some reason database was slow, force a re-check
+            if (!result.data || !result.data.screenConfig) {
+                configGeneratedRef.current = false;
+            }
         } catch (error: any) {
             console.error(error);
             configGeneratedRef.current = false; // Allow retry on error
@@ -238,13 +310,18 @@ function ProjectCanvasPlayground() {
         setLoadingMsg(`Generating all ${screensToGenerate.length} screens...`);
 
         // Generate ALL screens in parallel at once
-        await Promise.all(
-            screensToGenerate.map(({ screen, index }) => generateSingleScreen(screen, index))
-        );
-
-        setGeneratingIndices(new Set()); // Reset when done
-        setLoading(false);
-        setTakeScreenshot(1);
+        try {
+            await Promise.all(
+                screensToGenerate.map(({ screen, index }) => generateSingleScreen(screen, index))
+            );
+        } catch (error) {
+            console.error("Parallel generation error:", error);
+            // toast.error("Some screens failed to generate");
+        } finally {
+            setGeneratingIndices(new Set()); // Reset when done
+            setLoading(false);
+            setTakeScreenshot(1);
+        }
     }
 
     return (
@@ -257,7 +334,7 @@ function ProjectCanvasPlayground() {
                 <SettingsSection projectDetail={projectDetail}
                     //  @ts-ignore 
                     screenDescription={screenConfig[0]?.screenDescription}
-                    takeScreenshot={() => setTakeScreenshot(Date.now())}
+                    takeScreenshot={(mode?: number) => setTakeScreenshot(mode === 1 ? 'figma-export' : Date.now())}
                     screenConfig={screenConfig}
                 />
 

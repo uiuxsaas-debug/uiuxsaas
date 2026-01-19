@@ -86,102 +86,95 @@ function SettingsSection({ projectDetail, screenDescription, takeScreenshot, scr
             </Button>
 
             <div className={`flex-1 overflow-hidden flex flex-col ${!isOpen ? 'invisible' : 'visible'}`}>
-                {/* Header */}
-                <div className="p-4 border-b">
-                    <h2 className='font-semibold text-lg'>Editor Settings</h2>
+                {/* Header Section - Fixed */}
+                <div className="p-4 border-b bg-white relative z-10 shadow-sm">
+                    <div className='space-y-2'>
+                        <label className='text-xs font-semibold uppercase text-gray-500 tracking-wider'>Project Name</label>
+                        <Input
+                            placeholder='Project Name'
+                            value={projectName}
+                            className="bg-gray-50 border-gray-200 focus:bg-white transition-colors"
+                            onChange={(event) => {
+                                setProjectName(event.target.value)
+                                setSettingDetail((prev: any) => ({
+                                    ...prev,
+                                    projectName: event.target.value
+                                }))
+                            }}
+                        />
+                    </div>
                 </div>
 
-                {/* Loading Overlay */}
-                {/* Loading handled by Sonner */}
-
-                <div className="flex-1 w-full overflow-y-auto">
-                    <div className="p-4 space-y-6">
-                        {/* Project Name */}
-                        <div className='space-y-2'>
-                            <label className='text-xs font-semibold uppercase text-gray-500 tracking-wider'>Project Name</label>
-                            <Input
-                                placeholder='Project Name'
-                                value={projectName}
-                                className="bg-gray-50 border-gray-200 focus:bg-white transition-colors"
-                                onChange={(event) => {
-                                    setProjectName(event.target.value)
-                                    setSettingDetail((prev: any) => ({
-                                        ...prev,
-                                        projectName: event.target.value
-                                    }))
-                                }}
-                            />
-                        </div>
-
-                        {/* Themes */}
-                        <div className='space-y-2'>
-                            <label className='text-xs font-semibold uppercase text-gray-500 tracking-wider'>Color Theme</label>
-                            <div className='grid grid-cols-2 gap-2'>
-                                {THEME_NAME_LIST.map((theme, index) => {
-                                    const isActive = theme === selectedTheme;
-                                    const colors = THEMES[theme];
-                                    return (
-                                        <div
-                                            key={index}
-                                            onClick={() => onThemeSelect(theme)}
-                                            className={`
-                                                cursor-pointer p-2 rounded-lg border transition-all duration-200
-                                                hover:border-primary/50 hover:shadow-sm
-                                                ${isActive ? 'border-primary bg-primary/5 ring-1 ring-primary/20' : 'border-gray-100 bg-white'}
-                                            `}
-                                        >
-                                            <div className="flex items-center justify-between mb-2">
-                                                <h3 className={`text-xs font-medium ${isActive ? 'text-primary' : 'text-gray-700'}`}>{theme}</h3>
-                                                {isActive && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
-                                            </div>
-                                            <div className='flex gap-1'>
-                                                {[colors.primary, colors.secondary, colors.accent, colors.background].map((color, i) => (
-                                                    <div
-                                                        key={i}
-                                                        className="h-3 w-3 rounded-full border border-black/5 shadow-sm"
-                                                        style={{ background: color }}
-                                                    />
-                                                ))}
-                                            </div>
+                {/* Theme Section - Scrollable */}
+                <div className="flex-1 w-full overflow-y-auto p-4">
+                    <div className='space-y-3 pb-4'>
+                        <label className='text-xs font-semibold uppercase text-gray-500 tracking-wider'>Color Theme</label>
+                        <div className='grid grid-cols-2 gap-2'>
+                            {THEME_NAME_LIST.map((theme, index) => {
+                                const isActive = theme === selectedTheme;
+                                const colors = THEMES[theme];
+                                return (
+                                    <div
+                                        key={index}
+                                        onClick={() => onThemeSelect(theme)}
+                                        className={`
+                                            cursor-pointer p-2 rounded-lg border transition-all duration-200
+                                            hover:border-primary/50 hover:shadow-sm
+                                            ${isActive ? 'border-primary bg-primary/5 ring-1 ring-primary/20' : 'border-gray-100 bg-white'}
+                                        `}
+                                    >
+                                        <div className="flex items-center justify-between mb-2">
+                                            <h3 className={`text-xs font-medium ${isActive ? 'text-primary' : 'text-gray-700'}`}>{theme}</h3>
+                                            {isActive && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
                                         </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-
-                        {/* Extras */}
-                        <div className='space-y-2 pt-4 border-t'>
-                            <label className='text-xs font-semibold uppercase text-gray-500 tracking-wider'>Actions</label>
-                            <div className='grid grid-cols-2 gap-2'>
-                                <Button size={'sm'} variant={'outline'} className='w-full' onClick={() => takeScreenshot()}>
-                                    <Camera className="w-4 h-4 mr-2" /> Screenshot
-                                </Button>
-                                <Button size={'sm'} variant={'outline'} className='w-full'>
-                                    <Share className="w-4 h-4 mr-2" /> Share
-                                </Button>
-                            </div>
+                                        <div className='flex gap-1'>
+                                            {[colors.primary, colors.secondary, colors.accent, colors.background].map((color, i) => (
+                                                <div
+                                                    key={i}
+                                                    className="h-3 w-3 rounded-full border border-black/5 shadow-sm"
+                                                    style={{ background: color }}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
 
-                {/* Generate New Screen - Fixed at bottom */}
-                <div className="p-4 border-t bg-gray-50/50">
-                    <h2 className='text-xs font-semibold uppercase text-gray-500 tracking-wider mb-2'>Generate New Screen</h2>
-                    <Textarea
-                        placeholder='Describe the screen (e.g., "User Profile with charts")'
-                        className="bg-white mb-2 min-h-[80px] resize-none text-sm"
-                        value={userNewScreenInput || ''}
-                        onChange={(event) => setUserNewScreenInput(event.target.value)}
-                    />
-                    <Button
-                        size={'sm'}
-                        disabled={loading || !userNewScreenInput?.trim()}
-                        className='w-full shadow-md bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary'
-                        onClick={GenerateNewScreen}
-                    >
-                        {loading ? <Loader2Icon className='animate-spin' /> : <Sparkles className="w-4 h-4 mr-2" />}
-                        Generate With AI
-                    </Button>
+                {/* Bottom Section - Fixed */}
+                <div className="border-t bg-white relative z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                    {/* <div className='p-4 space-y-2 pb-2'>
+                        <label className='text-xs font-semibold uppercase text-gray-500 tracking-wider'>Actions</label>
+                        <div className='grid grid-cols-2 gap-2'>
+                            <Button size={'sm'} variant={'outline'} className='w-full' onClick={() => takeScreenshot()}>
+                                <Camera className="w-4 h-4 mr-2" /> Screenshot
+                            </Button>
+                            <Button size={'sm'} variant={'outline'} className='w-full'>
+                                <Share className="w-4 h-4 mr-2" /> Share
+                            </Button>
+                        </div>
+                    </div> */}
+
+                    <div className="p-4 pt-2 bg-gray-50/50">
+                        <h2 className='text-xs font-semibold uppercase text-gray-500 tracking-wider mb-2'>Generate New Screen</h2>
+                        <Textarea
+                            placeholder='Describe the screen (e.g., "User Profile with charts")'
+                            className="bg-white mb-2 min-h-[80px] resize-none text-sm"
+                            value={userNewScreenInput || ''}
+                            onChange={(event) => setUserNewScreenInput(event.target.value)}
+                        />
+                        <Button
+                            size={'sm'}
+                            disabled={loading || !userNewScreenInput?.trim()}
+                            className='w-full shadow-md bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary'
+                            onClick={GenerateNewScreen}
+                        >
+                            {loading ? <Loader2Icon className='animate-spin' /> : <Sparkles className="w-4 h-4 mr-2" />}
+                            Generate With AI
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

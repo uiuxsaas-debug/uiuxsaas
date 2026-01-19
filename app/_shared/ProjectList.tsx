@@ -1,32 +1,13 @@
 "use client"
-import { ProjectType } from '@/type/types'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useProjectList } from '@/hooks/use-project-list';
+import React from 'react'
 import ProjectCard from './ProjectCard';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useUser } from '@clerk/nextjs';
-
+import Link from 'next/link';
+import { Plus } from 'lucide-react';
 function ProjectList() {
 
-    const { user } = useUser();
-    const [projectList, setProjectList] = useState<ProjectType[]>([]);
-    const [loading, setLoading] = useState(false);
-    useEffect(() => {
-        user && GetProjectList();
-    }, [user])
-
-    const GetProjectList = async () => {
-        setLoading(true);
-        try {
-            const result = await axios.get('/api/project');
-            setProjectList(Array.isArray(result.data) ? result.data : []);
-        } catch (error) {
-            console.error("Failed to fetch project list:", error);
-            setProjectList([]);
-        } finally {
-            setLoading(false);
-        }
-    }
+    const { projectList, loading } = useProjectList();
 
     return (
         <div className='px-4 sm:px-8 mx-auto'>
@@ -36,12 +17,18 @@ function ProjectList() {
             {/* <h2 className='font-bold text-xl'>My Projects</h2> */}
 
             {!loading && projectList?.length == 0 && (
-                <div className='p-8 md:p-12 border border-dashed border-gray-200 rounded-3xl flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm'>
-                    <div className='h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center mb-4'>
-                        <span className='text-3xl'>📂</span>
+                <div className='p-8 md:p-12 border border-dashed border-gray-200 rounded-3xl flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm shadow-sm'>
+                    <div className='h-16 w-16 bg-purple-50 rounded-full flex items-center justify-center mb-4'>
+                        <span className='text-3xl filter saturate-150'>📂</span>
                     </div>
-                    <h2 className='text-center text-lg font-medium text-gray-700'>No Projects Yet</h2>
-                    <p className='text-gray-500 text-sm mt-1'>Start creating amazing designs above!</p>
+                    <h2 className='text-center text-lg font-bold text-gray-800'>No Projects Yet</h2>
+                    <p className='text-gray-500 text-sm mt-1 mb-6 text-center max-w-xs'>
+                        Start your journey by creating your first AI-powered design project.
+                    </p>
+                    <Link href="/" className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:opacity-90 transition-all font-medium text-sm shadow-lg shadow-purple-500/20 hover:scale-105 active:scale-95">
+                        <Plus className="w-4 h-4" />
+                        Create New Project
+                    </Link>
                 </div>
             )}
 
@@ -49,7 +36,7 @@ function ProjectList() {
                 {!loading ? projectList?.map((project, index) => (
                     <ProjectCard project={project} key={project.id || index} />
                 )) :
-                    [1, 2, 3].map((item, index) => (
+                    [1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
                         <div key={index} className="space-y-3">
                             <Skeleton className='w-full h-[220px] rounded-2xl' />
                             <div className="space-y-2">

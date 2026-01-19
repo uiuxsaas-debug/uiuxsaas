@@ -156,9 +156,12 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
             // 2) stitch into one final canvas (side-by-side)
             const scale = window.devicePixelRatio || 1;
             const headerH = 40; // same as your header
-            const outW =
-                Math.max(iframes.length * (SCREEN_WIDTH + GAP), SCREEN_WIDTH) * scale;
-            const outH = SCREEN_HEIGHT * scale;
+
+            // Calculate max height from actual captured canvases
+            const maxCanvasHeight = Math.max(...shotCanvases.map(c => c.height));
+
+            const outW = Math.max(iframes.length * (SCREEN_WIDTH + GAP), SCREEN_WIDTH) * scale;
+            const outH = maxCanvasHeight + (headerH * scale); // Use actual max height
 
             const out = document.createElement("canvas");
             out.width = outW;
@@ -181,15 +184,57 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
             const url = out.toDataURL("image/png");
             console.log(url)
             updateProjectWithScreenshot(url);
-            if (saveOnly != 1) {
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "canvas.png";
-                a.click();
+            if (saveOnly !== 'figma-export') { // Normal screenshot for saving DB
+                // Do nothing or optionally auto-download
+            }
+            if (saveOnly === 'figma-export') { // Copy to clipboard for Figma paste
+                // Check if Clipboard API is available
+                if (navigator.clipboard && typeof ClipboardItem !== 'undefined') {
+                    try {
+                        // Convert canvas to blob for clipboard
+                        const blob = await new Promise<Blob>((resolve, reject) => {
+                            out.toBlob((b) => {
+                                if (b) resolve(b);
+                                else reject(new Error('Failed to create blob'));
+                            }, 'image/png');
+                        });
+
+                        // Copy to clipboard using Clipboard API
+                        await navigator.clipboard.write([
+                            new ClipboardItem({ 'image/png': blob })
+                        ]);
+
+                        toast.dismiss();
+                        toast.success('✅ Copied! Press Cmd+V in Figma to paste');
+                        window.dispatchEvent(new Event('export-complete'));
+                    } catch (clipboardError) {
+                        console.error('Clipboard copy failed:', clipboardError);
+                        // Fallback: download file
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = "design-export.png";
+                        a.click();
+                        toast.dismiss();
+                        toast.info('Downloaded as file (clipboard requires HTTPS)');
+                        window.dispatchEvent(new Event('export-complete'));
+                    }
+                } else {
+                    // Browser doesn't support ClipboardItem - download instead
+                    console.log('ClipboardItem not supported, downloading file');
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = "design-export.png";
+                    a.click();
+                    toast.dismiss();
+                    toast.info('Downloaded as file (clipboard not supported in this browser)');
+                    window.dispatchEvent(new Event('export-complete'));
+                }
             }
         } catch (e) {
             console.error(e);
-            // toast.error("Capture failed (iframe)");
+            toast.dismiss();
+            toast.error("Export failed. Please try again.");
+            window.dispatchEvent(new Event('export-complete'));
         }
     };
 
@@ -208,7 +253,8 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
         <div className='flex-1 h-[calc(100vh-80px)] bg-gray-100 relative overflow-hidden'
             style={{
                 backgroundImage: "radial-gradient(rgba(0,0,0,0.15) 1px, transparent 1px)",
-                backgroundSize: "20px 20px"
+                backgroundSize: "20px 20px",
+                cursor: panningEnabled ? 'grab' : 'default'
             }}
         >
             <TransformWrapper
@@ -257,9 +303,9 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
                                             height: SCREEN_HEIGHT, // Reserved height prevents layout shift
                                         }}
                                     >
-                                        {/* Show skeleton while generating with minimal code */}
-                                        {isGenerating && !hasCode ? (
-                                            <div className="w-full h-full flex flex-col">
+                                        {/* Show skeleton ONLY while generating and absolutely no code exists yet */}
+                                        {isGenerating && (!screen?.code || screen.code.length < 50) ? (
+                                            <div className="w-full h-full flex flex-col transition-opacity duration-300">
                                                 {/* Header bar placeholder - matches ScreenHandler */}
                                                 <div className="flex gap-2 items-center bg-white rounded-lg p-4">
                                                     <div className="w-4 h-4 rounded bg-gray-200 animate-pulse"></div>

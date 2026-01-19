@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
                 theme: ProjectTable.theme,
                 device: ProjectTable.device,
                 createdOn: ProjectTable.createdOn,
-                screenshot: ProjectTable.screenshot,
+                // screenshot: ProjectTable.screenshot, // Exclude screenshot for list view performance
             }).from(ProjectTable)
                 .where(eq(ProjectTable.userId, user.primaryEmailAddress.emailAddress))
                 .orderBy(desc(ProjectTable.id))

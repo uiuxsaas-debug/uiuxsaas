@@ -199,25 +199,10 @@ function ScreenFrame({
                 height,
             }}
             size={size}
-            dragHandleClassName="drag-handle"
-            enableResizing={{
-                bottomRight: true,
-                bottomLeft: true,
-            }}
-            onDragStart={() => setPanningEnabled(false)}
-            onDragStop={() => setPanningEnabled(true)}
-            onResizeStart={() => setPanningEnabled(false)}
-            onResizeStop={(_, __, ref) => {
-                setPanningEnabled(true);
-
-                // ✅ user manual resize should become new baseline
-                setSize({
-                    width: ref.offsetWidth,
-                    height: ref.offsetHeight,
-                });
-            }}
+            disableDragging
+            enableResizing={false}
         >
-            <div className="drag-handle flex gap-2 items-center cursor-move bg-white rounded-lg p-4">
+            <div className="flex gap-2 items-center bg-white rounded-lg p-4">
                 <ScreenHandler
                     screen={screen}
                     theme={theme}

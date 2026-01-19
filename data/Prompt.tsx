@@ -186,14 +186,58 @@ COMPLETE CSS VARIABLE REFERENCE (USE THESE ONLY):
    - **ICONS**: Line icons (not filled) - lucide icons, width="20" or "24"
    - **NO GENERIC LISTS**: Use 2-col grids, horizontal scrolls, or card layouts
 
-3. IMAGE RULES (IMPORTANT):
-   - **SIZE**: Keep images compact - max w-full, h-40 to h-56 (NOT h-80 or larger)
-   - **Album art**: w-48 h-48 or w-56 h-56 (NOT 300px+)
-   - **Thumbnails**: w-16 h-16 or w-20 h-20 rounded-xl
-   - **SOURCE**: Use picsum.photos for reliable images:
-     <img src="https://picsum.photos/seed/album1/200/200" class="w-48 h-48 rounded-2xl object-cover" />
-     <img src="https://picsum.photos/seed/food1/400/200" class="w-full h-40 rounded-xl object-cover" />
-   - **FALLBACK**: Always add bg-[var(--muted)] as fallback for images
+3. IMAGE RULES (CRITICAL - USE RELEVANT IMAGES):
+   - **ALWAYS USE CONTEXT-RELEVANT IMAGES** based on the app being built
+   - **SOURCE**: Use Unsplash Source API with RELEVANT keywords:
+   
+   📱 EXAMPLES BY APP TYPE:
+   ┌─────────────────────────────────────────────────────────────────────────────┐
+   │ APP TYPE          │ IMAGE URL EXAMPLES                                      │
+   ├─────────────────────────────────────────────────────────────────────────────┤
+   │ Food/Recipe App   │ https://source.unsplash.com/400x300/?food,cooking       │
+   │                   │ https://source.unsplash.com/200x200/?pasta,dish          │
+   │                   │ https://source.unsplash.com/400x200/?restaurant,meal     │
+   ├─────────────────────────────────────────────────────────────────────────────┤
+   │ Fitness App       │ https://source.unsplash.com/400x300/?gym,workout         │
+   │                   │ https://source.unsplash.com/200x200/?yoga,exercise       │
+   │                   │ https://source.unsplash.com/400x200/?running,fitness     │
+   ├─────────────────────────────────────────────────────────────────────────────┤
+   │ Travel App        │ https://source.unsplash.com/400x300/?travel,destination  │
+   │                   │ https://source.unsplash.com/200x200/?beach,vacation      │
+   │                   │ https://source.unsplash.com/400x200/?mountain,landscape  │
+   ├─────────────────────────────────────────────────────────────────────────────┤
+   │ E-commerce        │ https://source.unsplash.com/400x300/?fashion,clothing    │
+   │                   │ https://source.unsplash.com/200x200/?shoes,sneakers      │
+   │                   │ https://source.unsplash.com/400x200/?electronics,gadget  │
+   ├─────────────────────────────────────────────────────────────────────────────┤
+   │ Music App         │ https://source.unsplash.com/400x400/?concert,music       │
+   │                   │ https://source.unsplash.com/200x200/?vinyl,album         │
+   │                   │ https://source.unsplash.com/400x200/?singer,artist       │
+   ├─────────────────────────────────────────────────────────────────────────────┤
+   │ Finance App       │ https://source.unsplash.com/400x200/?money,finance       │
+   │                   │ https://source.unsplash.com/200x200/?business,office     │
+   ├─────────────────────────────────────────────────────────────────────────────┤
+   │ Car/Transport     │ https://source.unsplash.com/400x300/?car,vehicle         │
+   │                   │ https://source.unsplash.com/400x200/?tesla,electric-car  │
+   ├─────────────────────────────────────────────────────────────────────────────┤
+   │ Real Estate       │ https://source.unsplash.com/400x300/?house,interior      │
+   │                   │ https://source.unsplash.com/400x200/?apartment,modern    │
+   ├─────────────────────────────────────────────────────────────────────────────┤
+   │ Social/Profile    │ https://source.unsplash.com/200x200/?portrait,person     │
+   │                   │ https://source.unsplash.com/100x100/?face,headshot       │
+   └─────────────────────────────────────────────────────────────────────────────┘
+   
+   🚫 FORBIDDEN:
+   - ❌ Random/lorem images: picsum.photos (too generic)
+   - ❌ Broken/placeholder URLs
+   - ❌ Generic "image" keyword - be SPECIFIC to the app context
+   
+   ✅ SIZING RULES:
+   - Hero banners: w-full h-40 to h-56 (NOT h-80 or larger)
+   - Album art/product: w-48 h-48 or w-56 h-56
+   - Thumbnails: w-16 h-16 or w-20 h-20 rounded-xl
+   - Profile avatars: w-12 h-12 or w-16 h-16 rounded-full
+   - Always add: class="... object-cover" and bg-[var(--muted)] as fallback
 
 4. SCREEN PATTERNS (Reference: Premium Apps):
    - **Dashboard**: Hero stat card → Quick actions → Small chart → 2-3 recent items

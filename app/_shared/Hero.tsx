@@ -17,52 +17,20 @@ import { ChevronRight, Loader, PlaneIcon, Send } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { AnimatedGradientText } from '@/components/ui/animated-gradient-text'
 import { suggestions } from '@/data/constant'
-import { useAuth, useUser } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
-import axios from 'axios'
-import { randomUUID } from "crypto";
-import { toast } from 'sonner'
+import { useCreateProject } from '@/hooks/use-create-project';
+
 function Hero() {
 
-    const [userInput, setUserInput] = useState<string>()
-
+    const [userInput, setUserInput] = useState<string>('')
     const [device, setDevice] = useState<string>('mobile')
+    const { createProject, loading } = useCreateProject();
 
-    const { user } = useUser();
-    const router = useRouter();
-    const [loading, setLoading] = useState(false);
-
-    const onCreateProject = async () => {
-        if (!user) {
-            router.push('/sign-in');
-            return;
-        }
-        //Create New Project
-        if (!userInput) {
-            return;
-        }
-        setLoading(true);
-        const projectId = crypto.randomUUID();
-        const result = await axios.post('/api/project', {
-            userInput: userInput,
-            device: device,
-            projectId: projectId
-        })
-
-        if (result.data?.msg == 'Limit Exceed') {
-            toast.error('Already reached 2 project limit!');
-            setLoading(false);
-            return;
-        }
-        console.log(result.data);
-        setLoading(false);
-
-        //Naviagte to Project Route
-        router.push('/project/' + projectId);
+    const onCreateProject = () => {
+        createProject(userInput, device);
     }
 
     return (
-        <div className='px-4 md:px-12 lg:px-24 xl:px-48 mt-4 md:mt-12 flex flex-col items-center max-w-7xl mx-auto w-full'>
+        <div className='px-4 md:px-12 lg:px-24 xl:px-48 mt-18 md:mt-26 flex flex-col items-center max-w-7xl mx-auto w-full'>
             <div className='flex items-center justify-center w-full mb-4'>
                 <div className="group relative inline-flex items-center justify-center rounded-full px-4 py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f] bg-white border border-gray-100">
                     <span
@@ -115,11 +83,11 @@ function Hero() {
                                 <SelectItem value="mobile">Mobile</SelectItem>
                             </SelectContent>
                         </Select>
-                        <InputGroupButton className="ml-auto bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 transition-all shadow-md px-4 h-8 rounded-md text-xs font-medium"
+                        <InputGroupButton className="ml-auto bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:text-white cursor-pointer transition-all shadow-md px-4 h-8 rounded-md text-xs font-medium min-w-[100px]"
                             disabled={loading}
                             size="sm"
                             onClick={() => onCreateProject()}>
-                            {loading ? <Loader className='animate-spin h-3 w-3' /> : <span className='flex items-center gap-2'>Generate <div className='p-0.5 bg-white/20 rounded'><Send size={10} /></div></span>}
+                            {loading ? <div className="flex items-center justify-center w-full"><Loader className='animate-spin h-4 w-4 text-white' /></div> : <span className='flex items-center gap-2'>Generate <div className='p-0.5 bg-white/20 rounded'><Send size={10} /></div></span>}
                         </InputGroupButton>
                     </InputGroupAddon>
                 </InputGroup>

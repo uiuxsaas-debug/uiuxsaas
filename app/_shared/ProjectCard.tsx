@@ -10,13 +10,25 @@ type Props = {
 }
 
 function ProjectCard({ project }: Props) {
+    const [screenshot, setScreenshot] = React.useState(project?.screenshot);
+
+    React.useEffect(() => {
+        if (!screenshot) {
+            // Lazy load screenshot if missing
+            fetch(`/api/project/screenshot?projectId=${project.projectId}`)
+                .then(res => res.json())
+                .then(data => setScreenshot(data.screenshot))
+                .catch(() => { });
+        }
+    }, [project.projectId, screenshot]);
+
     return (
         <Link href={'/project/' + project?.projectId}>
             <div className='group bg-white rounded-2xl p-3 border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden h-full flex flex-col'>
                 <div className="relative overflow-hidden rounded-xl h-[200px] w-full bg-gray-50 flex items-center justify-center">
-                    {project?.screenshot ? (
+                    {screenshot ? (
                         <Image
-                            src={project?.screenshot}
+                            src={screenshot}
                             alt={project?.projectName || 'Project Preview'}
                             width={400}
                             height={300}
