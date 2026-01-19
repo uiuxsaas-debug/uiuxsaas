@@ -26,7 +26,9 @@ type Props = {
     projectDetail: ProjectType | undefined;
     screen: ScreenConfig | undefined,
     iframeRef_: any,
-    isGenerating?: boolean
+    isGenerating?: boolean;
+    onScreenUpdate?: (updatedScreen: ScreenConfig) => void;
+    onScreenDelete?: (screenId: number) => void;
 };
 
 function ScreenFrame({
@@ -39,7 +41,9 @@ function ScreenFrame({
     projectDetail,
     screen,
     iframeRef_,
-    isGenerating = false
+    isGenerating = false,
+    onScreenUpdate,
+    onScreenDelete
 }: Props) {
     const { settingsDetail } = useContext(SettingContext);
 
@@ -214,8 +218,14 @@ function ScreenFrame({
             }}
         >
             <div className="drag-handle flex gap-2 items-center cursor-move bg-white rounded-lg p-4">
-                <ScreenHandler screen={screen} theme={theme} iframeRef={iframeRef}
-                    projectId={projectDetail?.projectId} />
+                <ScreenHandler
+                    screen={screen}
+                    theme={theme}
+                    iframeRef={iframeRef}
+                    projectId={projectDetail?.projectId}
+                    onScreenUpdate={onScreenUpdate}
+                    onScreenDelete={onScreenDelete}
+                />
             </div>
 
             {/* iframe height = total container - header (40px from p-4) - gap (12px from mt-3) = calc(100% - 52px) */}

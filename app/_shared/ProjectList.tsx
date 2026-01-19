@@ -4,14 +4,16 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import ProjectCard from './ProjectCard';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useUser } from '@clerk/nextjs';
 
 function ProjectList() {
 
+    const { user } = useUser();
     const [projectList, setProjectList] = useState<ProjectType[]>([]);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
-        GetProjectList();
-    }, [])
+        user && GetProjectList();
+    }, [user])
 
     const GetProjectList = async () => {
         setLoading(true);
@@ -27,25 +29,33 @@ function ProjectList() {
     }
 
     return (
-        <div className='px-10 md:px-24 lg:px-44 xl:px-56'>
-            <h2 className='font-bold text-xl'>My Projects</h2>
+        <div className='px-4 sm:px-8 mx-auto'>
+            <div className='flex justify-between items-center mb-6'>
+                <h2 className='font-bold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600'>Latest Work</h2>
+            </div>
+            {/* <h2 className='font-bold text-xl'>My Projects</h2> */}
 
-            {!loading && projectList?.length == 0 && <div className='p-6 border border-dashed rounded-3xl'>
-                <h2 className='text-center'>No Project Available</h2>
-            </div>}
+            {!loading && projectList?.length == 0 && (
+                <div className='p-8 md:p-12 border border-dashed border-gray-200 rounded-3xl flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm'>
+                    <div className='h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center mb-4'>
+                        <span className='text-3xl'>📂</span>
+                    </div>
+                    <h2 className='text-center text-lg font-medium text-gray-700'>No Projects Yet</h2>
+                    <p className='text-gray-500 text-sm mt-1'>Start creating amazing designs above!</p>
+                </div>
+            )}
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5'>
+            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-5'>
                 {!loading ? projectList?.map((project, index) => (
-
-                    <ProjectCard project={project} key={index} />
-
+                    <ProjectCard project={project} key={project.id || index} />
                 )) :
-                    [1, 2, 3, 4, 5].map((item, index) => (
-                        <div key={index}>
-                            <Skeleton className='w-full h-[200px] rounded-2xl' />
-                            <Skeleton className='mt-3 w-full h-6' />
-                            <Skeleton className='mt-3 w-30 h-3' />
-
+                    [1, 2, 3].map((item, index) => (
+                        <div key={index} className="space-y-3">
+                            <Skeleton className='w-full h-[220px] rounded-2xl' />
+                            <div className="space-y-2">
+                                <Skeleton className='h-4 w-3/4' />
+                                <Skeleton className='h-3 w-1/2' />
+                            </div>
                         </div>
                     ))
                 }

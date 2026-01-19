@@ -266,6 +266,14 @@ function ProjectCanvasPlayground() {
                     screenConfig={screenConfig}
                     takeScreenshot={takeScreenshot}
                     generatingIndices={generatingIndices}
+                    onScreenUpdate={(updatedScreen: ScreenConfig) => {
+                        setScreenConfig(prev => prev.map(s => s.id === updatedScreen.id ? updatedScreen : s));
+                        setScreenConfigOriginal(prev => prev.map(s => s.id === updatedScreen.id ? updatedScreen : s));
+                    }}
+                    onScreenDelete={(screenId: number) => {
+                        setScreenConfig(prev => prev.filter(s => s.id !== screenId));
+                        setScreenConfigOriginal(prev => prev.filter(s => s.id !== screenId));
+                    }}
                 />
             </div>
         </div>

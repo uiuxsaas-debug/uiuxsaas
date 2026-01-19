@@ -60,10 +60,11 @@ export async function GET(req: NextRequest) {
                 theme: ProjectTable.theme,
                 device: ProjectTable.device,
                 createdOn: ProjectTable.createdOn,
-                // Note: screenshot excluded to avoid large response
+                screenshot: ProjectTable.screenshot,
             }).from(ProjectTable)
                 .where(eq(ProjectTable.userId, user.primaryEmailAddress.emailAddress))
-                .orderBy(asc(ProjectTable.id))
+                .orderBy(desc(ProjectTable.id))
+                .limit(25)
 
             return NextResponse.json(result)
 

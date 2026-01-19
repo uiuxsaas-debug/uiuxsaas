@@ -14,10 +14,12 @@ type Props = {
     screenConfig: ScreenConfig[],
     loading?: boolean,
     takeScreenshot: any,
-    generatingIndices?: Set<number> // Indices of screens currently being generated in parallel
+    generatingIndices?: Set<number>; // Indices of screens currently being generated in parallel
+    onScreenUpdate?: (updatedScreen: ScreenConfig) => void;
+    onScreenDelete?: (screenId: number) => void;
 }
 
-function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generatingIndices = new Set() }: Props) {
+function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generatingIndices = new Set(), onScreenUpdate, onScreenDelete }: Props) {
 
     const [panningEnabled, setPanningEnabled] = useState(true);
     const transformRef = useRef<ReactZoomPanPinchRef | null>(null);
@@ -322,6 +324,8 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
                                                 screen={screen}
                                                 iframeRef_={(ifrm: any) => (iframeRefs.current[index] = ifrm)}
                                                 isGenerating={isGenerating}
+                                                onScreenUpdate={onScreenUpdate}
+                                                onScreenDelete={onScreenDelete}
                                             />
                                         )}
                                     </div>

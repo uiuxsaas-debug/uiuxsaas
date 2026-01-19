@@ -47,9 +47,11 @@ type Props = {
     screen: ScreenConfig | undefined,
     theme: any,
     iframeRef: any,
-    projectId: string | undefined
+    projectId: string | undefined,
+    onScreenUpdate?: (updatedScreen: ScreenConfig) => void;
+    onScreenDelete?: (screenId: number) => void;
 }
-function ScreenHandler({ screen, theme, iframeRef, projectId }: Props) {
+function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, onScreenDelete }: Props) {
 
     const htmlCode = HtmlWrapper(theme, screen?.code as string)
     const { refreshData, setRefreshData } = useContext(RefreshDataContext);
@@ -91,12 +93,18 @@ function ScreenHandler({ screen, theme, iframeRef, projectId }: Props) {
     };
 
     const onDelete = async () => {
+        if (!screen?.id) return;
         try {
             setDeleting(true);
             // Use the unique database 'id' instead of 'screenId' to avoid deleting duplicates
             const result = await axios.delete('/api/generate-config?id=' + screen?.id);
             toast.success('Screen Deleted')
-            setRefreshData({ method: 'screenConfig', date: Date.now() })
+
+            if (onScreenDelete) {
+                onScreenDelete(screen.id);
+            } else {
+                setRefreshData({ method: 'screenConfig', date: Date.now() })
+            }
         } catch (e) {
             console.error(e);
             toast.error('Failed to delete screen')
@@ -115,7 +123,13 @@ function ScreenHandler({ screen, theme, iframeRef, projectId }: Props) {
                 oldCode: screen?.code
             });
 
-            setRefreshData({ method: 'screenConfig', date: Date.now() })
+            // If we have a callback and valid data, update locally
+            if (onScreenUpdate && result.data) {
+                onScreenUpdate(result.data);
+            } else {
+                setRefreshData({ method: 'screenConfig', date: Date.now() })
+            }
+
             toast.success('Screen Edited successfully!')
             setIsEditPopoverOpen(false)
         } catch (error: any) {
