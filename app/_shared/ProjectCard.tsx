@@ -24,8 +24,8 @@ function ProjectCard({ project }: Props) {
 
     return (
         <Link href={'/project/' + project?.projectId}>
-            <div className='group bg-white rounded-2xl p-3 border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden h-full flex flex-col'>
-                <div className="relative overflow-hidden rounded-xl h-[200px] w-full bg-gray-50 flex items-center justify-center">
+            <div className='group bg-[#0a0a0f] rounded-2xl p-3 border border-yellow-500/10 shadow-sm hover:shadow-xl hover:shadow-yellow-500/20 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden h-full flex flex-col hover:border-yellow-500/30'>
+                <div className="relative overflow-hidden rounded-xl h-[200px] w-full bg-[#050505] flex items-center justify-center">
                     {screenshot ? (
                         <Image
                             src={screenshot}
@@ -35,24 +35,24 @@ function ProjectCard({ project }: Props) {
                             className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-105'
                         />
                     ) : (
-                        <div className="flex flex-col items-center gap-2 text-gray-300">
+                        <div className="flex flex-col items-center gap-2 text-yellow-500/40">
                             {project?.device === 'mobile' ? <Smartphone size={40} /> : <Monitor size={40} />}
                             <span className="text-xs font-medium">No Preview</span>
                         </div>
                     )}
 
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-yellow-500/5 transition-colors duration-300" />
                 </div>
 
                 <div className='p-3 flex flex-col flex-1'>
                     <div className="flex justify-between items-start mb-2">
-                        <h2 className='font-bold text-gray-800 line-clamp-1 group-hover:text-primary transition-colors'>{project?.projectName || 'Untitled Project'}</h2>
-                        <span className="text-[10px] px-2 py-1 bg-gray-100 rounded-full text-gray-500 font-medium uppercase tracking-wider">
+                        <h2 className='font-bold text-white line-clamp-1 group-hover:text-yellow-400 transition-colors'>{project?.projectName || 'Untitled Project'}</h2>
+                        <span className="text-[10px] px-2 py-1 bg-yellow-500/10 rounded-full text-yellow-400/80 font-medium uppercase tracking-wider border border-yellow-500/20">
                             {project?.device}
                         </span>
                     </div>
 
-                    <div className="mt-auto flex items-center gap-2 text-xs text-gray-400">
+                    <div className="mt-auto flex items-center gap-2 text-xs text-yellow-400/50">
                         <Calendar size={12} />
                         <span>{project.createdOn ? new Date(project.createdOn).toLocaleDateString() : 'Just now'}</span>
                     </div>

@@ -62,15 +62,15 @@ function ProjectHeader() {
 
 
     return (
-        <div className='flex items-center justify-between p-3 shadow'>
+        <div className='flex items-center justify-between p-3 bg-[#0a0a0f] border-b border-yellow-500/10'>
             <Link href={'/'}>
-                <div className='flex gap-2 items-center'>
+                <div className='flex gap-2 items-center hover:scale-105 transition-transform'>
                     <Image src={'/logo.png'} alt='logo' width={40} height={40} />
-                    <h2 className='text-xl font-semibold'> <span className='text-primary'>UIUX</span> MOCK</h2>
+                    <h2 className='text-xl font-semibold'> <span className='text-yellow-500'>UIUX</span> <span className='font-light text-white'>MOCK</span></h2>
                 </div>
             </Link>
             <div className='flex gap-2'>
-                <Button variant={'ghost'} size={'sm'} className='text-gray-500 hover:text-purple-600' disabled={exporting} onClick={onExport}>
+                <Button variant={'ghost'} size={'sm'} className='text-yellow-400/70 hover:text-yellow-400 hover:bg-yellow-500/10' disabled={exporting} onClick={onExport}>
                     {exporting ? (
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                     ) : (
@@ -78,11 +78,11 @@ function ProjectHeader() {
                     )}
                     Export
                 </Button>
-                <Button variant={'outline'} size={'sm'} disabled={downloading} onClick={onDownloadCode}>
+                <Button variant={'outline'} size={'sm'} className='border-yellow-500/30 bg-transparent text-yellow-400 hover:bg-yellow-500/10 hover:text-yellow-300 hover:border-yellow-500/40' disabled={downloading} onClick={onDownloadCode}>
                     {downloading ? <Loader2 className='w-4 h-4 mr-2 animate-spin' /> : <Download className='w-4 h-4 mr-2' />}
                     Code
                 </Button>
-                <Button onClick={OnSave} disabled={saving}> {saving ? <Loader2 className='animate-spin' /> : <Save />} Save</Button>
+                <Button onClick={OnSave} disabled={saving} className='bg-gradient-to-r from-yellow-500 to-amber-500 text-black font-semibold hover:from-yellow-400 hover:to-amber-400 border-0'> {saving ? <Loader2 className='animate-spin' /> : <Save />} Save</Button>
             </div>
         </div>
     )

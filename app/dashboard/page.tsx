@@ -1,13 +1,15 @@
 import Header from '../_shared/Header';
 import ProjectList from '../_shared/ProjectList';
+import { AuraBackground } from '@/components/ui/aura-background';
 
 export default function DashboardPage() {
   return (
-    <div className="relative min-h-screen w-full bg-slate-50/50 selection:bg-purple-500/30">
-      {/* Background Gradients - Optimized */}
-      <div className="fixed top-0 -left-4 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob will-change-transform" />
-      <div className="fixed top-0 -right-4 w-96 h-96 bg-orange-500/30 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000 will-change-transform" />
-      <div className="fixed -bottom-8 left-20 w-96 h-96 bg-pink-500/30 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000 will-change-transform" />
+    <div className="relative min-h-screen w-full bg-[#030303] selection:bg-yellow-500/30">
+      {/* Aura Background */}
+      <AuraBackground />
+
+      {/* Subtle overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#030303]/20 to-[#030303]/90 pointer-events-none z-[1]" />
 
       <div className="relative z-10 flex flex-col min-h-screen pt-20">
         <Header />

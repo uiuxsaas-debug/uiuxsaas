@@ -325,7 +325,7 @@ ${screen.code}
     }
 
     return (
-        <div>
+        <div className="bg-[#0a0a0f] min-h-screen">
             <ProjectHeader />
             <div className='flex '>
                 {/* Loader removed - handled by Sonner */}
