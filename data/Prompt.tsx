@@ -32,11 +32,82 @@ STEP-BY-STEP PROCESS:
    - For Fitness: Set Goals → View Plan → Track Workout → See Progress
    - Derive the flow DYNAMICALLY based on the prompt.
 
-4. **GENERATE 5-8 SCREENS** (Semantic Names Only):
+4. **DETERMINE PROMPT SPECIFICITY & SCREEN COUNT**:
+   
+   🔍 ANALYZE USER PROMPT TYPE:
+   
+   **VAGUE/GENERIC PROMPTS** (Generate 10 SCREENS - Full MVP):
+   - Examples: "Design me a car rental app", "Create a fitness app", "Build an e-commerce app"
+   - These are broad app ideas WITHOUT specific screen requests
+   - User expects a COMPLETE app flow from onboarding to core features
+   
+   **SPECIFIC PROMPTS** (Generate 3-5 SCREENS - Targeted):
+   - Examples: "I need a login and signup flow", "Design a checkout process", "Create a profile settings page"
+   - These request SPECIFIC screens or flows
+   - Only generate exactly what was requested
+
+   🚨 FOR GENERIC PROMPTS, GENERATE EXACTLY 10 SCREENS (PSYCHOLOGY-DRIVEN FLOW):
+   
+   This flow is designed around user psychology, onboarding, monetization, and retention.
+   Each screen has a SPECIFIC psychological purpose in the conversion funnel.
+   
+   ┌──────────────────────────────────────────────────────────────────────────────┐
+   │ SCREEN 1: THE HOOK                                                           │
+   │   → High-impact hero image, emotional "Big Promise" headline, primary CTA    │
+   │   → Purpose: Capture attention in 3 seconds, create desire                   │
+   │   → Example: "Transform your body in 30 days" with stunning before/after     │
+   ├──────────────────────────────────────────────────────────────────────────────┤
+   │ SCREEN 2: PERSONA QUIZ                                                       │
+   │   → "Who are you?" - Age, skill level, interests, goals                      │
+   │   → Purpose: Personalize the journey, increase investment & commitment       │
+   │   → Example: "What's your fitness level? Beginner / Intermediate / Advanced" │
+   ├──────────────────────────────────────────────────────────────────────────────┤
+   │ SCREEN 3: PAIN POINT DISCOVERY                                               │
+   │   → "What's your biggest struggle?" - Identify the problem app solves        │
+   │   → Purpose: Make user feel UNDERSTOOD, build emotional connection           │
+   │   → Example: "What's holding you back? Lack of time / No motivation / Diet"  │
+   ├──────────────────────────────────────────────────────────────────────────────┤
+   │ SCREEN 4: PSYCHOLOGICAL BUILD-UP                                             │
+   │   → "Analyzing your profile..." with progress animation                      │
+   │   → Purpose: Build perceived value - AI is "working hard" for them           │
+   │   → Example: Pulsing dots, progress bar, "Personalizing your plan..."        │
+   ├──────────────────────────────────────────────────────────────────────────────┤
+   │ SCREEN 5: ANALYSIS REVEAL (The "Aha!" Moment)                                │
+   │   → Personalized stats/graphs showing the "Gap" between now and potential    │
+   │   → Purpose: Create urgency - "You're 47% below optimal, here's your fix"    │
+   │   → Example: "Your personalized plan will help you reach your goal by March" │
+   ├──────────────────────────────────────────────────────────────────────────────┤
+   │ SCREEN 6: FRICTIONLESS AUTH                                                  │
+   │   → Social Sign-in (Apple/Google) to "Save your personalized plan"           │
+   │   → Purpose: Low-friction signup AFTER value is shown (sunk cost fallacy)    │
+   │   → Example: "Continue with Apple" + "Continue with Google" buttons only     │
+   ├──────────────────────────────────────────────────────────────────────────────┤
+   │ SCREEN 7: THE HARD PAYWALL                                                   │
+   │   → Immediate monetization. Benefits list + "Most Popular" badge + pricing   │
+   │   → Purpose: Convert while desire is HIGHEST. Show 3 plans, highlight middle │
+   │   → Example: "Unlock Your Full Plan" - Weekly, Monthly (POPULAR), Yearly     │
+   ├──────────────────────────────────────────────────────────────────────────────┤
+   │ SCREEN 8: MAIN DASHBOARD                                                     │
+   │   → The core utility screen. Must look PREMIUM and clean                     │
+   │   → Purpose: Deliver on the promise. Make user feel they made right choice   │
+   │   → Example: Today's plan, progress ring, quick actions, daily tip           │
+   ├──────────────────────────────────────────────────────────────────────────────┤
+   │ SCREEN 9: THE RETENTION HOOK (Streak/Progress)                               │
+   │   → Daily Streak counter, progress tracking, "Next Milestone" motivation     │
+   │   → Purpose: Gamification to ensure daily return (dopamine loop)             │
+   │   → Example: "🔥 7-Day Streak! Next: 10 days for Silver Badge"               │
+   ├──────────────────────────────────────────────────────────────────────────────┤
+   │ SCREEN 10: POWER SETTINGS                                                    │
+   │   → Subscription management, profile editing, advanced preferences           │
+   │   → Purpose: Give control, reduce churn, handle account management           │
+   │   → Example: "Manage Plan", "Edit Profile", "Notifications", "Help & Support"│
+   └──────────────────────────────────────────────────────────────────────────────┘
+   
+5. **SCREEN NAMING** (Semantic Names Only):
    - ❌ NEVER use: "screen_01", "page_1", "home_screen"
    - ✅ USE: "car_search", "vehicle_detail", "booking_checkout", "trip_history", "user_profile"
 
-5. **WRITE DETAILED layoutDescription** (This is the CONTENT BLUEPRINT):
+6. **WRITE DETAILED layoutDescription** (This is the CONTENT BLUEPRINT):
    - The Builder AI (Step 2) will code the screen EXACTLY as you describe.
    - Be EXPLICIT about:
      • **Hero Element**: "Large card showing 'Tesla Model 3' image, price '$89/day', 'Book Now' CTA button"
