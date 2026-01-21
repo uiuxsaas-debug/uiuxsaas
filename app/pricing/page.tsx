@@ -1,17 +1,24 @@
-import { PricingTable } from '@clerk/nextjs'
 import React from 'react'
 import Header from '../_shared/Header'
+import PricingSection from '@/components/pricing/PricingSection'
+import { AuraBackground } from '@/components/ui/aura-background'
 
-function Pricing() {
+export default function Pricing() {
     return (
-        <div>
-            <Header />
-            <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1rem' }}>
-                <h2 className='text-center text-xl font-bold my-5'>Pricing</h2>
-                <PricingTable />
+        <div className="relative min-h-screen w-full overflow-hidden bg-[#030303]">
+            {/* Unicorn Studio Aura Background */}
+            <AuraBackground />
+
+            {/* Subtle overlay for depth */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#030303]/20 to-[#030303]/90 pointer-events-none z-[1]" />
+
+            {/* Content */}
+            <div className="relative z-10 min-h-screen w-full overflow-y-auto">
+                <Header />
+                <div className="pt-20">
+                    <PricingSection />
+                </div>
             </div>
         </div>
     )
 }
-
-export default Pricing

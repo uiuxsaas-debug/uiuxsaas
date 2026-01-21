@@ -1,11 +1,18 @@
 import { datetime } from "drizzle-orm/mysql-core";
-import { date, integer, json, pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { boolean, date, integer, json, pgTable, text, varchar } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     name: varchar({ length: 255 }).notNull(),
     email: varchar({ length: 255 }).notNull().unique(),
-    credits: integer().default(5)
+    credits: integer().default(0),
+    plan: varchar({ length: 50 }).default('free').notNull(),
+    stripeCustomerId: varchar({ length: 255 }),
+    subscriptionId: varchar({ length: 255 }),
+    subscriptionStartDate: varchar({ length: 50 }),
+    subscriptionEndDate: varchar({ length: 50 }),
+    lastMonthlyReset: varchar({ length: 50 }), // Date string ISO format
+    maxProjects: integer().default(0),
 });
 
 
@@ -20,7 +27,8 @@ export const ProjectTable = pgTable('project', {
     config: json(),
     projectVisualDescription: text(),
     userId: varchar().references(() => usersTable.email).notNull(),
-    screenshot: text()
+    screenshot: text(),
+    isPublic: boolean().default(false)
 })
 
 export const ScreenConfigTable = pgTable('screenConfig', {
@@ -32,3 +40,11 @@ export const ScreenConfigTable = pgTable('screenConfig', {
     screenDescription: varchar(),
     code: text(),
 })
+
+export const ProjectMembersTable = pgTable('projectMembers', {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    projectId: varchar().notNull(), /* Linked to ProjectTable.projectId */
+    email: varchar({ length: 255 }).notNull(),
+    role: varchar({ length: 50 }).default('viewer'),
+    addedOn: date().defaultNow()
+});

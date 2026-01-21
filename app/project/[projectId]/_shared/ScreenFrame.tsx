@@ -29,6 +29,7 @@ type Props = {
     isGenerating?: boolean;
     onScreenUpdate?: (updatedScreen: ScreenConfig) => void;
     onScreenDelete?: (screenId: number) => void;
+    readOnly?: boolean
 };
 
 function ScreenFrame({
@@ -43,7 +44,8 @@ function ScreenFrame({
     iframeRef_,
     isGenerating = false,
     onScreenUpdate,
-    onScreenDelete
+    onScreenDelete,
+    readOnly = false
 }: Props) {
     const { settingsDetail } = useContext(SettingContext);
 
@@ -210,6 +212,7 @@ function ScreenFrame({
                     projectId={projectDetail?.projectId}
                     onScreenUpdate={onScreenUpdate}
                     onScreenDelete={onScreenDelete}
+                    readOnly={readOnly}
                 />
             </div>
 

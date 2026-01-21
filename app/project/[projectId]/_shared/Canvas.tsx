@@ -17,9 +17,10 @@ type Props = {
     generatingIndices?: Set<number>; // Indices of screens currently being generated in parallel
     onScreenUpdate?: (updatedScreen: ScreenConfig) => void;
     onScreenDelete?: (screenId: number) => void;
+    readOnly?: boolean;
 }
 
-function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generatingIndices = new Set(), onScreenUpdate, onScreenDelete }: Props) {
+function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generatingIndices = new Set(), onScreenUpdate, onScreenDelete, readOnly = false }: Props) {
 
     const [panningEnabled, setPanningEnabled] = useState(true);
     const transformRef = useRef<ReactZoomPanPinchRef | null>(null);
@@ -155,13 +156,29 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
 
             // 2) stitch into one final canvas (side-by-side)
             const scale = window.devicePixelRatio || 1;
-            const headerH = 40; // same as your header
+            const headerH = 40;
+            const useFancyMode = saveOnly !== 'figma-export';
+            const framePadding = (useFancyMode && isMobile) ? 15 * scale : 0;
 
             // Calculate max height from actual captured canvases
             const maxCanvasHeight = Math.max(...shotCanvases.map(c => c.height));
 
-            const outW = Math.max(iframes.length * (SCREEN_WIDTH + GAP), SCREEN_WIDTH) * scale;
-            const outH = maxCanvasHeight + (headerH * scale); // Use actual max height
+            const screenW = SCREEN_WIDTH * scale;
+
+            // Dimensions calculation
+            let outW, outH;
+
+            if (useFancyMode && isMobile) {
+                const itemFullW = (SCREEN_WIDTH * scale) + (framePadding * 2);
+                const gapScaled = GAP * scale;
+                outW = iframes.length * (itemFullW + gapScaled);
+                outH = maxCanvasHeight + (framePadding * 2) + (headerH * scale) + (50 * scale);
+            } else {
+                outW = iframes.length * ((SCREEN_WIDTH + GAP) * scale);
+                outH = maxCanvasHeight + (headerH * scale);
+            }
+
+            if (iframes.length === 0) outW = 100;
 
             const out = document.createElement("canvas");
             out.width = outW;
@@ -170,14 +187,72 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
             const ctx = out.getContext("2d");
             if (!ctx) throw new Error("No 2D context");
 
-            // optional transparent background
-            ctx.clearRect(0, 0, outW, outH);
+            if (useFancyMode) {
+                // Fill background
+                ctx.fillStyle = "#121212";
+                ctx.fillRect(0, 0, outW, outH);
+            } else {
+                // Transparent for Figma
+                ctx.clearRect(0, 0, outW, outH);
+            }
 
             // draw each screen capture
             for (let i = 0; i < shotCanvases.length; i++) {
-                const x = i * (SCREEN_WIDTH + GAP) * scale;
-                const y = headerH * scale; // because iframe capture is body only
-                ctx.drawImage(shotCanvases[i], x, y);
+                const screenContent = shotCanvases[i];
+                let x, y;
+
+                if (useFancyMode && isMobile) {
+                    const itemFullW = (SCREEN_WIDTH * scale) + (framePadding * 2);
+                    const gapScaled = GAP * scale;
+
+                    const xBase = i * (itemFullW + gapScaled) + (gapScaled / 2);
+                    const yBase = (headerH * scale) + framePadding;
+
+                    // --- Draw Mobile Frame ---
+                    const frameX = xBase;
+                    const frameY = yBase;
+                    const frameW = itemFullW;
+                    const frameH = maxCanvasHeight + (framePadding * 2);
+                    const borderRadius = 40 * scale;
+
+                    // Shadow
+                    ctx.save();
+                    ctx.shadowColor = "rgba(0,0,0,0.5)";
+                    ctx.shadowBlur = 50 * scale;
+                    ctx.shadowOffsetY = 20 * scale;
+                    ctx.fillStyle = "#1a1a1f";
+
+                    ctx.beginPath();
+                    ctx.roundRect(frameX, frameY, frameW, frameH, borderRadius);
+                    ctx.fill();
+                    ctx.restore();
+
+                    // Border
+                    ctx.save();
+                    ctx.lineWidth = 2 * scale;
+                    ctx.strokeStyle = "rgba(255,255,255,0.1)";
+                    ctx.beginPath();
+                    ctx.roundRect(frameX, frameY, frameW, frameH, borderRadius);
+                    ctx.stroke();
+                    ctx.restore();
+
+                    // Draw Content (Clipped)
+                    const contentX = frameX + framePadding;
+                    const contentY = frameY + framePadding;
+
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.roundRect(contentX, contentY, screenContent.width, screenContent.height, borderRadius - (5 * scale));
+                    ctx.clip();
+                    ctx.drawImage(screenContent, contentX, contentY);
+                    ctx.restore();
+                } else {
+                    // Simple draw for Figma or Desktop
+                    // Revert to simple X calc
+                    x = i * ((SCREEN_WIDTH + GAP) * scale);
+                    y = headerH * scale;
+                    ctx.drawImage(screenContent, x, y);
+                }
             }
 
             // 3) download
@@ -187,6 +262,15 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
             if (saveOnly !== 'figma-export') { // Normal screenshot for saving DB
                 // Do nothing or optionally auto-download
             }
+            if (saveOnly === 'download-image') {
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `${projectDetail?.projectName || 'design'}.png`;
+                a.click();
+                toast.success('Image saved!');
+                window.dispatchEvent(new Event('export-complete'));
+            }
+
             if (saveOnly === 'figma-export') { // Copy to clipboard for Figma paste
                 // Check if Clipboard API is available
                 if (navigator.clipboard && typeof ClipboardItem !== 'undefined') {
@@ -205,7 +289,7 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
                         ]);
 
                         toast.dismiss();
-                        toast.success('✅ Copied! Press Cmd+V in Figma to paste');
+                        toast.success('Copied! Ready to paste in Figma');
                         window.dispatchEvent(new Event('export-complete'));
                     } catch (clipboardError) {
                         console.error('Clipboard copy failed:', clipboardError);
@@ -374,6 +458,7 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
                                                 isGenerating={isGenerating}
                                                 onScreenUpdate={onScreenUpdate}
                                                 onScreenDelete={onScreenDelete}
+                                                readOnly={readOnly}
                                             />
                                         )}
                                     </div>

@@ -3,20 +3,66 @@ import { Button } from '@/components/ui/button'
 import { SignInButton, UserButton, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 function Header() {
     const { user, isLoaded } = useUser();
+    const [scrolled, setScrolled] = useState(false);
+    const [userDetail, setUserDetail] = useState<any>(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 20);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        if (user) {
+            getUserDetail();
+        }
+    }, [user])
+
+    const getUserDetail = async () => {
+        const result = await axios.post('/api/user')
+        setUserDetail(result.data);
+    }
+
     return (
-        <div className='flex items-center justify-between px-4 py-3 md:px-6 lg:px-8 fixed top-0 w-full z-50'>
+        <div className={`flex items-center justify-between px-4 py-3 md:px-6 lg:px-8 fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/50 backdrop-blur-xl' : 'bg-transparent'
+            }`}>
             <Link href={'/'}>
                 <div className='flex gap-2 items-center hover:scale-105 transition-transform'>
                     <Image src={'/logo.png'} alt='logo' width={40} height={40} className="w-8 h-8 md:w-10 md:h-10" />
-                    <h2 className='text-lg md:text-xl font-bold font-sans tracking-tight'> <span className='text-yellow-500'>UIUX</span> <span className='font-light text-white'>MOCK</span></h2>
+                    <h2 className='text-lg md:text-xl font-bold font-sans tracking-tight'> <span className='text-yellow-500'>Appy</span><span className='font-light text-white'>Screen</span></h2>
                 </div>
             </Link>
 
-
+            {/* Navigation Links */}
+            <nav className="hidden md:flex items-center gap-6">
+                <Link
+                    href="/#how-it-works"
+                    className="text-gray-400 hover:text-white transition-colors text-sm font-medium"
+                >
+                    How it Works
+                </Link>
+                <Link
+                    href="/#pricing"
+                    className="text-gray-400 hover:text-white transition-colors text-sm font-medium"
+                >
+                    Pricing
+                </Link>
+                  {userDetail && (
+                        <Link
+                    href="/dashboard/billing"
+                    className="text-gray-400 hover:text-white transition-colors text-sm font-medium"
+                >
+                    Billing
+                </Link>
+                )}
+            </nav>
 
             <div className="flex items-center gap-4">
                 {!isLoaded ? (

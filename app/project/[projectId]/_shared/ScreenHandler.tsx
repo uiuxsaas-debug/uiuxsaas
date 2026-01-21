@@ -50,8 +50,9 @@ type Props = {
     projectId: string | undefined,
     onScreenUpdate?: (updatedScreen: ScreenConfig) => void;
     onScreenDelete?: (screenId: number) => void;
+    readOnly?: boolean
 }
-function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, onScreenDelete }: Props) {
+function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, onScreenDelete, readOnly = false }: Props) {
 
     const htmlCode = HtmlWrapper(theme, screen?.code as string)
     const { refreshData, setRefreshData } = useContext(RefreshDataContext);
@@ -134,7 +135,16 @@ function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, on
             setIsEditPopoverOpen(false)
         } catch (error: any) {
             console.error("Edit Screen Error:", error);
-            toast.error(error?.response?.data?.error || 'Failed to edit screen')
+            // Show specific error from server if available (e.g. credit/plan limits)
+            if (error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else if (error.response?.data?.details) {
+                toast.error(error.response.data.details);
+            } else if (error.response?.data?.error) {
+                toast.error(error.response.data.error);
+            } else {
+                toast.error('Failed to edit screen');
+            }
         } finally {
             setLoading(false);
         }
@@ -202,26 +212,30 @@ function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, on
                     <Download />
                 </Button>
 
-                <Popover open={isEditPopoverOpen} onOpenChange={setIsEditPopoverOpen}>
-                    <PopoverTrigger asChild>
-                        <Button variant={'ghost'} className='text-white/70 hover:text-white hover:bg-yellow-500/10'> <SparkleIcon /> </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className='bg-[#0a0a0f] border-yellow-500/20'>
-                        <div>
-                            <Textarea placeholder='What changes you want to make?'
-                                className='bg-[#0a0a0f] border-yellow-500/20 text-white placeholder:text-white/40'
-                                onChange={(event) => setEditUserInput(event.target.value)} />
-                            <Button size={'sm'} className='mt-2 bg-gradient-to-r from-yellow-500 to-amber-500 text-black font-semibold hover:from-yellow-400 hover:to-amber-400'
-                                disabled={loading}
-                                onClick={() => editScreen()}
-                            > {loading ? <Loader2Icon className='animate-spin' /> : <Sparkle />} Regenerate</Button>
-                        </div>
-                    </PopoverContent>
-                </Popover>
+                {!readOnly && (
+                    <Popover open={isEditPopoverOpen} onOpenChange={setIsEditPopoverOpen}>
+                        <PopoverTrigger asChild>
+                            <Button variant={'ghost'} className='text-white/70 hover:text-white hover:bg-yellow-500/10'> <SparkleIcon /> </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className='bg-[#0a0a0f] border-yellow-500/20'>
+                            <div>
+                                <Textarea placeholder='What changes you want to make?'
+                                    className='bg-[#0a0a0f] border-yellow-500/20 text-white placeholder:text-white/40'
+                                    onChange={(event) => setEditUserInput(event.target.value)} />
+                                <Button size={'sm'} className='mt-2 bg-gradient-to-r from-yellow-500 to-amber-500 text-black font-semibold hover:from-yellow-400 hover:to-amber-400'
+                                    disabled={loading}
+                                    onClick={() => editScreen()}
+                                > {loading ? <Loader2Icon className='animate-spin' /> : <Sparkle />} Regenerate</Button>
+                            </div>
+                        </PopoverContent>
+                    </Popover>
+                )}
 
-                <Button variant={'ghost'} size={'icon'} disabled={deleting} className="text-red-400 hover:text-red-300 hover:bg-red-500/10" onClick={() => onDelete()}>
-                    {deleting ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <Trash className="w-4 h-4" />}
-                </Button>
+                {!readOnly && (
+                    <Button variant={'ghost'} size={'icon'} disabled={deleting} className="text-red-400 hover:text-red-300 hover:bg-red-500/10" onClick={() => onDelete()}>
+                        {deleting ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <Trash className="w-4 h-4" />}
+                    </Button>
+                )}
 
             </div>
 

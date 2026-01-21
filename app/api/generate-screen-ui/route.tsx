@@ -1,11 +1,41 @@
 import { db } from "@/config/db";
+import { checkAndResetCredits } from "@/lib/credit-helper";
+import { CREDIT_COSTS } from "@/config/costs";
 import { geminiModel } from "@/config/gemini";
-import { ScreenConfigTable } from "@/config/schema";
+import { ScreenConfigTable, usersTable, ProjectTable } from "@/config/schema";
 import { GENERATE_SCREEN_PROMPT } from "@/data/Prompt";
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export async function POST(req: NextRequest) {
+    const user = await currentUser();
+    if (!user || !user.primaryEmailAddress?.emailAddress) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    const userEmail = user.primaryEmailAddress.emailAddress;
+
+    // Check & Reset Monthly Credits if needed
+    await checkAndResetCredits(userEmail);
+
+    // Check Credits
+    const userRecord = await db.select().from(usersTable).where(eq(usersTable.email, userEmail));
+    if (userRecord.length === 0) {
+        return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    const currentCredits = userRecord[0].credits || 0;
+    const requiredCredits = CREDIT_COSTS.GENERATE_SCREEN;
+
+    if (currentCredits < requiredCredits) {
+        return NextResponse.json({
+            error: 'Insufficient credits',
+            message: `You need ${requiredCredits} credits but only have ${currentCredits}. Upgrade your plan to continue generating screens.`,
+            required: requiredCredits,
+            available: currentCredits
+        }, { status: 402 });
+    }
+
     const {
         projectId,
         screenId,
@@ -19,6 +49,12 @@ export async function POST(req: NextRequest) {
         navigationTabs,  // Added: Array of {name, icon} from Step 1
         activeTab        // Added: Which tab should be active for this screen
     } = await req.json();
+
+    // Verify Ownership
+    const project = await db.select().from(ProjectTable).where(eq(ProjectTable.projectId, projectId));
+    if (project.length === 0 || project[0].userId !== userEmail) {
+        return NextResponse.json({ error: 'Only the owner can generate screens. Viewers are read-only.' }, { status: 403 });
+    }
 
     // Determine if this screen should have bottom navigation
     const mainScreenKeywords = ['dashboard', 'home', 'main', 'feed', 'explore', 'profile', 'settings', 'search', 'activity', 'insights', 'stats', 'rewards', 'cards', 'transactions', 'security'];
@@ -180,6 +216,13 @@ OUTPUT: Pure HTML with Tailwind CSS classes ONLY.
                 }).where(and(eq(ScreenConfigTable.projectId, projectId),
                     eq(ScreenConfigTable?.screenId, screenId as string)))
                 .returning();
+
+            // Deduct Credits
+            await db.update(usersTable)
+                .set({
+                    credits: sql`${usersTable.credits} - ${CREDIT_COSTS.GENERATE_SCREEN}`
+                })
+                .where(eq(usersTable.email, userEmail));
 
         } catch (e: any) {
             console.error("Gemini API Error in generate-screen-ui:", e);

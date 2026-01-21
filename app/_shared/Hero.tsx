@@ -32,9 +32,13 @@ function Hero() {
                 </div>
             </div>
 
-            <h2 className='text-[28px] md:text-5xl lg:text-6xl font-black text-center leading-tight tracking-tight text-white'>
-                Design High Quality <br className='hidden md:block' />
-                <span className='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-300'>Mobile App</span>
+            <h2 className='text-[28px] md:text-5xl lg:text-6xl font-black text-center leading-tight tracking-tight text-white mb-6'>
+                Design High Quality <span className='relative inline-block'>
+                    <span className='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-300'>Mobile Apps</span>
+                    <svg className="absolute w-full h-[10px] -bottom-2 left-0 text-yellow-500/50" viewBox="0 0 100 10" preserveAspectRatio="none">
+                        <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="2" fill="none" />
+                    </svg>
+                </span>
             </h2>
 
             <p className='text-center text-white/60 text-sm md:text-lg mt-4 max-w-xl leading-relaxed'>

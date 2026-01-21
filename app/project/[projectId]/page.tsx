@@ -109,11 +109,17 @@ ${screen.code}
             }
         };
 
+        const handleDownloadImage = () => {
+            setTakeScreenshot('download-image'); // Image Download Mode
+        };
+
         window.addEventListener('trigger-download-figma', handleFigmaExport);
         window.addEventListener('trigger-download-code', handleDownloadCode);
+        window.addEventListener('trigger-download-image', handleDownloadImage);
         return () => {
             window.removeEventListener('trigger-download-figma', handleFigmaExport);
             window.removeEventListener('trigger-download-code', handleDownloadCode);
+            window.removeEventListener('trigger-download-image', handleDownloadImage);
         };
     }, [screenConfig, projectDetail]);
 
@@ -229,7 +235,8 @@ ${screen.code}
             if (!response.ok) {
                 try {
                     const errData = await response.json();
-                    throw new Error(errData.error || response.statusText);
+                    // Prefer 'message' (detailed), then 'error' (short), then statusText
+                    throw new Error(errData.message || errData.error || response.statusText);
                 } catch (e) {
                     throw new Error("Generation failed: " + response.statusText);
                 }

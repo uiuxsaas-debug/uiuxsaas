@@ -1,12 +1,25 @@
 import { db } from "@/config/db";
 import { geminiModel } from "@/config/gemini";
-import { ProjectTable, ScreenConfigTable } from "@/config/schema";
+import { ProjectTable, ScreenConfigTable, usersTable } from "@/config/schema";
+import { CREDIT_COSTS } from "@/config/costs";
 import { APP_LAYOUT_CONFIG_PROMPT, GENRATE_NEW_SCREEN_IN_EXISITING_PROJECT_PROJECT } from "@/data/Prompt";
 import { currentUser } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
+    const user = await currentUser();
+    if (!user || !user.primaryEmailAddress?.emailAddress) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    const userEmail = user.primaryEmailAddress.emailAddress;
+
+    // Check Credits (Need at least 50 for config gen)
+    const userRecord = await db.select().from(usersTable).where(eq(usersTable.email, userEmail));
+    if (userRecord.length === 0 || (userRecord[0].credits || 0) < CREDIT_COSTS.GENERATE_PROJECT) {
+        return NextResponse.json({ error: 'Insufficient credits' }, { status: 403 });
+    }
+
     const { userInput, deviceType, projectId, oldScreenDescription, theme } = await req.json();
 
     const systemPrompt = oldScreenDescription ?
@@ -75,6 +88,13 @@ export async function POST(req: NextRequest) {
                 screenName: screen?.name || screen?.screen_name
             });
         }
+
+        // Deduct GEN_PROJECT Credits
+        await db.update(usersTable)
+            .set({
+                credits: sql`${usersTable.credits} - ${CREDIT_COSTS.GENERATE_PROJECT}`
+            })
+            .where(eq(usersTable.email, userEmail));
 
         return NextResponse.json(JSONAiResult)
 

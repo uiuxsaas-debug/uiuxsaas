@@ -10,9 +10,13 @@ export const useProjectList = () => {
     const [projectList, setProjectList] = useState<ProjectType[]>([]);
     const [loading, setLoading] = useState(false);
 
+    // Use a ref to track if we've already fetched to prevent double fetching in React.StrictMode or re-renders
+    const hasFetched = useState(false);
+
     useEffect(() => {
-        if (isLoaded && user) {
+        if (isLoaded && user && !hasFetched[0]) {
             getProjectList();
+            hasFetched[1](true);
         }
     }, [isLoaded, user]);
 
@@ -23,7 +27,7 @@ export const useProjectList = () => {
             setProjectList(Array.isArray(result.data) ? result.data : []);
         } catch (error) {
             console.error("Failed to fetch project list:", error);
-            toast.error("Failed to load projects. Please try again.");
+            // toast.error("Failed to load projects. Please try again."); // Reduce noise
             setProjectList([]);
         } finally {
             setLoading(false);

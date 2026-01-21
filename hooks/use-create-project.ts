@@ -37,9 +37,16 @@ export const useCreateProject = () => {
 
             // toast.success("Project created successfully!");
             router.push('/project/' + projectId);
-        } catch (error) {
+        } catch (error: any) {
             console.error("Failed to create project:", error);
-            toast.error("Failed to create project. Please try again.");
+            // Check for specific server-side limits/errors
+            if (error.response?.data?.details) {
+                toast.error(error.response.data.details);
+            } else if (error.response?.data?.error) {
+                toast.error(error.response.data.error);
+            } else {
+                toast.error("Failed to create project. Please try again.");
+            }
         } finally {
             setLoading(false);
         }

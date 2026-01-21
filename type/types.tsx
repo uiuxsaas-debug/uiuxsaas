@@ -11,7 +11,8 @@ export type ProjectType = {
     config?: {
         navigationTabs?: Array<{ name: string, icon: string }>,
         appCategory?: string
-    }
+    },
+    role?: string
 }
 
 export type ScreenConfig = {

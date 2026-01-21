@@ -64,9 +64,16 @@ function SettingsSection({ projectDetail, screenDescription, takeScreenshot, scr
             setRefreshData({ method: 'screenConfig', date: Date.now() })
             setUserNewScreenInput('')
             toast.success('New screen configuration generated!')
-        } catch (e) {
+        } catch (e: any) {
             console.error(e);
-            toast.error('Failed to generate screen. Please try again.')
+            // Show specific error from server if available
+            if (e.response?.data?.details) {
+                toast.error(e.response.data.details);
+            } else if (e.response?.data?.error) {
+                toast.error(e.response.data.error);
+            } else {
+                toast.error('Failed to generate screen. Please try again.');
+            }
         } finally {
             setLoading(false);
         }
