@@ -3,45 +3,31 @@ import { themeToCssVars } from "./Themes";
 export const suggestions = [
   {
     icon: '✈️',
-    name: 'Travel Planner App',
+    name: 'Flight Ticket Booking',
+    style: 'Minimalist',
     description:
-      'Design a travel planner with 2 screens. Home screen shows upcoming trips as destination cards with images, dates, and progress indicators. Trip details screen includes an interactive map, daily itinerary timeline, and booking summary cards using soft gradients, rounded layouts, and calm travel-inspired colors.'
+      'A clean and efficient flight booking app. Home screen with destination search, date picker, and recent searches. Flight results page with easy-to-read cards, price comparison, and filters for airlines and stops in a sleek, white-space dominant layout.'
   },
   {
-    icon: '📚',
-    name: 'AI Learning Platform',
+    icon: '🧘',
+    name: 'Health & Wellness',
+    style: 'Neo-Brutalism',
     description:
-      'Create an AI learning platform with 2 screens. Dashboard displays course progress, streak counter, and achievement badges in a colorful, gamified layout. Course screen shows lesson cards, completion states, and an AI tips panel with friendly icons and vibrant visuals.'
+      'Personal health dashboard with bold borders and high contrast. Widgets for heart rate, sleep quality, and daily steps. Activity tracking screen with large typography and punchy colors for a modern, energetic feel.'
   },
   {
-    icon: '💳',
-    name: 'Finance Tracker',
+    icon: '🪙',
+    name: 'Crypto Wallet',
+    style: 'Glassmorphism',
     description:
-      'Generate a finance tracker with 2 screens. Dashboard shows total balance, expense breakdown charts, and budget goals with clean data visuals. Transactions screen lists categorized expenses with icons, amounts, and status indicators using a minimal UI and optional dark mode.'
+      'Futuristic cryptocurrency wallet. Dashboard showing portfolio balance with frosted glass cards and vibrant gradients. Asset list with real-time price sparks and a seamless "Send/Receive" flow using transparency and blur effects.'
   },
   {
-    icon: '🛒',
-    name: 'E-Commerce Store',
+    icon: '🐾',
+    name: 'Pet Care Manager',
+    style: 'Playful',
     description:
-      'Design an e-commerce app with 2 screens. Home screen features a product grid, category filters, and promotional banners. Product detail screen includes a large product image, price, reviews, and a strong add-to-cart CTA using a premium, conversion-focused layout.'
-  },
-  {
-    icon: '📅',
-    name: 'Smart To-Do Planner',
-    description:
-      'Create a smart to-do planner with 2 screens. Main screen shows today’s tasks with priority labels, checkboxes, and progress summary. Calendar screen highlights deadlines and task density per day using a clean, productivity-focused design.'
-  },
-  {
-    icon: '🍔',
-    name: 'Food Delivery App',
-    description:
-      'Generate a food delivery app with 2 screens. Home screen displays restaurant cards with ratings, delivery time, and cuisine tags. Restaurant screen shows large food images, categorized menu items, and add-to-cart buttons with bright, appetizing visuals.'
-  },
-  {
-    icon: '👶',
-    name: 'Kids Learning App',
-    description:
-      'Design a kids learning app with 2 screens. Home screen shows learning categories as colorful cards with playful icons. Activity screen includes interactive lessons, reward animations, and progress stars using fun illustrations and a cheerful color palette.'
+      'Cute and friendly pet management app. Pet profiles with avatars, vaccination schedules, and daily reminders. rounded shapes, soft pastel colors, and delightful micro-interactions to make pet care fun.'
   }
 ];
 

@@ -30,10 +30,10 @@ function Templates() {
         <section id="templates" className="py-20 px-4 md:px-8 max-w-7xl mx-auto relative z-10">
             <div className="flex justify-between items-end mb-12">
                 <div>
-                    <h2 className="text-3xl font-bold text-white mb-2">Explore templates</h2>
-                    <p className="text-gray-400">Customize beautiful pre-built app design templates.</p>
+                    <h2 className="text-3xl font-bold text-black mb-2">Explore templates</h2>
+                    <p className="text-black/60">Customize beautiful pre-built app design templates.</p>
                 </div>
-                <a href="#" className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">
+                <a href="#" className="flex items-center gap-2 text-sm text-black/60 hover:text-black transition-colors">
                     View all <ArrowRight className="w-4 h-4" />
                 </a>
             </div>
@@ -41,27 +41,27 @@ function Templates() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {templates.map((template, index) => (
                     <div key={index} className="group cursor-pointer">
-                        <div className="bg-[#111114] border border-white/5 rounded-3xl p-8 h-[320px] mb-4 relative overflow-hidden group-hover:border-yellow-500/20 transition-all duration-500">
+                        <div className="bg-white border border-black/5 rounded-3xl p-8 h-[320px] mb-4 relative overflow-hidden group-hover:border-[#FF5200]/20 transition-all duration-500 shadow-lg shadow-black/5">
                             {/* Background Gradient */}
                             <div className={`absolute inset-0 bg-gradient-to-br ${template.gradient} opacity-20 group-hover:opacity-30 transition-opacity`} />
 
                             {/* Phone Mockups Container */}
                             <div className="flex gap-4 justify-center items-center h-full pt-8 group-hover:scale-105 transition-transform duration-500">
                                 {/* Left Phone */}
-                                <div className="w-32 h-64 bg-[#0a0a0f] rounded-2xl border border-white/10 p-2 transform -rotate-3 translate-y-4 opacity-60">
+                                <div className="w-32 h-64 bg-white rounded-2xl border border-black/10 p-2 transform -rotate-3 translate-y-4 opacity-60 shadow-md">
                                     <div className={`w-full h-full rounded-xl opacity-80 ${template.screens[0]}`} />
                                 </div>
                                 {/* Center Phone (Main) */}
-                                <div className="w-36 h-72 bg-[#0a0a0f] rounded-3xl border border-white/20 p-2 z-10 shadow-2xl shadow-black">
+                                <div className="w-36 h-72 bg-white rounded-3xl border border-black/20 p-2 z-10 shadow-2xl shadow-black/20">
                                     <div className={`w-full h-full rounded-2xl ${template.screens[1]}`} />
                                 </div>
                                 {/* Right Phone */}
-                                <div className="w-32 h-64 bg-[#0a0a0f] rounded-2xl border border-white/10 p-2 transform rotate-3 translate-y-4 opacity-60">
+                                <div className="w-32 h-64 bg-white rounded-2xl border border-black/10 p-2 transform rotate-3 translate-y-4 opacity-60 shadow-md">
                                     <div className={`w-full h-full rounded-xl opacity-80 ${template.screens[2]}`} />
                                 </div>
                             </div>
                         </div>
-                        <h3 className="text-white font-medium group-hover:text-yellow-500 transition-colors">
+                        <h3 className="text-black font-medium group-hover:text-[#FF5200] transition-colors">
                             {template.title}
                         </h3>
                     </div>

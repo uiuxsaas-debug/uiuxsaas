@@ -31,12 +31,13 @@ function Header() {
     }
 
     return (
-        <div className={`flex items-center justify-between px-4 py-3 md:px-6 lg:px-8 fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/50 backdrop-blur-xl' : 'bg-transparent'
+
+        <div className={`flex items-center justify-between px-4 py-3 md:px-6 lg:px-8 fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-xl border-b border-black/5' : 'bg-transparent'
             }`}>
             <Link href={'/'}>
                 <div className='flex gap-2 items-center hover:scale-105 transition-transform'>
                     <Image src={'/logo.png'} alt='logo' width={40} height={40} className="w-8 h-8 md:w-10 md:h-10" />
-                    <h2 className='text-lg md:text-xl font-bold font-sans tracking-tight'> <span className='text-yellow-500'>Appy</span><span className='font-light text-white'>Screen</span></h2>
+                    <h2 className='text-lg md:text-xl font-bold font-sans tracking-tight'> <span className='text-[#FF5200]'>Appy</span><span className='font-light text-black'>Screen</span></h2>
                 </div>
             </Link>
 
@@ -44,83 +45,73 @@ function Header() {
             <nav className="hidden md:flex items-center gap-6">
                 <Link
                     href="/#how-it-works"
-                    className="text-gray-400 hover:text-white transition-colors text-sm font-medium"
+                    className="text-black hover:text-[#FF5200] transition-colors text-sm font-medium"
                 >
                     How it Works
                 </Link>
                 <Link
                     href="/#pricing"
-                    className="text-gray-400 hover:text-white transition-colors text-sm font-medium"
+                    className="text-black hover:text-[#FF5200] transition-colors text-sm font-medium"
                 >
                     Pricing
                 </Link>
-                  {userDetail && (
-                        <Link
-                    href="/dashboard/billing"
-                    className="text-gray-400 hover:text-white transition-colors text-sm font-medium"
-                >
-                    Billing
-                </Link>
+                {userDetail && (
+                    <Link
+                        href="/dashboard/billing"
+                        className="text-black hover:text-[#FF5200] transition-colors text-sm font-medium"
+                    >
+                        Billing
+                    </Link>
                 )}
             </nav>
 
             <div className="flex items-center gap-4">
                 {!isLoaded ? (
                     <div className="flex gap-4 items-center">
-                        <div className="h-10 w-24 bg-white/10 animate-pulse rounded-lg hidden md:block"></div>
-                        <div className="h-8 w-8 md:h-10 md:w-10 bg-white/10 animate-pulse rounded-full ring-2 ring-white/20"></div>
+                        <div className="h-10 w-24 bg-black/5 animate-pulse rounded-lg hidden md:block"></div>
+                        <div className="h-8 w-8 md:h-10 md:w-10 bg-black/5 animate-pulse rounded-full ring-2 ring-black/5"></div>
                     </div>
                 ) : !user ? (
                     <SignInButton mode='modal'>
-                        <Button className="rounded-full shadow-lg shadow-yellow-500/20 hover:shadow-yellow-500/40 transition-all transform hover:-translate-y-0.5 bg-gradient-to-r from-yellow-500 to-amber-500 text-black font-semibold border-0 hover:from-yellow-400 hover:to-amber-400">Get Started</Button>
+                        <Button className="rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 transition-all transform hover:-translate-y-0.5 bg-[#FF5200] text-white font-semibold border-0 hover:bg-[#e04800]">Get Started</Button>
                     </SignInButton>
                 ) : (
                     <div className='flex items-center gap-4'>
-                        <Button className='hidden md:flex bg-gradient-to-r from-yellow-500 to-amber-500 text-black font-semibold hover:from-yellow-400 hover:to-amber-400 rounded-full shadow-lg shadow-yellow-500/20 hover:shadow-yellow-500/40 transition-all transform hover:-translate-y-0.5 border-0' asChild>
+                        <Button className='hidden md:flex bg-[#FF5200] text-white font-semibold hover:bg-[#e04800] rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 transition-all transform hover:-translate-y-0.5 border-0' asChild>
                             <Link href="/dashboard">Dashboard</Link>
                         </Button>
                         <UserButton appearance={{
                             elements: {
-                                avatarBox: "w-9 h-9 ring-2 ring-yellow-500/40 hover:ring-yellow-500 transition-all",
-                                userButtonPopoverActionButton__manageAccount: "!text-white",
-                                userButtonPopoverActionButton__signOut: "!text-white",
-                                userButtonPopoverCard: "bg-black/95 backdrop-blur-xl border border-yellow-500/30 shadow-2xl",
-                                userButtonPopoverActionButton: "text-white hover:bg-yellow-500/20 px-3 py-2 rounded-md transition",
-                                userButtonPopoverActionButtonText: "text-white",
-                                userButtonPopoverActionButtonIcon: "text-white",
-                                userButtonPopoverFooter: "bg-black/95 border-t border-yellow-500/20",
-                                userPreviewMainIdentifier: "text-white",
-                                userPreviewSecondaryIdentifier: "text-white/60",
-                                card: "bg-black/95 backdrop-blur-xl text-white border border-yellow-500/30 shadow-2xl",
-                                headerTitle: "text-white",
-                                headerSubtitle: "text-white/60",
-                                navbar: "bg-black/90 backdrop-blur-xl border-r border-yellow-500/20",
-                                navbarButton: "text-white hover:bg-yellow-500/20 transition",
-                                pageScrollBox: "bg-black/95 backdrop-blur-xl text-white",
-                                scrollBox: "bg-black/95",
-                                formFieldLabel: "text-white",
-                                formFieldInput: "bg-black border border-yellow-500/40 text-white placeholder-white/40 focus:border-yellow-500",
-                                formButtonPrimary: "bg-yellow-500 hover:bg-yellow-400 text-black font-semibold shadow",
-                                badge: "bg-yellow-500/20 text-yellow-500",
-                                menuList: "bg-black/95 backdrop-blur-xl border border-yellow-500/30",
-                                menuItem: "text-white hover:bg-yellow-500/20",
-                                menuButton: "text-white hover:bg-yellow-500/20",
-                                userButtonPopoverMain: "bg-black/95",
-                                userButtonPopoverActions: "bg-black/95",
-                                footerAction: "text-white hover:bg-yellow-500/20",
-                                footerActionLink: "text-white hover:text-yellow-500",
-                                footerActionText: "text-white",
+                                avatarBox: "w-9 h-9 ring-2 ring-black/10 hover:ring-[#FF5200] transition-all",
+                                userButtonPopoverActionButton__manageAccount: "!text-black hover:!text-[#FF5200]",
+                                userButtonPopoverActionButton__signOut: "!text-black hover:!text-red-500",
+                                userButtonPopoverCard: "bg-white border border-black/10 shadow-xl",
+                                userButtonPopoverActionButton: "text-black hover:bg-[#FF5200]/10 px-3 py-2 rounded-md transition",
+                                userButtonPopoverActionButtonText: "text-black",
+                                userButtonPopoverActionButtonIcon: "text-black/60",
+                                userButtonPopoverFooter: "bg-black/5 border-t border-black/5",
+                                userPreviewMainIdentifier: "text-black font-semibold",
+                                userPreviewSecondaryIdentifier: "text-black/60",
+                                card: "bg-white text-black border border-black/10 shadow-xl",
+                                headerTitle: "text-black font-bold",
+                                headerSubtitle: "text-black/60",
+                                navbar: "bg-black/5 border-r border-black/10",
+                                navbarButton: "text-black hover:bg-[#FF5200]/10 hover:text-[#FF5200] transition",
+                                pageScrollBox: "bg-white text-black",
+                                scrollBox: "bg-white",
+                                formFieldLabel: "text-black",
+                                formFieldInput: "bg-white border border-black/20 text-black placeholder-black/40 focus:border-[#FF5200] focus:ring-[#FF5200]",
+                                formButtonPrimary: "bg-[#FF5200] hover:bg-[#e04800] text-white font-semibold shadow",
+                                badge: "bg-[#FF5200]/10 text-[#FF5200]",
+                                menuList: "bg-white border border-black/10",
+                                menuItem: "text-black hover:bg-[#FF5200]/10",
+                                menuButton: "text-black hover:bg-[#FF5200]/10",
+                                userButtonPopoverMain: "bg-white",
+                                userButtonPopoverActions: "bg-white",
+                                footerAction: "text-black/80 hover:bg-[#FF5200]/10",
+                                footerActionLink: "text-[#FF5200] hover:text-[#e04800]",
+                                footerActionText: "text-black/60",
                             },
-                            variables: {
-                                colorPrimary: "#eab308",
-                                colorText: "white",
-                                colorBackground: "#0a0a0a",
-                                colorInputBackground: "black",
-                                colorInputText: "white",
-                                colorTextSecondary: "rgba(255,255,255,0.7)",
-                                colorDanger: "#ef4444",
-                                colorTextOnPrimaryBackground: "black",
-                            }
                         }} />
                     </div>
                 )}

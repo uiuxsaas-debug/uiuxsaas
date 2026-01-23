@@ -6,7 +6,7 @@ import Templates from "./_shared/Templates";
 import Testimonial from "./_shared/Testimonial";
 import ProductDemo from "./_shared/ProductDemo";
 import Footer from "./_shared/Footer";
-import { AuraBackground } from "@/components/ui/aura-background";
+import { Tiles } from "@/components/ui/tiles";
 import HowItWorks from "./_shared/HowItWorks";
 import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -26,9 +26,10 @@ function HomePageContent() {
   }, [searchParams, router]);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-[#030303]">
-      <AuraBackground />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#030303]/20 to-[#030303]/90 pointer-events-none z-[1]" />
+    <div className="relative min-h-screen w-full overflow-hidden bg-[#FCFCFC] text-black">
+      <div className="absolute inset-0 z-0 opacity-60">
+        <Tiles rows={60} cols={20} tileSize="lg" />
+      </div>
       <div className="relative z-10 min-h-screen w-full overflow-y-auto scroll-smooth">
         <Header />
         <Hero />

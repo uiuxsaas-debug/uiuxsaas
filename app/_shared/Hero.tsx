@@ -7,7 +7,6 @@ import {
     InputGroupTextarea,
 } from "@/components/ui/input-group"
 import { ChevronRight, Loader, Send } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { suggestions } from '@/data/constant'
 import { useCreateProject } from '@/hooks/use-create-project';
 
@@ -21,67 +20,77 @@ function Hero() {
     }
 
     return (
-        <div className='px-4 md:px-12 lg:px-24 xl:px-48 mt-18 md:mt-26 flex flex-col items-center max-w-7xl mx-auto w-full'>
-            <div className='flex items-center justify-center w-full mb-4'>
-                <div className="group relative inline-flex items-center justify-center rounded-full px-4 py-1.5 transition-all duration-500 ease-out bg-white/5 backdrop-blur-xl border border-white/20 hover:border-white/30">
-                    ✨ <hr className="mx-2 h-4 w-px shrink-0 bg-white/20" />
-                    <span className="text-xs font-medium text-white/80">
+        <div className='px-4 md:px-8 lg:px-16 xl:px-24 mt-20 md:mt-30 flex flex-col items-center max-w-7xl mx-auto w-full'>
+            {/* Badge */}
+            <div className='flex items-center justify-center w-full mb-2'>
+                <div className="group relative inline-flex items-center justify-center rounded-full px-3 py-1 transition-all duration-500 ease-out bg-white border border-black/10 shadow-sm hover:border-[#FF5200]/30 hover:shadow-md">
+                    ✨ <hr className="mx-2 h-3 w-px shrink-0 bg-black/20" />
+                    <span className="text-[10px] md:text-xs font-medium text-black group-hover:text-[#FF5200] transition-colors">
                         AI-Powered Design
                     </span>
-                    <ChevronRight className="ml-1 size-3 stroke-white/50 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+                    <ChevronRight className="ml-1 size-3 stroke-black transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 group-hover:stroke-[#FF5200]" />
                 </div>
             </div>
 
-            <h2 className='text-[28px] md:text-5xl lg:text-6xl font-black text-center leading-tight tracking-tight text-white mb-6'>
-                Design High Quality <span className='relative inline-block'>
-                    <span className='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-300'>Mobile Apps</span>
-                    <svg className="absolute w-full h-[10px] -bottom-2 left-0 text-yellow-500/50" viewBox="0 0 100 10" preserveAspectRatio="none">
-                        <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="2" fill="none" />
-                    </svg>
-                </span>
+            {/* Heading */}
+            <h2 className='text-3xl md:text-5xl lg:text-6xl font-black text-center leading-tight tracking-tight text-black mb-2'>
+                Design High Quality <span className='text-[#FF5200]'>Mobile Apps</span>
             </h2>
 
-            <p className='text-center text-white/60 text-sm md:text-lg mt-4 max-w-xl leading-relaxed'>
-                Transform your ideas into stunning, intuitive mobile experiences
-                powered by AI. ✨
+            {/* Subheading */}
+            <p className='text-center mt-0 sm:mt-5  text-black/60 text-xs md:text-sm max-w-md leading-relaxed font-medium mb-4'>
+                Transform your ideas into stunning, intuitive mobile experiences powered by AI. ✨
             </p>
 
-            <div className="flex mt-6 w-full justify-center px-2 md:px-0">
-                <InputGroup className='w-full max-w-2xl bg-white/5 backdrop-blur-2xl z-10 rounded-2xl shadow-2xl shadow-black/20 border border-white/20 hover:border-white/30 transition-all duration-300 ring-1 ring-white/10'>
+            {/* Input Box */}
+            <div className="flex w-full mt-0 sm:mt-5 justify-center px-2 md:px-0 mb-6">
+                <InputGroup className='w-full max-w-2xl bg-white z-10 rounded-xl shadow-lg shadow-[#FF5200]/5 border border-black/10 hover:border-[#FF5200]/30 transition-all duration-300'>
                     <InputGroupTextarea
                         data-slot="input-group-control"
-                        className="flex field-sizing-content min-h-[60px] md:min-h-[80px] w-full resize-none rounded-t-2xl bg-transparent px-4 py-3 text-base transition-[color,box-shadow] outline-none placeholder:text-white/40 font-medium text-white"
+                        className="w-full bg-transparent px-4 py-2 text-sm transition-[color,box-shadow] outline-none placeholder:text-black/40 font-medium text-black min-h-[150px] h-[150px] max-h-[150px] resize-none overflow-y-auto"
                         placeholder="Describe your dream mobile app..."
                         value={userInput}
                         onChange={(event) => setUserInput(event.target?.value)}
                     />
-                    <InputGroupAddon align="block-end" className="p-2 bg-white/5 border-t border-white/10 rounded-b-2xl flex items-center justify-between">
-                        <div className="flex items-center gap-2 px-3 py-1.5 bg-white/10 rounded-lg border border-white/10">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/60"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" /><path d="M12 18h.01" /></svg>
-                            <span className="text-xs text-white/70 font-medium">Mobile App</span>
-                        </div>
-                        <InputGroupButton className="bg-gradient-to-r from-yellow-500 to-amber-500 text-black font-semibold hover:from-yellow-400 hover:to-amber-400 cursor-pointer transition-all shadow-lg shadow-yellow-500/30 hover:shadow-yellow-500/50 px-5 h-9 rounded-lg text-xs min-w-[110px] border-0"
+                    <InputGroupAddon align="block-end" className="p-1.5 flex items-center justify-end">
+                        <InputGroupButton className="bg-[#FF5200] text-white font-semibold hover:bg-[#e04800] hover:text-white cursor-pointer transition-all shadow-md shadow-[#FF5200]/20 hover:shadow-[#FF5200]/40 px-4 h-8 rounded-lg text-xs min-w-[90px] border-0"
                             disabled={loading}
                             size="sm"
                             onClick={() => onCreateProject()}>
-                            {loading ? <div className="flex items-center justify-center w-full"><Loader className='animate-spin h-4 w-4 text-black' /></div> : <span className='flex items-center gap-2'>Generate <Send size={12} /></span>}
+                            {loading ? <Loader className='animate-spin h-3 w-3 text-white' /> : <span className='flex items-center gap-1.5'>Generate <Send size={11} /></span>}
                         </InputGroupButton>
                     </InputGroupAddon>
                 </InputGroup>
             </div>
 
-            <div className='flex flex-wrap justify-center gap-2 mt-6 max-w-3xl pb-10'>
+            {/* Inspiration Cards */}
+            <div className='grid grid-cols-2 mt-0 sm:mt-5  lg:grid-cols-4 gap-2 md:gap-3 w-full max-w-5xl px-2 md:px-0 pb-6'>
                 {suggestions.map((suggestion, index) => (
-                    <button key={index}
-                        className='px-3 py-1.5 border border-white/20 rounded-full 
-                        flex items-center gap-1.5 bg-white/5 backdrop-blur-sm z-10 
-                        hover:bg-white/10 hover:border-white/40 hover:scale-105 transition-all duration-200
-                        shadow-sm text-xs font-medium text-white/70 hover:text-white'
+                    <div key={index}
                         onClick={() => setUserInput(suggestion?.description)}
+                        className='group bg-white border border-black/10 rounded-xl p-3 md:p-4 hover:border-[#FF5200] hover:ring-1 hover:ring-[#FF5200]/50 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md flex flex-col items-start'
                     >
-                        <span className="text-base">{suggestion?.icon}</span>
-                        <span>{suggestion?.name}</span>
-                    </button>
+                        <div className='flex justify-between items-start w-full mb-2'>
+                            <div className='w-7 h-7 md:w-8 md:h-8 rounded-full bg-black/5 flex items-center justify-center text-base md:text-lg group-hover:bg-[#FF5200]/10 transition-colors'>
+                                {suggestion?.icon}
+                            </div>
+                            {/* @ts-ignore */}
+                            {suggestion.style && (
+                                <span className='px-1.5 py-0.5 rounded-full bg-black/5 text-[8px] md:text-[9px] font-medium text-black/50 uppercase tracking-wide border border-black/5 group-hover:border-[#FF5200]/20 group-hover:text-[#FF5200] transition-colors'>
+                                    {/* @ts-ignore */}
+                                    {suggestion.style}
+                                </span>
+                            )}
+                        </div>
+
+                        <h3 className='font-bold text-black text-xs md:text-sm mb-1 group-hover:text-[#FF5200] transition-colors line-clamp-1'>
+                            {suggestion?.name}
+                        </h3>
+
+                        <p className='text-[10px] md:text-xs text-black/50 line-clamp-2 leading-relaxed'>
+                            {suggestion?.description}
+                        </p>
+                    </div>
                 ))}
             </div>
         </div>

@@ -164,25 +164,26 @@ function ProjectHeader() {
     }
 
     return (
-        <div className='flex items-center justify-between p-3 bg-[#0a0a0f] border-b border-yellow-500/10'>
+
+        <div className='flex items-center justify-between p-3 bg-white border-b border-black/5'>
             <Link href={'/dashboard'}>
                 <div className='flex gap-2 items-center hover:scale-105 transition-transform'>
                     <Image src={'/logo.png'} alt='logo' width={40} height={40} />
-                    <h2 className='text-xl font-semibold'> <span className='text-yellow-500'>UIUX</span> <span className='font-light text-white'>MOCK</span></h2>
+                    <h2 className='text-xl font-semibold'> <span className='text-[#FF5200]'>Appy</span> <span className='font-light text-black'>Screen</span></h2>
                 </div>
             </Link>
             <div className='flex gap-2 items-center'>
                 {canShare && (
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button variant={'ghost'} className='text-yellow-500 hover:text-yellow-400 hover:bg-yellow-500/10'>
+                            <Button variant={'ghost'} className='text-[#FF5200] hover:text-[#e04800] hover:bg-[#FF5200]/10'>
                                 <Share className='w-4 h-4 mr-2' /> Share
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className='bg-[#0a0a0f] border-yellow-500/20 text-white sm:max-w-md'>
+                        <DialogContent className='bg-white border-black/10 text-black sm:max-w-md'>
                             <DialogHeader>
                                 <DialogTitle>Share Project</DialogTitle>
-                                <DialogDescription className="text-gray-400">
+                                <DialogDescription className="text-black/60">
                                     Share with your team or make it public.
                                 </DialogDescription>
                             </DialogHeader>
@@ -190,15 +191,15 @@ function ProjectHeader() {
                             <div className="space-y-4 py-2">
                                 {/* Invite Section */}
                                 <div className="space-y-2">
-                                    <Label className="text-xs font-semibold text-gray-400 uppercase">Invite Team</Label>
+                                    <Label className="text-xs font-semibold text-black/50 uppercase">Invite Team</Label>
                                     <div className="flex gap-2">
                                         <Input
                                             placeholder="colleague@example.com"
                                             value={inviteEmail}
                                             onChange={(e) => setInviteEmail(e.target.value)}
-                                            className="bg-black/50 border-yellow-500/20 text-white h-9"
+                                            className="bg-black/5 border-black/10 text-black h-9 placeholder:text-black/40"
                                         />
-                                        <Button size="sm" onClick={inviteMember} disabled={loadingInvite} className="bg-yellow-500 text-black hover:bg-yellow-400">
+                                        <Button size="sm" onClick={inviteMember} disabled={loadingInvite} className="bg-[#FF5200] text-white hover:bg-[#e04800]">
                                             {loadingInvite ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Invite'}
                                         </Button>
                                     </div>
@@ -207,16 +208,16 @@ function ProjectHeader() {
                                 {/* Members List */}
                                 {members.length > 0 && (
                                     <div className="space-y-2">
-                                        <Label className="text-xs font-semibold text-gray-400 uppercase">Access</Label>
+                                        <Label className="text-xs font-semibold text-black/50 uppercase">Access</Label>
                                         <div className="max-h-[100px] overflow-y-auto space-y-2 pr-1">
                                             {members.map((m) => (
-                                                <div key={m.id} className="flex items-center justify-between bg-white/5 p-2 rounded text-sm">
+                                                <div key={m.id} className="flex items-center justify-between bg-black/5 p-2 rounded text-sm">
                                                     <span className="truncate flex-1 mr-2" title={m.email}>{m.email}</span>
                                                     <Button
                                                         variant="ghost"
                                                         size="sm"
                                                         onClick={() => removeMember(m.email)}
-                                                        className="h-6 w-6 p-0 text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                                                        className="h-6 w-6 p-0 text-red-500 hover:text-red-600 hover:bg-red-500/10"
                                                     >
                                                         <span className="sr-only">Remove</span>
                                                         &times;
@@ -227,21 +228,21 @@ function ProjectHeader() {
                                     </div>
                                 )}
 
-                                <div className="h-px bg-white/10 my-2"></div>
+                                <div className="h-px bg-black/5 my-2"></div>
 
                                 {/* Public Link Section */}
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between">
                                         <div className="flex flex-col space-y-1">
-                                            <span className="text-sm font-medium leading-none text-white">Public Link</span>
-                                            <span className="text-xs text-gray-400">Anyone with link can view</span>
+                                            <span className="text-sm font-medium leading-none text-black">Public Link</span>
+                                            <span className="text-xs text-black/60">Anyone with link can view</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            {loadingShare && <Loader2 className="w-4 h-4 animate-spin text-yellow-500" />}
+                                            {loadingShare && <Loader2 className="w-4 h-4 animate-spin text-[#FF5200]" />}
                                             <Switch
                                                 checked={isPublic}
                                                 onCheckedChange={togglePublic}
-                                                className="data-[state=checked]:bg-yellow-500 data-[state=unchecked]:bg-gray-600"
+                                                className="data-[state=checked]:bg-[#FF5200] data-[state=unchecked]:bg-black/20"
                                             />
                                         </div>
                                     </div>
@@ -256,10 +257,10 @@ function ProjectHeader() {
                                                     id="link"
                                                     defaultValue={shareUrl}
                                                     readOnly
-                                                    className="bg-black/50 border-yellow-500/20 text-white h-9 text-xs"
+                                                    className="bg-black/5 border-black/10 text-black h-9 text-xs"
                                                 />
                                             </div>
-                                            <Button type="submit" size="sm" onClick={copyLink} className="bg-yellow-500 text-black hover:bg-yellow-400 px-3">
+                                            <Button type="submit" size="sm" onClick={copyLink} className="bg-[#FF5200] text-white hover:bg-[#e04800] px-3">
                                                 <span className="sr-only">Copy</span>
                                                 <Copy className="h-4 w-4" />
                                             </Button>
@@ -271,28 +272,28 @@ function ProjectHeader() {
                     </Dialog>
                 )}
 
-                <div className="h-6 w-px bg-white/10 mx-1"></div>
+                <div className="h-6 w-px bg-black/5 mx-1"></div>
 
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant={'outline'} size={'sm'} className='border-yellow-500/30 bg-transparent text-yellow-400 hover:bg-yellow-500/10 hover:text-yellow-300 hover:border-yellow-500/40' disabled={exporting || downloading}>
+                        <Button variant={'outline'} size={'sm'} className='border-black/10 bg-transparent text-black hover:bg-black/5 hover:text-[#FF5200] hover:border-[#FF5200]/30' disabled={exporting || downloading}>
                             {(exporting || downloading) ? <Loader2 className='w-4 h-4 mr-2 animate-spin' /> : <Download className='w-4 h-4 mr-2' />}
                             Export
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-[#111114] border-yellow-500/20 text-white min-w-[200px]">
-                        <DropdownMenuItem onClick={onDownloadCode} className="hover:bg-yellow-500/10 hover:text-yellow-400 cursor-pointer text-sm py-2.5">
+                    <DropdownMenuContent className="bg-white border-black/10 text-black min-w-[200px] shadow-lg">
+                        <DropdownMenuItem onClick={onDownloadCode} className="hover:!bg-[#FF5200]/10 hover:!text-[#FF5200] cursor-pointer text-sm py-2.5">
                             <Download className='w-4 h-4 mr-2' />
                             Download Code
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={onExport} className="hover:bg-yellow-500/10 hover:text-yellow-400 cursor-pointer text-sm py-2.5">
+                        <DropdownMenuItem onClick={onExport} className="hover:!bg-[#FF5200]/10 hover:!text-[#FF5200] cursor-pointer text-sm py-2.5">
                             <svg className="w-4 h-4 mr-2" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 57C14.7467 57 19 52.7467 19 47.5V38H9.5C4.25329 38 0 42.2533 0 47.5C0 52.7467 4.25329 57 9.5 57Z" fill="#0ACF83" /><path d="M0 28.5C0 23.2533 4.25329 19 9.5 19H19V38H9.5C4.25329 38 0 33.7467 0 28.5Z" fill="#A259FF" /><path d="M0 9.5C0 4.25329 4.25329 0 9.5 0H19V19H9.5C4.25329 19 0 14.7467 0 9.5Z" fill="#F24E1E" /><path d="M19 0H28.5C33.7467 0 38 4.25329 38 9.5C38 14.7467 33.7467 19 28.5 19H19V0Z" fill="#FF7262" /><path d="M38 28.5C38 33.7467 33.7467 38 28.5 38H19V19H28.5C33.7467 19 38 23.2533 38 28.5Z" fill="#1ABCFE" /></svg>
                             Export to Figma
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                <Button onClick={OnSave} disabled={saving} className='bg-gradient-to-r from-yellow-500 to-amber-500 text-black font-semibold hover:from-yellow-400 hover:to-amber-400 border-0'> {saving ? <Loader2 className='animate-spin' /> : <Save />} Save</Button>
+                <Button onClick={OnSave} disabled={saving} className='bg-[#FF5200] text-white font-semibold hover:bg-[#e04800] border-0'> {saving ? <Loader2 className='animate-spin' /> : <Save />} Save</Button>
             </div>
         </div>
     )

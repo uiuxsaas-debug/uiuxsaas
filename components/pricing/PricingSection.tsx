@@ -102,7 +102,7 @@ const pricingTiers: PricingTier[] = [
             { text: 'Centralized billing', hasInfo: true },
         ],
         buttonText: 'Upgrade to Team',
-        buttonStyle: 'outline',
+        buttonStyle: 'default',
         configSlug: 'team'
     },
 ];
@@ -150,14 +150,14 @@ export default function PricingSection() {
     }
 
     return (
-        <section className="w-full py-20 px-4 md:px-8">
+        <section className="w-full py-20 px-4 md:px-8 bg-white">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4">
                         Transparent pricing for everyone
                     </h2>
-                    <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                    <p className="text-black/60 text-lg max-w-2xl mx-auto">
                         A fraction of the cost and time of hiring designers or doing it yourself from scratch.
                     </p>
                 </div>
@@ -167,8 +167,8 @@ export default function PricingSection() {
                     <button
                         onClick={() => setIsYearly(false)}
                         className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${!isYearly
-                            ? 'bg-white/10 text-white'
-                            : 'text-gray-400 hover:text-white'
+                            ? 'bg-black text-white'
+                            : 'text-black/60 hover:text-black'
                             }`}
                     >
                         Monthly
@@ -176,12 +176,12 @@ export default function PricingSection() {
                     <button
                         onClick={() => setIsYearly(true)}
                         className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${isYearly
-                            ? 'bg-white/10 text-white'
-                            : 'text-gray-400 hover:text-white'
+                            ? 'bg-black text-white'
+                            : 'text-black/60 hover:text-black'
                             }`}
                     >
                         Yearly
-                        <span className="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold">
+                        <span className="bg-gradient-to-r from-[#FF5200] to-orange-600 text-white text-xs px-2 py-0.5 rounded-full font-semibold">
                             2 MONTHS FREE
                         </span>
                     </button>
@@ -193,14 +193,14 @@ export default function PricingSection() {
                         <div
                             key={tier.name}
                             className={`relative rounded-2xl p-6 transition-all duration-300 ${tier.popular
-                                ? 'bg-gradient-to-b from-[#1a1a1f] to-[#0f0f12] border-2 border-orange-500/50 shadow-lg shadow-orange-500/10'
-                                : 'bg-[#111114] border border-white/10 hover:border-white/20'
+                                ? 'bg-white border-2 border-[#FF5200] shadow-xl shadow-[#FF5200]/10'
+                                : 'bg-white border border-black/10 hover:border-[#FF5200]/30 shadow-lg shadow-black/5'
                                 }`}
                         >
                             {/* Popular Badge */}
                             {tier.popular && (
                                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                                    <span className="bg-orange-500 text-white text-xs px-4 py-1 rounded-full font-semibold uppercase tracking-wide">
+                                    <span className="bg-[#FF5200] text-white text-xs px-4 py-1 rounded-full font-semibold uppercase tracking-wide">
                                         Most Popular
                                     </span>
                                 </div>
@@ -209,32 +209,32 @@ export default function PricingSection() {
                             {/* Tier Header */}
                             <div className="mb-6">
                                 <div className="flex items-center gap-3 mb-1">
-                                    <h3 className="text-xl font-semibold text-white">{tier.name}</h3>
+                                    <h3 className="text-xl font-semibold text-black">{tier.name}</h3>
                                     {tier.badge && (
                                         <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold uppercase tracking-wide ${tier.badgeColor}`}>
                                             {tier.badge}
                                         </span>
                                     )}
                                 </div>
-                                <p className="text-gray-500 text-sm">{tier.tagline}</p>
+                                <p className="text-black/60 text-sm">{tier.tagline}</p>
                             </div>
 
                             {/* Price */}
                             <div className="mb-6">
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-4xl font-bold text-white">
+                                    <span className="text-4xl font-bold text-black">
                                         ${isYearly ? tier.price.yearly : tier.price.monthly}
                                     </span>
-                                    <span className="text-gray-500 text-sm">
+                                    <span className="text-black/60 text-sm">
                                         {tier.priceLabel || '/mo'}
                                     </span>
                                     {!isYearly && tier.price.monthly !== tier.price.yearly && (
-                                        <span className="text-gray-600 text-sm line-through ml-2">
+                                        <span className="text-black/40 text-sm line-through ml-2">
                                             ${tier.price.monthly + 5}
                                         </span>
                                     )}
                                 </div>
-                                <p className="text-gray-500 text-xs mt-1">
+                                <p className="text-black/50 text-xs mt-1">
                                     {isYearly ? `billed $${tier.price.yearly * 12} yearly` : 'billed monthly'}
                                 </p>
                             </div>
@@ -244,10 +244,10 @@ export default function PricingSection() {
                                 onClick={() => onSubscribe(tier)}
                                 disabled={!!loadingPlan}
                                 className={`w-full py-2.5 px-4 rounded-lg font-medium text-sm transition-all duration-300 mb-6 flex items-center justify-center gap-2 ${tier.buttonStyle === 'primary'
-                                    ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:from-orange-400 hover:to-amber-400 shadow-lg shadow-orange-500/20'
+                                    ? 'bg-[#FF5200] text-white hover:bg-[#e04800] shadow-lg shadow-[#FF5200]/20'
                                     : tier.buttonStyle === 'outline'
-                                        ? 'border border-white/20 text-white hover:bg-white/5 hover:border-white/30'
-                                        : 'bg-white/10 text-white hover:bg-white/15'
+                                        ? 'border border-black/10 text-black hover:bg-black/5 hover:border-black/20'
+                                        : 'bg-black text-white hover:bg-black/80'
                                     } ${loadingPlan && loadingPlan !== tier.name ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
                                 {loadingPlan === tier.name ? (
@@ -261,30 +261,30 @@ export default function PricingSection() {
                             </button>
 
                             {/* Credits */}
-                            <div className="mb-6 p-3 rounded-lg bg-white/5">
+                            <div className="mb-6 p-3 rounded-lg bg-black/5">
                                 <div className="flex items-center gap-2 mb-1">
-                                    <Zap className="w-4 h-4 text-yellow-500" />
-                                    <span className="text-white font-semibold text-sm">
+                                    <Zap className="w-4 h-4 text-[#FF5200]" />
+                                    <span className="text-black font-semibold text-sm">
                                         {tier.credits.monthly.toLocaleString()} AI credits / month
                                     </span>
                                 </div>
-                                <p className="text-gray-500 text-xs ml-6">
+                                <p className="text-black/50 text-xs ml-6">
                                     ≈ {tier.credits.messages} messages{tier.name === 'Team' ? ' per seat' : ''}
                                 </p>
                             </div>
 
                             {/* Features */}
                             <div>
-                                <p className="text-gray-500 text-xs uppercase tracking-wide mb-3 font-medium">
+                                <p className="text-black/40 text-xs uppercase tracking-wide mb-3 font-medium">
                                     INCLUDES
                                 </p>
                                 <ul className="space-y-2.5">
                                     {tier.features.map((feature, index) => (
                                         <li key={index} className="flex items-center gap-2.5 text-sm">
                                             <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
-                                            <span className="text-gray-300">{feature.text}</span>
+                                            <span className="text-black/70">{feature.text}</span>
                                             {feature.hasInfo && (
-                                                <Info className="w-3.5 h-3.5 text-gray-600 cursor-help flex-shrink-0" />
+                                                <Info className="w-3.5 h-3.5 text-black/30 cursor-help flex-shrink-0" />
                                             )}
                                         </li>
                                     ))}

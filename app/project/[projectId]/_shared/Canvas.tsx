@@ -75,19 +75,19 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
         const { zoomIn, zoomOut, resetTransform } = useControls();
 
         return (
-            <div className="tools absolute p-2 px-3 bg-[#0a0a0f] shadow-lg shadow-black/50 flex gap-2 rounded-full bottom-10 left-1/2 -translate-x-1/2 z-30 text-white/70 border border-yellow-500/20">
-                <Button variant={'ghost'} size={'sm'} onClick={() => zoomIn()} className="h-8 w-8 p-0 rounded-full hover:bg-yellow-500/10 text-white/70 hover:text-white"><Plus size={16} /></Button>
-                <Button variant={'ghost'} size={'sm'} onClick={() => zoomOut()} className="h-8 w-8 p-0 rounded-full hover:bg-yellow-500/10 text-white/70 hover:text-white"><Minus size={16} /></Button>
-                <div className="w-[1px] h-6 bg-white/10 self-center mx-1"></div>
+            <div className="tools absolute p-2 px-3 bg-white shadow-lg shadow-black/5 flex gap-2 rounded-full bottom-10 left-1/2 -translate-x-1/2 z-30 text-black/70 border border-black/10">
+                <Button variant={'ghost'} size={'sm'} onClick={() => zoomIn()} className="h-8 w-8 p-0 rounded-full hover:bg-[#FF5200]/10 text-black/70 hover:text-[#FF5200]"><Plus size={16} /></Button>
+                <Button variant={'ghost'} size={'sm'} onClick={() => zoomOut()} className="h-8 w-8 p-0 rounded-full hover:bg-[#FF5200]/10 text-black/70 hover:text-[#FF5200]"><Minus size={16} /></Button>
+                <div className="w-[1px] h-6 bg-black/10 self-center mx-1"></div>
                 <Button
                     variant={panningEnabled ? 'secondary' : 'ghost'}
                     size={'sm'}
                     onClick={() => setPanningEnabled(!panningEnabled)}
-                    className={`h-8 w-8 p-0 rounded-full ${panningEnabled ? 'bg-yellow-500/20 text-yellow-500 hover:bg-yellow-500/30' : 'hover:bg-yellow-500/10 text-white/70 hover:text-white'}`}
+                    className={`h-8 w-8 p-0 rounded-full ${panningEnabled ? 'bg-[#FF5200]/20 text-[#FF5200] hover:bg-[#FF5200]/30' : 'hover:bg-[#FF5200]/10 text-black/70 hover:text-[#FF5200]'}`}
                 >
                     {panningEnabled ? <Hand size={16} /> : <MousePointer2 size={16} />}
                 </Button>
-                <Button variant={'ghost'} size={'sm'} onClick={() => resetTransform()} className="h-8 w-8 p-0 rounded-full hover:bg-yellow-500/10 text-white/70 hover:text-white"><RefreshCw size={16} /></Button>
+                <Button variant={'ghost'} size={'sm'} onClick={() => resetTransform()} className="h-8 w-8 p-0 rounded-full hover:bg-[#FF5200]/10 text-black/70 hover:text-[#FF5200]"><RefreshCw size={16} /></Button>
             </div>
         );
     };
@@ -189,7 +189,7 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
 
             if (useFancyMode) {
                 // Fill background
-                ctx.fillStyle = "#121212";
+                ctx.fillStyle = "#FFFFFF";
                 ctx.fillRect(0, 0, outW, outH);
             } else {
                 // Transparent for Figma
@@ -217,10 +217,10 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
 
                     // Shadow
                     ctx.save();
-                    ctx.shadowColor = "rgba(0,0,0,0.5)";
+                    ctx.shadowColor = "rgba(0,0,0,0.1)";
                     ctx.shadowBlur = 50 * scale;
                     ctx.shadowOffsetY = 20 * scale;
-                    ctx.fillStyle = "#1a1a1f";
+                    ctx.fillStyle = "#FFFFFF";
 
                     ctx.beginPath();
                     ctx.roundRect(frameX, frameY, frameW, frameH, borderRadius);
@@ -230,7 +230,7 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
                     // Border
                     ctx.save();
                     ctx.lineWidth = 2 * scale;
-                    ctx.strokeStyle = "rgba(255,255,255,0.1)";
+                    ctx.strokeStyle = "rgba(0,0,0,0.1)";
                     ctx.beginPath();
                     ctx.roundRect(frameX, frameY, frameW, frameH, borderRadius);
                     ctx.stroke();
@@ -334,10 +334,10 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
 
 
     return (
-        <div className='flex-1 h-[calc(100vh-80px)] bg-[#0a0a0f] relative overflow-hidden'
+        <div className='flex-1 h-[calc(100vh-80px)] bg-white relative overflow-hidden'
             style={{
                 backgroundImage: `
-                    radial-gradient(circle, rgba(255,255,255,0.15) 1.5px, transparent 1.5px)
+                    radial-gradient(circle, rgba(0,0,0,0.1) 1.5px, transparent 1.5px)
                 `,
                 backgroundSize: "24px 24px",
                 cursor: panningEnabled ? 'grab' : 'default'
@@ -393,54 +393,54 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
                                         {isGenerating && (!screen?.code || screen.code.length < 50) ? (
                                             <div className="w-full h-full flex flex-col transition-opacity duration-300">
                                                 {/* Header bar placeholder - matches ScreenHandler */}
-                                                <div className="flex gap-2 items-center bg-[#0a0a0f] border border-yellow-500/20 rounded-lg p-4">
-                                                    <div className="w-4 h-4 rounded bg-yellow-500/20 animate-pulse"></div>
-                                                    <div className="w-24 h-4 rounded bg-yellow-500/20 animate-pulse"></div>
+                                                <div className="flex gap-2 items-center bg-white border border-black/10 rounded-lg p-4">
+                                                    <div className="w-4 h-4 rounded bg-black/5 animate-pulse"></div>
+                                                    <div className="w-24 h-4 rounded bg-black/5 animate-pulse"></div>
                                                     <div className="flex-1"></div>
                                                     <div className="flex gap-2">
-                                                        <div className="w-5 h-5 rounded bg-yellow-500/20 animate-pulse"></div>
-                                                        <div className="w-5 h-5 rounded bg-yellow-500/20 animate-pulse"></div>
-                                                        <div className="w-5 h-5 rounded bg-yellow-500/20 animate-pulse"></div>
-                                                        <div className="w-5 h-5 rounded bg-yellow-500/20 animate-pulse"></div>
+                                                        <div className="w-5 h-5 rounded bg-black/5 animate-pulse"></div>
+                                                        <div className="w-5 h-5 rounded bg-black/5 animate-pulse"></div>
+                                                        <div className="w-5 h-5 rounded bg-black/5 animate-pulse"></div>
+                                                        <div className="w-5 h-5 rounded bg-black/5 animate-pulse"></div>
                                                     </div>
                                                 </div>
 
                                                 {/* Phone mockup area - Dark theme */}
-                                                <div className="mt-3 flex-1 rounded-2xl bg-[#0a0a0f] border border-yellow-500/20 p-4 overflow-hidden relative shadow-lg">
+                                                <div className="mt-3 flex-1 rounded-2xl bg-white border border-black/10 p-4 overflow-hidden relative shadow-lg">
                                                     {/* iOS Status bar skeleton */}
                                                     <div className="flex justify-between items-center px-2 py-2">
-                                                        <div className="w-10 h-3 rounded bg-yellow-500/20 animate-pulse"></div>
+                                                        <div className="w-10 h-3 rounded bg-black/5 animate-pulse"></div>
                                                         <div className="flex gap-1">
-                                                            <div className="w-4 h-3 rounded bg-yellow-500/20 animate-pulse"></div>
-                                                            <div className="w-4 h-3 rounded bg-yellow-500/20 animate-pulse"></div>
-                                                            <div className="w-6 h-3 rounded bg-yellow-500/20 animate-pulse"></div>
+                                                            <div className="w-4 h-3 rounded bg-black/5 animate-pulse"></div>
+                                                            <div className="w-4 h-3 rounded bg-black/5 animate-pulse"></div>
+                                                            <div className="w-6 h-3 rounded bg-black/5 animate-pulse"></div>
                                                         </div>
                                                     </div>
 
                                                     {/* Header skeleton */}
                                                     <div className="mt-4 px-2">
-                                                        <div className="w-32 h-6 rounded-lg bg-yellow-500/20 animate-pulse"></div>
+                                                        <div className="w-32 h-6 rounded-lg bg-black/5 animate-pulse"></div>
                                                     </div>
 
                                                     {/* Hero skeleton */}
                                                     <div className="mt-4 px-2">
-                                                        <div className="w-full h-36 rounded-2xl bg-yellow-500/10 animate-pulse"></div>
+                                                        <div className="w-full h-36 rounded-2xl bg-black/5 animate-pulse"></div>
                                                     </div>
 
                                                     {/* Cards skeleton */}
                                                     <div className="mt-4 px-2 space-y-3">
-                                                        <div className="w-full h-16 rounded-xl bg-yellow-500/10 animate-pulse"></div>
-                                                        <div className="w-full h-16 rounded-xl bg-yellow-500/10 animate-pulse"></div>
-                                                        <div className="w-full h-16 rounded-xl bg-yellow-500/10 animate-pulse"></div>
+                                                        <div className="w-full h-16 rounded-xl bg-black/5 animate-pulse"></div>
+                                                        <div className="w-full h-16 rounded-xl bg-black/5 animate-pulse"></div>
+                                                        <div className="w-full h-16 rounded-xl bg-black/5 animate-pulse"></div>
                                                     </div>
 
                                                     {/* Bottom nav skeleton */}
-                                                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-[#0f0f14] border-t border-yellow-500/20">
+                                                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gray-50 border-t border-black/5">
                                                         <div className="flex justify-around items-center h-full px-8">
-                                                            <div className="w-6 h-6 rounded-full bg-yellow-500/20 animate-pulse"></div>
-                                                            <div className="w-6 h-6 rounded-full bg-yellow-500/20 animate-pulse"></div>
-                                                            <div className="w-6 h-6 rounded-full bg-yellow-500/20 animate-pulse"></div>
-                                                            <div className="w-6 h-6 rounded-full bg-yellow-500/20 animate-pulse"></div>
+                                                            <div className="w-6 h-6 rounded-full bg-black/5 animate-pulse"></div>
+                                                            <div className="w-6 h-6 rounded-full bg-black/5 animate-pulse"></div>
+                                                            <div className="w-6 h-6 rounded-full bg-black/5 animate-pulse"></div>
+                                                            <div className="w-6 h-6 rounded-full bg-black/5 animate-pulse"></div>
                                                         </div>
                                                     </div>
                                                 </div>
