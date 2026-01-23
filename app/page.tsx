@@ -27,8 +27,8 @@ function HomePageContent() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#FCFCFC] text-black">
-      <div className="absolute inset-0 z-0 opacity-60">
-        <Tiles rows={60} cols={20} tileSize="lg" />
+      <div className="absolute inset-0 z-0 opacity-40">
+        <Tiles rows={150} cols={60} tileSize="xs" />
       </div>
       <div className="relative z-10 min-h-screen w-full overflow-y-auto scroll-smooth">
         <Header />
