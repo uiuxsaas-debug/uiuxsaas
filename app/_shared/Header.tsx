@@ -72,9 +72,9 @@ function Header() {
                         <div className="h-8 w-8 md:h-10 md:w-10 bg-black/5 animate-pulse rounded-full ring-2 ring-black/5"></div>
                     </div>
                 ) : !user ? (
-                    <SignInButton mode='modal'>
-                        <Button className="rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 transition-all transform hover:-translate-y-0.5 bg-[#FF5200] text-white font-semibold border-0 hover:bg-[#e04800]">Get Started</Button>
-                    </SignInButton>
+                    <Button className="rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 transition-all transform hover:-translate-y-0.5 bg-[#FF5200] text-white font-semibold border-0 hover:bg-[#e04800]" asChild>
+                        <Link href="/sign-in">Get Started</Link>
+                    </Button>
                 ) : (
                     <div className='flex items-center gap-4'>
                         <Button className='hidden md:flex bg-[#FF5200] text-white font-semibold hover:bg-[#e04800] rounded-full shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 transition-all transform hover:-translate-y-0.5 border-0' asChild>
