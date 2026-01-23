@@ -44,7 +44,7 @@ function Hero() {
 
             {/* Input Box */}
             <div className="flex w-full mt-0 sm:mt-5 justify-center px-2 md:px-0 mb-6">
-                <InputGroup className='w-full max-w-2xl bg-white z-10 rounded-xl shadow-lg shadow-[#FF5200]/5 border border-black/10 hover:border-[#FF5200]/30 transition-all duration-300'>
+                <InputGroup className='w-full max-w-2xl bg-white z-10 rounded-xl shadow-lg shadow-[#FF5200]/5 border border-[#FF5200]/30 transition-all duration-300'>
                     <InputGroupTextarea
                         data-slot="input-group-control"
                         className="w-full bg-transparent px-4 py-2 text-sm transition-[color,box-shadow] outline-none placeholder:text-black/40 font-medium text-black min-h-[150px] h-[150px] max-h-[150px] resize-none overflow-y-auto"

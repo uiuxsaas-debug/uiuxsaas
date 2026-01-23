@@ -12,7 +12,7 @@ export default function Footer() {
     };
 
     return (
-        <footer className="w-full border-t border-black/5 bg-white/80 backdrop-blur-xl py-10 px-6 text-black relative z-10 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.02)]">
+        <footer className="w-full border-t border-black/10 bg-[#FCFCFC] py-10 px-6 text-black relative z-20">
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10">
                 {/* Logo - Full width on mobile, 1 col on md+ */}
                 <div className="col-span-1 md:col-span-1">
