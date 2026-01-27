@@ -11,8 +11,8 @@ const appFont = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "UIUX Mockup generator App",
-  description: "Generate High quality Free UIUX Mobile and Web Mokcup designs",
+  title: "AppyScreen | Design Mobile Apps with AI in Seconds",
+  description: "Turn your idea into professional, developer-ready mobile app designs instantly. The #1 AI-powered interface generator for founders and teams.",
 };
 
 export default function RootLayout({
