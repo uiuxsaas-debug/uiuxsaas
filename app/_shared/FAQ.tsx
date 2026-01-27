@@ -10,32 +10,32 @@ import {
 export default function FAQ() {
     const faqs = [
         {
-            question: "What makes AppyScreen different from other design tools?",
-            answer: "AppyScreen leverages advanced AI to generate developer-ready UI designs in seconds, not hours. Unlike traditional tools where you start from scratch, we provide comprehensive, editable designs (wireframes to high-fidelity) tailored to your text descriptions."
+            question: "How does AppyScreen generate mobile apps?",
+            answer: "AppyScreen uses advanced AI to understand your text descriptions and generate complete, developer-ready mobile app designs in seconds. It builds everything from layout to typography based on best practices."
         },
         {
-            question: "Can I export my designs to code?",
-            answer: "Yes! You can export your designs directly to clean, production-ready code (React, Tailwind CSS) or export them to Figma to continue refining your work in your favorite design tool."
+            question: "Can I export my app designs to code?",
+            answer: "Yes! You can export your generated screens directly to React code with Tailwind CSS, ready for your developers to use. You can also export to Figma for further editing."
         },
         {
             question: "Is AppyScreen only for mobile apps?",
-            answer: "While we specialize in creating stunning mobile-first experiences, AppyScreen is fully capable of generating responsive web landing pages, dashboard interfaces, and tablet layouts."
+            answer: "We specialize in mobile-first applications, ensuring your product looks perfect on phones. Our AI generates responsive layouts that work beautifully across devices."
         },
         {
-            question: "Can I customize the AI-generated designs?",
-            answer: "Absolutely. The AI provides the foundation, but you have full control. You can edit text, swap images, adjust layouts, and modify colors directly within our editor before exporting."
+            question: "Can I customize the generated apps?",
+            answer: "Absolutely. The AI gives you a strong foundation, but you have full control. You can regenerate sections, edit text, swap images, and tweak styles to match your brand perfectly."
         },
         {
-            question: "Do I own the designs I create?",
-            answer: "Yes, you have full commercial ownership of all designs and code generated with your account. You can use them for client projects, personal apps, or commercial products without restriction."
+            question: "Do I own the app designs I create?",
+            answer: "Yes, you own 100% of the designs and code you generate. Use them for your startup, client projects, or commercial apps without any restrictions."
         },
         {
-            question: "Can I test AppyScreen before subscribing?",
-            answer: "Yes, you can try AppyScreen for free. Sign up to receive complimentary credits that allow you to explore our AI models, generate designs, and test our editing capabilities."
+            question: "Can I try generating an app for free?",
+            answer: "Yes, create a free account to get starter credits. You can generate your first few app screens and experience the magic of AI design before upgrading."
         },
         {
-            question: "Is my data used to train your AI models?",
-            answer: "We prioritize your data privacy. Your private project data and specific design inputs are strictly confidential and are not used to train our public AI models without your explicit consent."
+            question: "Is my app idea private?",
+            answer: "Your privacy is our priority. Your app ideas and prompts are private to your account and are not shared or used to train public models without your permission."
         }
     ];
 

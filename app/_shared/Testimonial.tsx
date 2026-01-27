@@ -9,10 +9,10 @@ export default function Testimonial() {
         <section className="px-4 sm:px-16 md:px-24 py-8 md:py-16 max-w-7xl mx-auto" id="testimonials">
             <div className="flex flex-col gap-2 mb-10 text-center md:text-left">
                 <h3 className="bg-gradient-to-r from-[#FF5200] via-[#FF8F00] to-[#FF5200] text-transparent bg-clip-text animate-gradient text-4xl md:text-5xl font-black leading-tight pb-2">
-                    Our Users Love Us
+                    Loved by App Founders
                 </h3>
                 <p className="text-lg md:text-2xl leading-normal text-black/80">
-                    Hear what our community is saying
+                    30k+ apps generated last month
                 </p>
             </div>
 

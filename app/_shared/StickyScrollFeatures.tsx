@@ -23,19 +23,19 @@ export default function StickyScrollFeatures() {
         <section className="relative flex flex-col w-full pb-0 md:pb-8 bg-white" id="features">
             <div className="flex flex-col gap-2 text-center w-full max-w-7xl mx-auto mb-10 md:mb-16">
                 <h2 className="flex flex-wrap justify-center text-black max-w-7xl text-2xl md:text-5xl lg:text-6xl font-black leading-tight mx-auto mb-4 px-4 sm:px-16 md:px-24">
-                    Create designs <span className="text-[#FF5200] mx-3">faster</span> and <span className="text-[#FF5200] ml-1">better</span>
+                    Generate Production-Ready <span className="text-[#FF5200] mx-3">Apps</span>
                 </h2>
                 <p className="flex justify-center text-lg md:text-2xl text-center text-black/70 max-w-7xl mx-auto px-4 sm:px-16 md:px-24 mb-4">
-                    Integrate AI into your UX workflow
+                    From prompt to prototype in seconds
                 </p>
             </div>
 
             {/* Mobile Layout (Stacked) */}
             <div className="block xl:hidden px-4 sm:px-16 md:px-24 pb-20">
                 <div className="mb-20">
-                    <h2 className="text-2xl font-black text-black mb-4">Hifi Designer</h2>
+                    <h2 className="text-2xl font-black text-black mb-4">AI App Generator</h2>
                     <p className="text-base md:text-lg text-black/70 mb-4">
-                        Instantly generate high-fidelity UI designs and create pixel perfect screens in seconds.
+                        Instantly generate high-fidelity mobile app screens. No more starting from blank canvas.
                     </p>
                     <Link className="text-base leading-normal text-[#FF5200] font-bold flex flex-row items-center mb-8 hover:opacity-80 transition-opacity" href="/dashboard">
                         <span>Learn more</span>
@@ -53,9 +53,9 @@ export default function StickyScrollFeatures() {
                 </div>
 
                 <div className="mb-0">
-                    <h2 className="text-2xl font-black text-black mb-4">AI Wireframer</h2>
+                    <h2 className="text-2xl font-black text-black mb-4">Text to Design</h2>
                     <p className="text-base md:text-lg text-black/70 mb-4">
-                        Generate flexible wireframes for desktop and mobile. Explore a wide range of UX design concepts in a few seconds with AI.
+                        Simply describe your idea in plain text, and our AI will generate the full mobile app UI, ready for development.
                     </p>
                     <Link className="text-base leading-normal text-[#FF5200] font-bold flex flex-row items-center mb-8 hover:opacity-80 transition-opacity" href="/dashboard">
                         <span>Learn more</span>
@@ -84,9 +84,9 @@ export default function StickyScrollFeatures() {
                             animate={{ opacity: activeFeature === 1 ? 1 : 0.3 }}
                             transition={{ duration: 0.5 }}
                         >
-                            <h2 className="text-3xl font-black text-black">Hifi Designer</h2>
+                            <h2 className="text-3xl font-black text-black">AI App Generator</h2>
                             <p className="text-lg text-black/70 max-w-sm mt-6 leading-relaxed">
-                                Instantly generate high-fidelity UI designs and create pixel perfect screens in seconds.
+                                Instantly generate high-fidelity mobile app screens. No more starting from blank canvas.
                             </p>
                             <Link className="text-base leading-normal text-[#FF5200] font-bold max-w-sm mt-6 flex flex-row items-center hover:opacity-80 transition-opacity" href="/dashboard">
                                 <span>Learn more</span>
@@ -102,9 +102,9 @@ export default function StickyScrollFeatures() {
                             animate={{ opacity: activeFeature === 2 ? 1 : 0.3 }}
                             transition={{ duration: 0.5 }}
                         >
-                            <h2 className="text-3xl font-black text-black">AI Wireframer</h2>
+                            <h2 className="text-3xl font-black text-black">Text to Design</h2>
                             <p className="text-lg text-black/70 max-w-sm mt-6 leading-relaxed">
-                                Generate flexible wireframes for desktop and mobile. Explore a wide range of UX design concepts in a few seconds with AI.
+                                Simply describe your idea in plain text, and our AI will generate the full mobile app UI, ready for development.
                             </p>
                             <Link className="text-base leading-normal text-[#FF5200] font-bold max-w-sm mt-6 flex flex-row items-center hover:opacity-80 transition-opacity" href="/dashboard">
                                 <span>Learn more</span>

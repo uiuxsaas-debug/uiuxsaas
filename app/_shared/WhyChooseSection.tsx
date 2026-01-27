@@ -25,20 +25,20 @@ export default function WhyChooseSection() {
 
             <div className="flex flex-col gap-5 order-1 lg:order-2 text-left">
                 <h2 className="uppercase font-prosemibold text-sm sm:text-base bg-gradient-to-r from-[#FF5200] via-[#FF8F00] to-[#FF5200] text-transparent bg-clip-text animate-gradient w-fit">
-                    Revolutionize Your UX Process
+                    Revolutionize Your Process
                 </h2>
                 <h2 className="text-3xl md:text-5xl font-black leading-tight bg-clip-text text-transparent bg-gradient-to-r from-[#FF5200] to-orange-600 pb-2">
-                    Why Choose AI-Powered UX Design?
+                    Why Build with AppyScreen?
                 </h2>
                 <p className="text-base sm:text-lg text-black/70 mt-2 leading-relaxed">
-                    AppyScreen brings the power of artificial intelligence to your design workflow, helping you create <strong>better user experiences in less time</strong>. Our AI-enhanced platform transforms how teams approach <strong>UX research, design, and validation</strong>:
+                    AppyScreen brings the power of artificial intelligence to your app development workflow, helping you <strong>generate professional mobile apps in less time</strong>. Our AI-driven platform transforms how founders and teams approach <strong>product design and validation</strong>:
                 </p>
                 <ul className="text-base text-black/80 list-disc pl-5 space-y-3 mt-4 marker:text-[#FF5200]">
-                    <li>Save <strong>countless hours</strong> on repetitive design tasks while maintaining complete creative control.</li>
-                    <li>Get <strong>data-driven insights</strong> that help validate your design decisions and improve user satisfaction.</li>
-                    <li>Unlike other AI tools, get <strong>truly flexible designs</strong> that precisely follow your requirements.</li>
+                    <li>Generate <strong>weeks of design work</strong> in minutes while maintaining complete creative control.</li>
+                    <li>Explore <strong>thousands of layouts</strong> instantly to find the perfect fit for your app idea.</li>
+                    <li>Unlike other AI tools, get <strong>truly production-ready designs</strong> that developers can implement immediately.</li>
                     <li>Reduce the time from concept to implementation by <strong>up to 80%</strong>.</li>
-                    <li>Enable your entire team to contribute to the UX process with an <strong>AI assistant</strong>.</li>
+                    <li>Enable your entire team to contribute to the product vision with an <strong>AI design assistant</strong>.</li>
                 </ul>
             </div>
         </section>

@@ -4,20 +4,20 @@ import Link from 'next/link';
 
 const features = [
     {
-        title: "Intelligent Design Controls",
-        description: "Enhance your designs easily using AI-driven controls. Create complete screens using text and natural language, and fine-tune designed screens with precise controls.",
+        title: "Text to App Design",
+        description: "Describe your app idea and watch as AI generates complete, multi-screen mobile app designs in seconds.",
         icon: <Layout className="w-6 h-6 text-white" />,
         color: "bg-blue-600",
-        imageAlt: "Intelligent Design Controls Example",
+        imageAlt: "Text to App Design Example",
         cta: "Try it now",
         link: "/login"
     },
     {
-        title: "Unlimited Design Variations",
-        description: "Discover and modify interface elements instantly. Build trendy, adaptive interface options and experiment with diverse UI styles and structures.",
+        title: "Smart Iterations",
+        description: "Not just one option. Generate unlimited variations of your app's look and feel until it matches your vision perfectly.",
         icon: <RefreshCw className="w-6 h-6 text-white" />,
         color: "bg-pink-600",
-        imageAlt: "Design Variations Example",
+        imageAlt: "Smart Iterations Example",
         cta: "Try it now",
         link: "/signup"
     },
@@ -28,7 +28,7 @@ function Features() {
         <section id="features" className="py-24 px-4 md:px-8 relative z-10 max-w-7xl mx-auto">
             <div className="text-center mb-20">
                 <h2 className="text-2xl md:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#FF5200] to-orange-600 mb-6 pb-2">
-                    AppyScreen's Unique Features
+                    Generative UI Tools
                 </h2>
                 <p className="text-black/60 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
                     Explore the tools that empower your design process.

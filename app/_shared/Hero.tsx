@@ -7,7 +7,7 @@ import {
     InputGroupButton,
     InputGroupTextarea,
 } from "@/components/ui/input-group"
-import { ChevronRight, Loader, Send, Star, Zap } from 'lucide-react'
+import { ChevronRight, Loader, Send, Star, Zap, ImageIcon } from 'lucide-react'
 import { suggestions } from '@/data/constant'
 import { useCreateProject } from '@/hooks/use-create-project';
 import { Button } from '@/components/ui/button'
@@ -66,29 +66,33 @@ function Hero() {
 
                 {/* Badge */}
                 <div className='flex items-center justify-center w-full mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700'>
-
                     <div className="group relative inline-flex items-center justify-center rounded-full px-4 py-1.5 transition-all duration-300 ease-out bg-orange-50/50 border border-orange-100 hover:border-orange-200 hover:bg-orange-50">
-                        <span className="flex h-2 w-2 rounded-full bg-[#FF5200] mr-2 animate-pulse"></span>
-                        <span className="text-xs font-semibold text-[#FF5200] tracking-wide uppercase">
-                            New: AI Design Generation
+                        <div className="flex -space-x-2 mr-3">
+                            {[1, 2, 3].map((i) => (
+                                <div key={i} className="w-5 h-5 rounded-full border border-white bg-gray-200 overflow-hidden">
+                                    <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 10}`} alt="User" />
+                                </div>
+                            ))}
+                        </div>
+                        <span className="text-xs font-semibold text-[#FF5200] tracking-wide">
+                            30k+ app founders build with AppyScreen
                         </span>
-                        <ChevronRight className="ml-1 size-3 text-[#FF5200] transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
                     </div>
                 </div>
 
                 {/* Heading */}
+                {/* Heading */}
                 <h1 className='text-3xl md:text-6xl lg:text-7xl font-black text-center leading-[1.1] tracking-tight text-gray-900 mb-6 max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100'>
-                    Smarter UX Design with <span className='text-[#FF5200] inline-block relative'>
-                        AI
-                        <svg className="absolute w-full h-3 -bottom-1 left-0 text-[#FF5200]/20" viewBox="0 0 100 10" preserveAspectRatio="none">
-                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="6" fill="none" />
-                        </svg>
-                    </span>, done in seconds
+                    Design mobile apps <span className='text-[#FF5200] inline-block relative'>
+                        in minutes
+                        <Zap className="inline-block ml-1 w-8 h-8 md:w-12 md:h-12 text-[#FF5200] fill-[#FF5200] rotate-12" />
+                    </span>
                 </h1>
 
                 {/* Subheading */}
+                {/* Subheading */}
                 <p className='text-center text-gray-500 text-base md:text-xl max-w-2xl leading-relaxed font-medium mb-10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200'>
-                    Stop wasting weeks on wireframes. Launch professional, developer-ready mobile app designs faster than ever with our advanced AI.
+                    Go from idea to beautiful app mockups in minutes by chatting with AI.
                 </p>
 
                 {/* CTA & Social Proof */}
@@ -97,7 +101,7 @@ function Hero() {
                     <InputGroup className='w-full bg-white z-10 rounded-xl shadow-inner border border-gray-200 focus-within:border-[#FF5200] focus-within:ring-2 focus-within:ring-[#FF5200]/10 transition-all duration-300'>
                         <InputGroupTextarea
                             className="w-full bg-transparent px-4 py-3 text-base transition-[color,box-shadow] outline-none placeholder:text-gray-400 font-medium text-gray-900 min-h-[120px] resize-none"
-                            placeholder="e.g. A fitness tracking app with social features and gamification..."
+                            placeholder="I want to design an app that..."
                             value={userInput}
                             onChange={(event) => setUserInput(event.target?.value)}
                         />
@@ -114,7 +118,7 @@ function Hero() {
                                 disabled={loading}
                                 onClick={onCreateProject}
                             >
-                                {loading ? <Loader className='animate-spin h-4 w-4' /> : <span className='flex items-center gap-2'>Generate <Zap size={14} className="fill-white" /></span>}
+                                {loading ? <Loader className='animate-spin h-4 w-4' /> : <span className='flex items-center gap-2'>Design it <Zap size={14} className="fill-white" /></span>}
                             </InputGroupButton>
                         </InputGroupAddon>
                     </InputGroup>
