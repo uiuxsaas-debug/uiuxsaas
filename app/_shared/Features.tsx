@@ -11,22 +11,13 @@ const features = [
         imageAlt: "Text to App Design Example",
         cta: "Try it now",
         link: "/login"
-    },
-    {
-        title: "Smart Iterations",
-        description: "Not just one option. Generate unlimited variations of your app's look and feel until it matches your vision perfectly.",
-        icon: <RefreshCw className="w-6 h-6 text-white" />,
-        color: "bg-pink-600",
-        imageAlt: "Smart Iterations Example",
-        cta: "Try it now",
-        link: "/signup"
-    },
+    }
 ];
 
 function Features() {
     return (
         <section id="features" className="py-24 px-4 md:px-8 relative z-10 max-w-7xl mx-auto">
-            <div className="text-center mb-20">
+            <div className="text-center mb-20 animate-in fade-in slide-in-from-bottom-6 duration-700">
                 <h2 className="text-2xl md:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#FF5200] to-orange-600 mb-6 pb-2">
                     Generative UI Tools
                 </h2>
@@ -39,27 +30,24 @@ function Features() {
                 {features.map((feature, index) => (
                     <div key={index}
                         className={cn(
-                            "flex flex-col gap-12 items-center",
-                            index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
+                            "flex flex-col gap-12 items-center lg:flex-row"
                         )}
                     >
                         {/* Visual Side */}
-                        <div className="w-full lg:w-1/2 group">
-                            <div className="bg-white border border-black/5 rounded-[40px] p-8 md:p-12 h-[300px] md:h-[400px] relative flex items-center justify-center overflow-hidden shadow-2xl shadow-black/5 group-hover:shadow-black/10 transition-shadow duration-500">
+                        <div className="w-full lg:w-1/2 group animate-in fade-in slide-in-from-left-6 duration-700 delay-100">
+                            <div className="bg-white border border-black/5 rounded-[40px] p-2 md:p-3 h-auto aspect-video relative flex items-center justify-center overflow-hidden shadow-2xl shadow-black/5 group-hover:shadow-black/10 transition-shadow duration-500">
                                 <div className={cn("absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500", feature.color)} />
 
-                                {/* Placeholder Visual - Replace with actual images/components if available */}
-                                <div className="text-center relative z-10">
-                                    <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg", feature.color)}>
-                                        {feature.icon}
-                                    </div>
-                                    <h4 className="text-xl font-bold text-black/80 mb-2">
-                                        {feature.title.split(' ')[0]} Visual
-                                    </h4>
-                                    <p className="text-sm text-black/40">Mockup for {feature.imageAlt}</p>
-
-                                    {/* Abstract Shapes Decoration */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-tr from-transparent to-white/50 rounded-full blur-3xl pointer-events-none" />
+                                <div className="relative w-full h-full rounded-3xl overflow-hidden border border-black/5 bg-gray-50">
+                                    <video
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        className="w-full h-full object-cover"
+                                    >
+                                        <source src="/video.mp4" type="video/mp4" />
+                                    </video>
                                 </div>
                             </div>
                         </div>

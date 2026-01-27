@@ -45,7 +45,7 @@ export default function StickyScrollFeatures() {
                         <div className="bg-gradient-to-t rounded-2xl from-[#FF5200]/10 to-[#FF8F00]/10 border-2 border-[#FF5200]/20 p-3">
                             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-black/5 shadow-xl">
                                 <video autoPlay muted loop playsInline className="w-full h-full object-cover">
-                                    <source src="https://d2r1ah7oa8r7ja.cloudfront.net/videos/ui-20-2-with-section-edits-overview_5.mp4" type="video/mp4" />
+                                    <source src="/video.mp4" type="video/mp4" />
                                 </video>
                             </div>
                         </div>
@@ -65,7 +65,7 @@ export default function StickyScrollFeatures() {
                         <div className="bg-gradient-to-t rounded-2xl from-[#FF5200]/10 to-[#FF8F00]/10 border-2 border-[#FF5200]/20 p-3">
                             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-black/5 shadow-xl">
                                 <video autoPlay muted loop playsInline className="w-full h-full object-cover">
-                                    <source src="https://d2r1ah7oa8r7ja.cloudfront.net/videos/mobile-autoflow-1-1000-1mbps.mp4" type="video/mp4" />
+                                    <source src="/video.mp4" type="video/mp4" />
                                 </video>
                             </div>
                         </div>
@@ -114,46 +114,18 @@ export default function StickyScrollFeatures() {
                     </div>
                 </div>
 
-                {/* Right Column: Sticky Video */}
                 <div className="w-[50%] h-screen sticky top-0 flex items-center justify-end">
                     <div className="relative w-full h-full mr-[-5vw] xl:mr-[-150px]">
-                        {/* Video 1 Container */}
-                        <motion.div
-                            className="absolute inset-0 w-full h-full"
-                            initial={{ opacity: 1, x: 0 }}
-                            animate={{
-                                opacity: activeFeature === 1 ? 1 : 0,
-                                x: activeFeature === 1 ? 0 : 20
-                            }}
-                            transition={{ duration: 0.5, ease: "easeInOut" }}
-                        >
+                        {/* Static Video Container */}
+                        <div className="absolute inset-0 w-full h-full">
                             <div className="h-full w-full bg-gradient-to-l rounded-l-[40px] from-[#FF5200]/5 to-[#FF8F00]/5 border-y-2 border-l-2 border-[#FF5200]/20 p-2 lg:p-3 pr-0 overflow-hidden">
                                 <div className="relative h-full w-full overflow-hidden rounded-l-3xl border border-black/5 shadow-2xl bg-white">
                                     <video autoPlay muted loop playsInline className="w-full h-full object-cover object-left-top">
-                                        <source src="https://d2r1ah7oa8r7ja.cloudfront.net/videos/ui-20-2-with-section-edits-overview_5.mp4" type="video/mp4" />
+                                        <source src="/video.mp4" type="video/mp4" />
                                     </video>
                                 </div>
                             </div>
-                        </motion.div>
-
-                        {/* Video 2 Container */}
-                        <motion.div
-                            className="absolute inset-0 w-full h-full"
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{
-                                opacity: activeFeature === 2 ? 1 : 0,
-                                x: activeFeature === 2 ? 0 : 20
-                            }}
-                            transition={{ duration: 0.5, ease: "easeInOut" }}
-                        >
-                            <div className="h-full w-full bg-gradient-to-l rounded-l-[40px] from-[#FF5200]/5 to-[#FF8F00]/5 border-y-2 border-l-2 border-[#FF5200]/20 p-2 lg:p-3 pr-0 overflow-hidden">
-                                <div className="relative h-full w-full overflow-hidden rounded-l-3xl border border-black/5 shadow-2xl bg-white">
-                                    <video autoPlay muted loop playsInline className="w-full h-full object-cover object-left-top">
-                                        <source src="https://d2r1ah7oa8r7ja.cloudfront.net/videos/mobile-autoflow-1-1000-1mbps.mp4" type="video/mp4" />
-                                    </video>
-                                </div>
-                            </div>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </div>

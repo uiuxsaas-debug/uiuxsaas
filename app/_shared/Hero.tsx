@@ -136,7 +136,7 @@ function Hero() {
                                     <img
                                         alt={item}
                                         className="object-cover w-full h-full"
-                                        src={`/assets/images/${item}.png`}
+                                        src="https://unsplash.com/photos/a-man-wearing-a-necklace-with-a-cross-on-it-nSBl2cfwnmE"
                                         onError={(e) => {
                                             e.currentTarget.src = `https://placehold.co/375x812/FF5200/FFFFFF?text=${item.charAt(0).toUpperCase() + item.slice(1)}`;
                                         }}
