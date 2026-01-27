@@ -114,7 +114,7 @@ function Hero() {
                                 ))}
                             </div>
                             <InputGroupButton
-                                className="bg-[#FF5200] text-white font-semibold hover:bg-[#e04800] px-4 py-2 h-auto rounded-lg text-sm transition-all shadow-md shadow-orange-500/20"
+                                className="bg-[#FF5200] text-white font-semibold hover:bg-[#e04800] px-4 py-2 h-auto rounded-lg hover:text-white text-sm transition-all shadow-md shadow-orange-500/20"
                                 disabled={loading}
                                 onClick={onCreateProject}
                             >
