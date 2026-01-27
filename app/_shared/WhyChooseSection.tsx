@@ -13,10 +13,10 @@ export default function WhyChooseSection() {
                     </div>
                     {/* 
                      <Image 
-                        alt="Why UX Pilot?" 
+                        alt="Why AppyScreen?" 
                         width={600} 
                         height={400} 
-                        src="/assets/images/what-is-uxpilot.png" 
+                        src="/assets/images/what-is-appyscreen.png" 
                         className="object-cover"
                      />
                      */}

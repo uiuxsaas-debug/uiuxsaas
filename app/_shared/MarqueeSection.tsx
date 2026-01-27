@@ -8,9 +8,9 @@ export default function MarqueeSection() {
         <section className="w-full relative pt-10 pb-0 overflow-hidden">
             <div className="relative w-full items-center mt-0 mb-20 md:mb-32">
                 <Link className="absolute -bottom-4 flex w-full mx-auto items-center z-[10]" href="/signup">
-                    <div className="flex items-center px-4 py-2 rounded-full shadow-md mx-auto border-2 border-purple-200 hover:border-[#FF5200] transition-colors group">
+                    <div className="flex items-center px-4 py-2 rounded-full shadow-md mx-auto border-2 border-orange-200 hover:border-[#FF5200] transition-colors group">
                         <img src="/assets/icons/Generate_D.svg" className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" alt="Generate icon" onError={(e) => e.currentTarget.style.display = 'none'} />
-                        <p className="text-purple-700 group-hover:text-[#FF5200] text-base font-semibold transition-colors">Made in UX Pilot</p>
+                        <p className="text-[#FF5200] group-hover:text-[#FF5200] text-base font-semibold transition-colors">Made in AppyScreen</p>
                     </div>
                 </Link>
 
