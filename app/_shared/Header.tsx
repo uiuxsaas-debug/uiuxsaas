@@ -32,23 +32,22 @@ function Header() {
 
     return (
 
-        <div className={`flex items-center justify-between px-4 py-3 md:px-6 lg:px-8 fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-xl border-b border-black/5' : 'bg-transparent'
-            }`}>
+        <div className={`flex items-center justify-between px-4 py-3 md:px-6 lg:px-8 w-full z-50 transition-all duration-300 absolute top-0 bg-transparent`}>
             <Link href={'/'}>
                 <div className='flex gap-2 items-center hover:scale-105 transition-transform'>
-                    <Image src={'/logo.png'} alt='logo' width={40} height={40} className="w-8 h-8 md:w-10 md:h-10" />
+                    <Image src={'/logo.png'} alt='AppyScreen Logo' width={40} height={40} className="w-8 h-8 md:w-10 md:h-10" />
                     <h2 className='text-lg md:text-xl font-bold font-sans tracking-tight'> <span className='text-[#FF5200]'>Appy</span><span className='font-light text-black'>Screen</span></h2>
                 </div>
             </Link>
 
             {/* Navigation Links */}
             <nav className="hidden md:flex items-center gap-6">
-                <Link
+                {/* <Link
                     href="/#how-it-works"
                     className="text-black hover:text-[#FF5200] transition-colors text-sm font-medium"
                 >
                     How it Works
-                </Link>
+                </Link> */}
                 <Link
                     href="/#pricing"
                     className="text-black hover:text-[#FF5200] transition-colors text-sm font-medium"

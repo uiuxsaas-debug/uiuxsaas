@@ -71,7 +71,7 @@ const pricingTiers: PricingTier[] = [
         name: 'Pro',
         tagline: 'For even higher AI limits',
         badge: 'EARLY BIRD',
-        badgeColor: 'bg-green-500/20 text-green-400',
+        badgeColor: 'bg-orange-500/20 text-orange-400',
         price: { monthly: 50, yearly: 42 },
         credits: { monthly: 20000, messages: 400 },
         features: [
@@ -91,7 +91,7 @@ const pricingTiers: PricingTier[] = [
         name: 'Team',
         tagline: 'Built for collaboration',
         badge: 'EARLY BIRD',
-        badgeColor: 'bg-green-500/20 text-green-400',
+        badgeColor: 'bg-orange-500/20 text-orange-400',
         price: { monthly: 57, yearly: 48 },
         priceLabel: '/user/mo',
         credits: { monthly: 30000, messages: 600 },
@@ -154,10 +154,10 @@ export default function PricingSection() {
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4">
+                    <h2 className="text-3xl md:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#FF5200] to-orange-600 mb-6 pb-2">
                         Transparent pricing for everyone
                     </h2>
-                    <p className="text-black/60 text-lg max-w-2xl mx-auto">
+                    <p className="text-black/60 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
                         A fraction of the cost and time of hiring designers or doing it yourself from scratch.
                     </p>
                 </div>
@@ -281,7 +281,7 @@ export default function PricingSection() {
                                 <ul className="space-y-2.5">
                                     {tier.features.map((feature, index) => (
                                         <li key={index} className="flex items-center gap-2.5 text-sm">
-                                            <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+                                            <Check className="w-4 h-4 text-[#FF5200] flex-shrink-0" />
                                             <span className="text-black/70">{feature.text}</span>
                                             {feature.hasInfo && (
                                                 <Info className="w-3.5 h-3.5 text-black/30 cursor-help flex-shrink-0" />

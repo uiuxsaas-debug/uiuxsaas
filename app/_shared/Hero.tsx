@@ -1,98 +1,202 @@
 "use client"
 import React, { useState } from 'react'
+import Link from 'next/link'
 import {
     InputGroup,
     InputGroupAddon,
     InputGroupButton,
     InputGroupTextarea,
 } from "@/components/ui/input-group"
-import { ChevronRight, Loader, Send } from 'lucide-react'
+import { ChevronRight, Loader, Send, Star, Zap } from 'lucide-react'
 import { suggestions } from '@/data/constant'
 import { useCreateProject } from '@/hooks/use-create-project';
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import useEmblaCarousel from 'embla-carousel-react'
+import { cn } from '@/lib/utils'
 
 function Hero() {
-
     const [userInput, setUserInput] = useState<string>('')
     const { createProject, loading } = useCreateProject();
+    const [open, setOpen] = useState(false)
+    const [emblaRef] = useEmblaCarousel({ loop: true })
 
     const onCreateProject = () => {
         createProject(userInput, 'mobile'); // Always mobile
+        setOpen(false)
     }
 
     return (
-        <div className='px-4 md:px-8 lg:px-16 xl:px-24 mt-20 md:mt-30 flex flex-col items-center max-w-7xl mx-auto w-full'>
-            {/* Badge */}
-            <div className='flex items-center justify-center w-full mb-2'>
-                <div className="group relative inline-flex items-center justify-center rounded-full px-3 py-1 transition-all duration-500 ease-out bg-white border border-black/10 shadow-sm hover:border-[#FF5200]/30 hover:shadow-md">
-                    ✨ <hr className="mx-2 h-3 w-px shrink-0 bg-black/20" />
-                    <span className="text-[10px] md:text-xs font-medium text-black group-hover:text-[#FF5200] transition-colors">
-                        AI-Powered Design
-                    </span>
-                    <ChevronRight className="ml-1 size-3 stroke-black transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 group-hover:stroke-[#FF5200]" />
+        <div className='flex flex-col items-center w-full bg-white overflow-hidden pt-24 md:pt-32 relative'>
+
+            {/* Background Decoration */}
+            <div className='absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none'>
+                <svg
+                    viewBox="0 0 1440 914"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMid slice"
+                    className="absolute top-0 left-0 w-full h-full opacity-60"
+                >
+                    <g>
+                        <path d="M1553 338.047C1553 338.047 1291.94 304.49 1128.5 338.047C959.847 372.675 718.093 344.881 562.5 258.9C492.929 220.455 303.804 171.521 126.208 137.815C-37.5648 106.732 -145 137.815 -145 137.815V746.5C-145 746.5 291.445 696.279 623 696.279C954.555 696.279 1553 789.974 1553 789.974V338.047Z" fill="url(#paint0_linear_hero)" fillOpacity="0.2" />
+                    </g>
+                    <g>
+                        <path d="M-114 240.047C-114 240.047 147.061 206.49 310.5 240.047C479.153 274.675 720.907 346.881 876.5 260.9C946.071 222.455 1135.2 173.521 1312.79 139.815C1476.56 108.732 1584 139.815 1584 139.815V566.5C1584 566.5 1147.56 698.279 816 698.279C484.445 698.279 -91.5 590.5 -91.5 590.5L-114 240.047Z" fill="url(#paint1_linear_hero)" fillOpacity="0.2" />
+                    </g>
+                    <g>
+                        <path d="M484 285C484 384.291 403.411 464.782 304 464.782C204.589 464.782 124 384.291 124 285C124 185.71 243.724 124 343.135 124C442.546 124 484 185.71 484 285Z" fill="#FACC15" fillOpacity="0.12" />
+                    </g>
+                    <defs>
+                        <linearGradient id="paint0_linear_hero" x1="1553" y1="521.652" x2="-145" y2="521.652" gradientUnits="userSpaceOnUse">
+                            <stop offset="0.595" stopColor="#FF5200" />
+                            <stop offset="1" stopColor="#FF9E59" />
+                        </linearGradient>
+                        <linearGradient id="paint1_linear_hero" x1="-114" y1="523.652" x2="1584" y2="523.652" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#FF5200" />
+                            <stop offset="0.385" stopColor="#FF9E59" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
+
+            {/* Main Content Container */}
+            <div className='px-4 md:px-8 lg:px-16 xl:px-24 flex flex-col items-center max-w-7xl mx-auto w-full relative z-10'>
+
+                {/* Badge */}
+                <div className='flex items-center justify-center w-full mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700'>
+
+                    <div className="group relative inline-flex items-center justify-center rounded-full px-4 py-1.5 transition-all duration-300 ease-out bg-orange-50/50 border border-orange-100 hover:border-orange-200 hover:bg-orange-50">
+                        <span className="flex h-2 w-2 rounded-full bg-[#FF5200] mr-2 animate-pulse"></span>
+                        <span className="text-xs font-semibold text-[#FF5200] tracking-wide uppercase">
+                            New: AI Design Generation
+                        </span>
+                        <ChevronRight className="ml-1 size-3 text-[#FF5200] transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+                    </div>
+                </div>
+
+                {/* Heading */}
+                <h1 className='text-3xl md:text-6xl lg:text-7xl font-black text-center leading-[1.1] tracking-tight text-gray-900 mb-6 max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100'>
+                    Smarter UX Design with <span className='text-[#FF5200] inline-block relative'>
+                        AI
+                        <svg className="absolute w-full h-3 -bottom-1 left-0 text-[#FF5200]/20" viewBox="0 0 100 10" preserveAspectRatio="none">
+                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="6" fill="none" />
+                        </svg>
+                    </span>, done in seconds
+                </h1>
+
+                {/* Subheading */}
+                <p className='text-center text-gray-500 text-base md:text-xl max-w-2xl leading-relaxed font-medium mb-10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200'>
+                    Stop wasting weeks on wireframes. Launch professional, developer-ready mobile app designs faster than ever with our advanced AI.
+                </p>
+
+                {/* CTA & Social Proof */}
+                <div className='flex flex-col items-center gap-6 animate-in fade-in slide-in-from-bottom-10 duration-700 delay-300 w-full'>
+                    <Dialog open={open} onOpenChange={setOpen}>
+                        <DialogTrigger asChild>
+                            <Button size="lg" className='h-14 px-8 rounded-full bg-[#FF5200] hover:bg-[#e04800] text-white text-lg font-bold shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all transform hover:-translate-y-0.5'>
+                                Start for free
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className='sm:max-w-xl p-0 overflow-hidden border-0 shadow-2xl bg-transparent shadow-orange-500/10'>
+                            <div className="bg-white p-6 rounded-xl border border-orange-100 shadow-xl">
+                                <DialogHeader className='mb-4'>
+                                    <DialogTitle className='text-2xl font-bold text-center'>Describe your dream app</DialogTitle>
+                                </DialogHeader>
+                                <InputGroup className='w-full bg-white z-10 rounded-xl shadow-inner border border-gray-200 focus-within:border-[#FF5200] focus-within:ring-2 focus-within:ring-[#FF5200]/10 transition-all duration-300'>
+                                    <InputGroupTextarea
+                                        className="w-full bg-transparent px-4 py-3 text-base transition-[color,box-shadow] outline-none placeholder:text-gray-400 font-medium text-gray-900 min-h-[120px] resize-none"
+                                        placeholder="e.g. A fitness tracking app with social features and gamification..."
+                                        value={userInput}
+                                        onChange={(event) => setUserInput(event.target?.value)}
+                                    />
+                                    <InputGroupAddon align="block-end" className="p-2 border-t border-gray-100 bg-gray-50/50 flex justify-between items-center rounded-b-xl">
+                                        <div className="flex gap-2">
+                                            {suggestions.slice(0, 2).map((s, i) => (
+                                                <button key={i} onClick={() => setUserInput(s.description)} className="text-xs bg-white border border-gray-200 px-2 py-1 rounded-md text-gray-500 hover:text-[#FF5200] hover:border-[#FF5200]/30 transition-colors">
+                                                    {s.name}
+                                                </button>
+                                            ))}
+                                        </div>
+                                        <InputGroupButton
+                                            className="bg-[#FF5200] text-white font-semibold hover:bg-[#e04800] px-4 py-2 h-auto rounded-lg text-sm transition-all shadow-md shadow-orange-500/20"
+                                            disabled={loading}
+                                            onClick={onCreateProject}
+                                        >
+                                            {loading ? <Loader className='animate-spin h-4 w-4' /> : <span className='flex items-center gap-2'>Generate <Zap size={14} className="fill-white" /></span>}
+                                        </InputGroupButton>
+                                    </InputGroupAddon>
+                                </InputGroup>
+                            </div>
+                        </DialogContent>
+                    </Dialog>
+
+                    <div className='flex flex-col md:flex-row items-center gap-3 text-sm text-gray-500 font-medium'>
+                        <div className="flex items-center -space-x-2">
+                            {[1, 2, 3, 4].map((i) => (
+                                <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center overflow-hidden">
+                                    <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i}`} alt="User" />
+                                </div>
+                            ))}
+                            <div className="w-8 h-8 rounded-full border-2 border-white bg-[#FF5200] flex items-center justify-center text-[10px] text-white font-bold">
+                                +2k
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <div className="flex">
+                                {[1, 2, 3, 4, 5].map((i) => (
+                                    <Star key={i} className="w-4 h-4 fill-[#FFB800] text-[#FFB800]" />
+                                ))}
+                            </div>
+                            <span className="text-gray-900 font-semibold">4.9/5</span>
+                            <span>from 2,000+ users</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {/* Marquee Section */}
+            <div className="relative w-full items-center mt-12 mb-10 md:mb-20 z-10">
+                <div className="marquee-container flex overflow-hidden py-2 flex-row" style={{ '--duration': '60s', '--gap': '2rem', gap: 'var(--gap)' } as React.CSSProperties}>
+                    {[1, 2].map((group) => (
+                        <div key={group} className="marquee-item flex flex-shrink-0 flex-row gap-8 animate-marquee">
+                            {['vault', 'notes', 'hero', 'shopping', 'crypto', 'trans', 'onboarding', 'launchpad', 'edtech', 'course'].map((item, index) => (
+                                <div key={`${group}-${index}`} className="relative h-[300px] md:h-[450px] aspect-[9/19] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/50 bg-white">
+                                    <img
+                                        alt={item}
+                                        className="object-cover w-full h-full"
+                                        src={`/assets/images/${item}.png`}
+                                        onError={(e) => {
+                                            e.currentTarget.src = `https://placehold.co/375x812/FF5200/FFFFFF?text=${item.charAt(0).toUpperCase() + item.slice(1)}`;
+                                        }}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    ))}
                 </div>
             </div>
 
-            {/* Heading */}
-            <h2 className='text-3xl md:text-5xl lg:text-6xl font-black text-center leading-tight tracking-tight text-black mb-2'>
-                Design High Quality <span className='text-[#FF5200]'>Mobile Apps</span>
-            </h2>
-
-            {/* Subheading */}
-            <p className='text-center mt-0 sm:mt-5  text-black/60 text-xs md:text-sm max-w-md leading-relaxed font-medium mb-4'>
-                Transform your ideas into stunning, intuitive mobile experiences powered by AI. ✨
-            </p>
-
-            {/* Input Box */}
-            <div className="flex w-full mt-0 sm:mt-5 justify-center px-2 md:px-0 mb-6">
-                <InputGroup className='w-full max-w-2xl bg-white z-10 rounded-xl shadow-lg shadow-[#FF5200]/5 border border-[#FF5200]/30 transition-all duration-300'>
-                    <InputGroupTextarea
-                        data-slot="input-group-control"
-                        className="w-full bg-transparent px-4 py-2 text-sm transition-[color,box-shadow] outline-none placeholder:text-black/40 font-medium text-black min-h-[150px] h-[150px] max-h-[150px] resize-none overflow-y-auto"
-                        placeholder="Describe your dream mobile app..."
-                        value={userInput}
-                        onChange={(event) => setUserInput(event.target?.value)}
-                    />
-                    <InputGroupAddon align="block-end" className="p-1.5 flex items-center justify-end">
-                        <InputGroupButton className="bg-[#FF5200] text-white font-semibold hover:bg-[#e04800] hover:text-white cursor-pointer transition-all shadow-md shadow-[#FF5200]/20 hover:shadow-[#FF5200]/40 px-4 h-8 rounded-lg text-xs min-w-[90px] border-0"
-                            disabled={loading}
-                            size="sm"
-                            onClick={() => onCreateProject()}>
-                            {loading ? <Loader className='animate-spin h-3 w-3 text-white' /> : <span className='flex items-center gap-1.5'>Generate <Send size={11} /></span>}
-                        </InputGroupButton>
-                    </InputGroupAddon>
-                </InputGroup>
-            </div>
-
-            {/* Inspiration Cards */}
-            <div className='grid grid-cols-2 mt-0 sm:mt-5  lg:grid-cols-4 gap-2 md:gap-3 w-full max-w-5xl px-2 md:px-0 pb-6'>
-                {suggestions.map((suggestion, index) => (
-                    <div key={index}
-                        onClick={() => setUserInput(suggestion?.description)}
-                        className='group bg-white border border-black/10 rounded-xl p-3 md:p-4 hover:border-[#FF5200] hover:ring-1 hover:ring-[#FF5200]/50 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md flex flex-col items-start'
-                    >
-                        <div className='flex justify-between items-start w-full mb-2'>
-                            <div className='w-7 h-7 md:w-8 md:h-8 rounded-full bg-black/5 flex items-center justify-center text-base md:text-lg group-hover:bg-[#FF5200]/10 transition-colors'>
-                                {suggestion?.icon}
-                            </div>
-                            {/* @ts-ignore */}
-                            {suggestion.style && (
-                                <span className='px-1.5 py-0.5 rounded-full bg-black/5 text-[8px] md:text-[9px] font-medium text-black/50 uppercase tracking-wide border border-black/5 group-hover:border-[#FF5200]/20 group-hover:text-[#FF5200] transition-colors'>
-                                    {/* @ts-ignore */}
-                                    {suggestion.style}
-                                </span>
-                            )}
-                        </div>
-
-                        <h3 className='font-bold text-black text-xs md:text-sm mb-1 group-hover:text-[#FF5200] transition-colors line-clamp-1'>
-                            {suggestion?.name}
-                        </h3>
-
-                        <p className='text-[10px] md:text-xs text-black/50 line-clamp-2 leading-relaxed'>
-                            {suggestion?.description}
-                        </p>
-                    </div>
-                ))}
-            </div>
+            <style jsx>{`
+                .animate-marquee {
+                    animation: marquee var(--duration) linear infinite;
+                }
+                @keyframes marquee {
+                    from { transform: translateX(0); }
+                    to { transform: translateX(calc(-100% - var(--gap))); }
+                }
+                 /* Hide scrollbar for Chrome, Safari and Opera */
+                .marquee-container::-webkit-scrollbar {
+                    display: none;
+                }
+                 /* Hide scrollbar for IE, Edge and Firefox */
+                .marquee-container {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            `}</style>
         </div>
     )
 }

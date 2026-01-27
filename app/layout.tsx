@@ -75,7 +75,7 @@ export default function RootLayout({
     >
       <html lang="en" suppressHydrationWarning>
         <body
-          className={appFont.className}
+          className={`${appFont.className} overflow-x-hidden`}
         >
           <Provider>
             {children}

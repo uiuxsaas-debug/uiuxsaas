@@ -1,17 +1,18 @@
-"use client"
-import Header from "./_shared/Header";
-import Hero from "./_shared/Hero";
-import Features from "./_shared/Features";
-import Templates from "./_shared/Templates";
-import Testimonial from "./_shared/Testimonial";
-import ProductDemo from "./_shared/ProductDemo";
-import Footer from "./_shared/Footer";
-import { Tiles } from "@/components/ui/tiles";
-import HowItWorks from "./_shared/HowItWorks";
+"use client";
+
+import Link from 'next/link';
 import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-
+import Header from "./_shared/Header";
+import Hero from "./_shared/Hero";
+import StickyScrollFeatures from "./_shared/StickyScrollFeatures";
+import Features from "./_shared/Features";
+import Testimonial from "./_shared/Testimonial";
+import Footer from "./_shared/Footer";
+import StorySection from "./_shared/StorySection";
+import FAQ from "./_shared/FAQ";
+import WhyChooseSection from "./_shared/WhyChooseSection";
 import PricingSection from "@/components/pricing/PricingSection";
 
 function HomePageContent() {
@@ -26,23 +27,20 @@ function HomePageContent() {
   }, [searchParams, router]);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-[#FCFCFC] text-black">
-      <div className="absolute inset-0 z-0 opacity-40">
-        <Tiles rows={150} cols={60} tileSize="xs" />
-      </div>
-      <div className="relative z-10 min-h-screen w-full overflow-y-auto scroll-smooth">
+    <div className="relative min-h-screen w-full bg-white text-black selection:bg-[#FF5200] selection:text-white max-w-[100vw]">
+      <div className="relative z-10 w-full">
         <Header />
         <Hero />
+        <StickyScrollFeatures />
         <Features />
-        <div id="how-it-works">
-          <HowItWorks />
-        </div>
-        <Templates />
+
         <Testimonial />
         <div id="pricing">
           <PricingSection />
         </div>
-        <ProductDemo />
+        <WhyChooseSection />
+        <StorySection />
+        <FAQ />
         <Footer />
       </div>
     </div>
