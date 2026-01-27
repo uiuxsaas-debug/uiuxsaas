@@ -1,5 +1,6 @@
 "use client"
 import { useProjectList } from '@/hooks/use-project-list';
+import { useUser } from '@clerk/nextjs';
 import React from 'react'
 import ProjectCard from './ProjectCard';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -10,6 +11,7 @@ import { PLAN_LIMITS } from '@/config/plans';
 function ProjectList() {
 
     const { projectList, loading } = useProjectList();
+    const { user } = useUser();
     const [userLimit, setUserLimit] = React.useState<number>(0);
 
     React.useEffect(() => {
@@ -29,34 +31,51 @@ function ProjectList() {
     }
 
     return (
-        <div className='px-4 sm:px-8 mx-auto'>
-            <div className='flex justify-between items-end mb-6'>
-                <h2 className='font-bold text-2xl font-sans tracking-tight text-black'>Latest Work</h2>
+        <div className='px-4 sm:px-8 mx-auto max-w-7xl'>
+            {/* Welcome Header */}
+            <div className='flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500'>
+                <div>
+                    <h1 className='text-3xl md:text-4xl font-black text-black tracking-tight mb-2'>
+                        Welcome back, <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#FF5200] to-orange-600'>{user?.firstName || 'Creator'}</span>
+                    </h1>
+                    <p className='text-black/60 font-medium'>Manage your projects and create new designs.</p>
+                </div>
+                <Link href="/" className="inline-flex items-center gap-2 px-6 py-3 bg-[#FF5200] text-white rounded-full hover:bg-[#e04800] transition-all font-bold text-sm shadow-lg shadow-[#FF5200]/20 hover:scale-105 active:scale-95 hover:-translate-y-0.5">
+                    <Plus className="w-5 h-5" />
+                    Create New Project
+                </Link>
             </div>
-            {/* <h2 className='font-bold text-xl'>My Projects</h2> */}
 
+            {/* Empty State */}
             {!loading && projectList?.length == 0 && (
-                <div className='p-8 md:p-12 border border-dashed border-black/10 rounded-3xl flex flex-col items-center justify-center bg-white shadow-sm'>
-                    <div className='h-16 w-16 bg-black/5 rounded-full flex items-center justify-center mb-4'>
-                        <span className='text-3xl filter saturate-0 opacity-50'>📂</span>
+                <div className='p-12 md:p-20 border border-dashed border-black/10 rounded-[32px] flex flex-col items-center justify-center bg-white shadow-sm animate-in zoom-in-95 duration-500'>
+                    <div className='h-20 w-20 bg-[#FF5200]/10 rounded-full flex items-center justify-center mb-6 animate-pulse'>
+                        <span className='text-4xl'>🎨</span>
                     </div>
-                    <h2 className='text-center text-lg font-bold text-black'>No Projects Yet</h2>
-                    <p className='text-black/50 text-sm mt-1 mb-6 text-center max-w-xs'>
-                        Start your journey by creating your first AI-powered design project.
+                    <h2 className='text-center text-2xl font-bold text-black mb-2'>No Projects Yet</h2>
+                    <p className='text-black/50 text-base mb-8 text-center max-w-md leading-relaxed'>
+                        Your canvas is empty. Start your journey by creating your first AI-powered design project and bring your ideas to life.
                     </p>
-                    <Link href="/" className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#FF5200] text-white rounded-xl hover:bg-[#e04800] transition-all font-semibold text-sm shadow-lg shadow-[#FF5200]/20 hover:scale-105 active:scale-95">
+                    <Link href="/" className="inline-flex items-center gap-2 px-8 py-3.5 bg-black text-white rounded-xl hover:bg-gray-900 transition-all font-bold text-sm shadow-xl hover:scale-105 active:scale-95">
                         <Plus className="w-4 h-4" />
-                        Create New Project
+                        Start Creating
                     </Link>
                 </div>
             )}
 
             {/* OWNED PROJECTS */}
-            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-5'>
-                {!loading ? projectList?.filter(p => !p.role || p.role === 'owner').map((project, index) => (
-                    <ProjectCard project={project} key={project.id || index} />
-                )) :
-                    [1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
+            {!loading && projectList && projectList.length > 0 && (
+                <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-5 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100'>
+                    {projectList.filter(p => !p.role || p.role === 'owner').map((project, index) => (
+                        <ProjectCard project={project} key={project.id || index} />
+                    ))}
+                </div>
+            )}
+
+            {/* LOADING STATE */}
+            {loading && (
+                <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-5'>
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
                         <div key={index} className="space-y-3">
                             <Skeleton className='w-full h-[220px] rounded-2xl bg-black/5' />
                             <div className="space-y-2">
@@ -64,15 +83,15 @@ function ProjectList() {
                                 <Skeleton className='h-3 w-1/2 bg-black/5' />
                             </div>
                         </div>
-                    ))
-                }
-            </div>
+                    ))}
+                </div>
+            )}
 
             {/* SHARED PROJECTS */}
             {!loading && projectList?.filter(p => p.role && p.role !== 'owner').length > 0 && (
-                <div className='mt-12'>
+                <div className='mt-16'>
                     <h2 className='font-bold text-xl mb-6 text-black flex items-center gap-2'>
-                        <span className='text-blue-500'>👥</span> Shared with Me
+                        <span className='text-[#FF5200] bg-[#FF5200]/10 p-1.5 rounded-lg'>👥</span> Shared with Me
                     </h2>
                     <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6'>
                         {projectList?.filter(p => p.role && p.role !== 'owner').map((project, index) => (

@@ -92,67 +92,32 @@ function Hero() {
                 </p>
 
                 {/* CTA & Social Proof */}
-                <div className='flex flex-col items-center gap-6 animate-in fade-in slide-in-from-bottom-10 duration-700 delay-300 w-full'>
-                    <Dialog open={open} onOpenChange={setOpen}>
-                        <DialogTrigger asChild>
-                            <Button size="lg" className='h-14 px-8 rounded-full bg-[#FF5200] hover:bg-[#e04800] text-white text-lg font-bold shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all transform hover:-translate-y-0.5'>
-                                Start for free
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className='sm:max-w-xl p-0 overflow-hidden border-0 shadow-2xl bg-transparent shadow-orange-500/10'>
-                            <div className="bg-white p-6 rounded-xl border border-orange-100 shadow-xl">
-                                <DialogHeader className='mb-4'>
-                                    <DialogTitle className='text-2xl font-bold text-center'>Describe your dream app</DialogTitle>
-                                </DialogHeader>
-                                <InputGroup className='w-full bg-white z-10 rounded-xl shadow-inner border border-gray-200 focus-within:border-[#FF5200] focus-within:ring-2 focus-within:ring-[#FF5200]/10 transition-all duration-300'>
-                                    <InputGroupTextarea
-                                        className="w-full bg-transparent px-4 py-3 text-base transition-[color,box-shadow] outline-none placeholder:text-gray-400 font-medium text-gray-900 min-h-[120px] resize-none"
-                                        placeholder="e.g. A fitness tracking app with social features and gamification..."
-                                        value={userInput}
-                                        onChange={(event) => setUserInput(event.target?.value)}
-                                    />
-                                    <InputGroupAddon align="block-end" className="p-2 border-t border-gray-100 bg-gray-50/50 flex justify-between items-center rounded-b-xl">
-                                        <div className="flex gap-2">
-                                            {suggestions.slice(0, 2).map((s, i) => (
-                                                <button key={i} onClick={() => setUserInput(s.description)} className="text-xs bg-white border border-gray-200 px-2 py-1 rounded-md text-gray-500 hover:text-[#FF5200] hover:border-[#FF5200]/30 transition-colors">
-                                                    {s.name}
-                                                </button>
-                                            ))}
-                                        </div>
-                                        <InputGroupButton
-                                            className="bg-[#FF5200] text-white font-semibold hover:bg-[#e04800] px-4 py-2 h-auto rounded-lg text-sm transition-all shadow-md shadow-orange-500/20"
-                                            disabled={loading}
-                                            onClick={onCreateProject}
-                                        >
-                                            {loading ? <Loader className='animate-spin h-4 w-4' /> : <span className='flex items-center gap-2'>Generate <Zap size={14} className="fill-white" /></span>}
-                                        </InputGroupButton>
-                                    </InputGroupAddon>
-                                </InputGroup>
-                            </div>
-                        </DialogContent>
-                    </Dialog>
-
-                    <div className='flex flex-col md:flex-row items-center gap-3 text-sm text-gray-500 font-medium'>
-                        <div className="flex items-center -space-x-2">
-                            {[1, 2, 3, 4].map((i) => (
-                                <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center overflow-hidden">
-                                    <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i}`} alt="User" />
-                                </div>
-                            ))}
-                            <div className="w-8 h-8 rounded-full border-2 border-white bg-[#FF5200] flex items-center justify-center text-[10px] text-white font-bold">
-                                +2k
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <div className="flex">
-                                {[1, 2, 3, 4, 5].map((i) => (
-                                    <Star key={i} className="w-4 h-4 fill-[#FFB800] text-[#FFB800]" />
+                {/* Direct Generation Input Box */}
+                <div className='w-full max-w-2xl bg-white p-2 rounded-2xl shadow-2xl shadow-orange-500/10 border border-orange-100 animate-in fade-in slide-in-from-bottom-10 duration-700 delay-300 relative z-20'>
+                    <InputGroup className='w-full bg-white z-10 rounded-xl shadow-inner border border-gray-200 focus-within:border-[#FF5200] focus-within:ring-2 focus-within:ring-[#FF5200]/10 transition-all duration-300'>
+                        <InputGroupTextarea
+                            className="w-full bg-transparent px-4 py-3 text-base transition-[color,box-shadow] outline-none placeholder:text-gray-400 font-medium text-gray-900 min-h-[120px] resize-none"
+                            placeholder="e.g. A fitness tracking app with social features and gamification..."
+                            value={userInput}
+                            onChange={(event) => setUserInput(event.target?.value)}
+                        />
+                        <InputGroupAddon align="block-end" className="p-2 border-t border-gray-100 bg-gray-50/50 flex justify-between items-center rounded-b-xl">
+                            <div className="flex gap-2">
+                                {suggestions.slice(0, 2).map((s, i) => (
+                                    <button key={i} onClick={() => setUserInput(s.description)} className="text-xs bg-white border border-gray-200 px-2 py-1 rounded-md text-gray-500 hover:text-[#FF5200] hover:border-[#FF5200]/30 transition-colors">
+                                        {s.name}
+                                    </button>
                                 ))}
                             </div>
-                            <span className="text-gray-900 font-semibold">4.9/5</span>
-                            <span>from 2,000+ users</span>
-                        </div>
-                    </div>
+                            <InputGroupButton
+                                className="bg-[#FF5200] text-white font-semibold hover:bg-[#e04800] px-4 py-2 h-auto rounded-lg text-sm transition-all shadow-md shadow-orange-500/20"
+                                disabled={loading}
+                                onClick={onCreateProject}
+                            >
+                                {loading ? <Loader className='animate-spin h-4 w-4' /> : <span className='flex items-center gap-2'>Generate <Zap size={14} className="fill-white" /></span>}
+                            </InputGroupButton>
+                        </InputGroupAddon>
+                    </InputGroup>
                 </div>
 
             </div>
