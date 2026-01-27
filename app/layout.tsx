@@ -72,6 +72,20 @@ export default function RootLayout({
           modalBackdrop: { backgroundColor: 'rgba(0,0,0,0.5)' },
         }
       }}
+      localization={{
+        signIn: {
+          start: {
+            title: 'Sign in to AppyScreen',
+            subtitle: 'Welcome back! Please sign in to continue'
+          },
+        },
+        signUp: {
+          start: {
+            title: 'Sign up for AppyScreen',
+            subtitle: 'Create your account to start designing'
+          }
+        }
+      }}
     >
       <html lang="en" suppressHydrationWarning>
         <body
