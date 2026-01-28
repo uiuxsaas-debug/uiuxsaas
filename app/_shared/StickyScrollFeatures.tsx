@@ -7,6 +7,15 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 export default function StickyScrollFeatures() {
+    const videoRef = React.useRef<HTMLVideoElement>(null);
+
+    React.useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.defaultMuted = true; // Crucial for some browsers
+            videoRef.current.muted = true;
+        }
+    }, []);
+
     return (
         <section className="py-16 md:py-24 bg-white overflow-hidden" id="features">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,6 +52,7 @@ export default function StickyScrollFeatures() {
                         {/* Video Player */}
                         <div className="relative aspect-video bg-slate-50">
                             <video
+                                ref={videoRef}
                                 autoPlay
                                 muted
                                 loop
@@ -50,7 +60,7 @@ export default function StickyScrollFeatures() {
                                 preload="auto"
                                 className="w-full h-full object-cover"
                             >
-                                <source src="/video.mp4?v=1" type="video/mp4" />
+                                <source src="/video.mp4" type="video/mp4" />
                             </video>
 
                             {/* Overlay Gradient for depth */}
