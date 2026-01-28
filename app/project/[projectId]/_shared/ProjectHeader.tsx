@@ -38,7 +38,6 @@ function ProjectHeader() {
     useEffect(() => {
         const handleExportComplete = () => {
             setExporting(false);
-            toast.success('Export complete!');
         };
         const handleDownloadComplete = () => {
             setDownloading(false);
@@ -160,6 +159,12 @@ function ProjectHeader() {
     const onDownloadCode = () => {
         setDownloading(true);
         const event = new Event('trigger-download-code');
+        window.dispatchEvent(event);
+    }
+
+    const onDownloadImage = () => {
+        setExporting(true);
+        const event = new Event('trigger-download-image');
         window.dispatchEvent(event);
     }
 
@@ -285,6 +290,10 @@ function ProjectHeader() {
                         <DropdownMenuItem onClick={onDownloadCode} className="hover:!bg-[#FF5200]/10 hover:!text-[#FF5200] cursor-pointer text-sm py-2.5">
                             <Download className='w-4 h-4 mr-2' />
                             Download Code
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={onDownloadImage} className="hover:!bg-[#FF5200]/10 hover:!text-[#FF5200] cursor-pointer text-sm py-2.5">
+                            <ImageIcon className='w-4 h-4 mr-2' />
+                            Download Image
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={onExport} className="hover:!bg-[#FF5200]/10 hover:!text-[#FF5200] cursor-pointer text-sm py-2.5">
                             <svg className="w-4 h-4 mr-2" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 57C14.7467 57 19 52.7467 19 47.5V38H9.5C4.25329 38 0 42.2533 0 47.5C0 52.7467 4.25329 57 9.5 57Z" fill="#0ACF83" /><path d="M0 28.5C0 23.2533 4.25329 19 9.5 19H19V38H9.5C4.25329 38 0 33.7467 0 28.5Z" fill="#A259FF" /><path d="M0 9.5C0 4.25329 4.25329 0 9.5 0H19V19H9.5C4.25329 19 0 14.7467 0 9.5Z" fill="#F24E1E" /><path d="M19 0H28.5C33.7467 0 38 4.25329 38 9.5C38 14.7467 33.7467 19 28.5 19H19V0Z" fill="#FF7262" /><path d="M38 28.5C38 33.7467 33.7467 38 28.5 38H19V19H28.5C33.7467 19 38 23.2533 38 28.5Z" fill="#1ABCFE" /></svg>

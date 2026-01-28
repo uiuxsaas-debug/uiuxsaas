@@ -7,19 +7,19 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const slides = [
     {
-        image: "/thumbnail/img1.webp",
+        image: "/thumbnail/img1.png",
     },
     {
-        image: "/thumbnail/img2.webp",
+        image: "/thumbnail/img2.png",
     },
     {
-        image: "/thumbnail/img3.webp",
+        image: "/thumbnail/img3.png",
     },
     {
-        image: "/thumbnail/img4.webp",
+        image: "/thumbnail/img4.png",
     },
     {
-        image: "/thumbnail/img5.webp",
+        image: "/thumbnail/img5.png",
     }
 ];
 

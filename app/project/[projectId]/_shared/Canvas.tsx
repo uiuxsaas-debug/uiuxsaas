@@ -5,7 +5,7 @@ import { ProjectType, ScreenConfig } from '@/type/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Minus, Plus, RefreshCw, X, Hand, MousePointer2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas-pro';
 import { toast } from 'sonner';
 import axios from 'axios';
 
@@ -105,8 +105,48 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
         // @ts-ignore
         if (doc.fonts?.ready) await doc.fonts.ready;
 
-        // let iconify/tailwind apply
-        await new Promise((r) => setTimeout(r, 250));
+        // Wait for initial render
+        await new Promise((r) => setTimeout(r, 500));
+
+        // Convert all iconify-icon elements to inline SVGs for proper capture
+        const iconifyElements = doc.querySelectorAll('iconify-icon');
+        for (const icon of Array.from(iconifyElements)) {
+            try {
+                // Get the shadow DOM SVG
+                const shadowRoot = (icon as any).shadowRoot;
+                if (shadowRoot) {
+                    const svg = shadowRoot.querySelector('svg');
+                    if (svg) {
+                        // Clone the SVG and copy styles
+                        const svgClone = svg.cloneNode(true) as SVGElement;
+
+                        // Copy computed styles from iconify-icon to the SVG
+                        const computedStyle = doc.defaultView?.getComputedStyle(icon);
+                        if (computedStyle) {
+                            svgClone.style.width = computedStyle.width || icon.getAttribute('width') || '24px';
+                            svgClone.style.height = computedStyle.height || icon.getAttribute('height') || '24px';
+                            svgClone.style.display = 'inline-block';
+                            svgClone.style.verticalAlign = 'middle';
+
+                            // Copy color
+                            const color = computedStyle.color;
+                            if (color) {
+                                svgClone.style.fill = color;
+                                svgClone.setAttribute('fill', 'currentColor');
+                            }
+                        }
+
+                        // Replace iconify-icon with the cloned SVG
+                        icon.parentNode?.replaceChild(svgClone, icon);
+                    }
+                }
+            } catch (e) {
+                console.warn('Failed to convert iconify icon:', e);
+            }
+        }
+
+        // Wait a bit more after icon conversion
+        await new Promise((r) => setTimeout(r, 500));
 
         // Re-check validity after wait
         if (!iframe.isConnected || !iframe.contentWindow || !iframe.contentDocument) {
@@ -129,6 +169,15 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
                 windowWidth: w,
                 windowHeight: h,
                 scale: window.devicePixelRatio || 1,
+                logging: false,
+                onclone: (clonedDoc) => {
+                    // Additional cleanup in cloned document if needed
+                    const remainingIcons = clonedDoc.querySelectorAll('iconify-icon');
+                    remainingIcons.forEach(icon => {
+                        // Hide any remaining iconify elements that couldn't be converted
+                        (icon as HTMLElement).style.visibility = 'visible';
+                    });
+                }
             });
             return canvas;
         } catch (error) {
@@ -157,7 +206,7 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
             // 2) stitch into one final canvas (side-by-side)
             const scale = window.devicePixelRatio || 1;
             const headerH = 40;
-            const useFancyMode = saveOnly !== 'figma-export';
+            const useFancyMode = true; // Always use fancy mode to include frames
             const framePadding = (useFancyMode && isMobile) ? 15 * scale : 0;
 
             // Calculate max height from actual captured canvases
@@ -187,12 +236,13 @@ function Canvas({ projectDetail, screenConfig, loading, takeScreenshot, generati
             const ctx = out.getContext("2d");
             if (!ctx) throw new Error("No 2D context");
 
-            if (useFancyMode) {
-                // Fill background
+            if (useFancyMode && saveOnly !== 'figma-export') {
+                // Fill background for downloads, but keep transparent for Figma if desired
+                // Actually, shadows look best on white, so let's default to white except for strictly desired transparency
                 ctx.fillStyle = "#FFFFFF";
                 ctx.fillRect(0, 0, outW, outH);
             } else {
-                // Transparent for Figma
+                // Transparent for Figma (or if background fill not wanted)
                 ctx.clearRect(0, 0, outW, outH);
             }
 

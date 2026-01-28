@@ -67,8 +67,8 @@ function Hero() {
                 {/* Badge */}
                 <div className='flex items-center justify-center w-full mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700'>
                     <div className="inline-flex items-center justify-center rounded-full px-4 py-1.5 bg-orange-50 border border-orange-100/50 shadow-sm">
-                        <span className="text-sm font-semibold text-[#FF5200] tracking-wide">
-                            30k+ apps generated with AppyScreen
+                        <span className="text-sm font-semibold text-[#FF5200] tracking-wide whitespace-nowrap">
+                            ✨ Generate beautiful app designs with AI
                         </span>
                     </div>
                 </div>
@@ -125,13 +125,13 @@ function Hero() {
                     {[1, 2].map((group) => (
                         <div key={group} className="marquee-item flex flex-shrink-0 flex-row gap-8 animate-marquee">
                             {[
-                                "/thumbnail/img1.webp",
-                                "/thumbnail/img2.webp",
-                                "/thumbnail/img3.webp",
-                                "/thumbnail/img4.webp",
-                                "/thumbnail/img5.webp"
+                                "/thumbnail/img1.png",
+                                "/thumbnail/img2.png",
+                                "/thumbnail/img3.png",
+                                "/thumbnail/img4.png",
+                                "/thumbnail/img5.png"
                             ].map((item, index) => (
-                                <div key={`${group}-${index}`} className="relative h-[220px] md:h-[400px] w-[320px] md:w-[600px] rounded-3xl overflow-hidden bg-gray-100 border-4 border-gray-100 shadow-xl py-6">
+                                <div key={`${group}-${index}`} className="relative h-[220px] md:h-[400px] w-[320px] md:w-[600px] rounded-3xl overflow-hidden bg-white border-4 border-gray-100 shadow-xl">
                                     <img
                                         alt={`App showcase ${index}`}
                                         className="object-contain w-full h-full"

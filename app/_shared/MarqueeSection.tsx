@@ -31,11 +31,11 @@ export default function MarqueeSection() {
                             aria-hidden={containerIndex === 1}
                         >
                             {[
-                                "/thumbnail/img1.webp",
-                                "/thumbnail/img2.webp",
-                                "/thumbnail/img3.webp",
-                                "/thumbnail/img4.webp",
-                                "/thumbnail/img5.webp"
+                                "/thumbnail/img1.png",
+                                "/thumbnail/img2.png",
+                                "/thumbnail/img3.png",
+                                "/thumbnail/img4.png",
+                                "/thumbnail/img5.png"
                             ].map((src, index) => (
                                 <div key={`${containerIndex}-${index}`} className="relative mx-1" style={{ height: '360px' }}>
                                     <img
