@@ -13,9 +13,9 @@ export default function Footer() {
 
     return (
         <footer className="w-full border-t border-white/10 bg-black py-10 px-6 text-white relative z-20">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10">
+            <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 md:gap-10">
                 {/* Logo - Full width on mobile, 1 col on md+ */}
-                <div className="col-span-1 md:col-span-1">
+                <div className="col-span-2 md:col-span-1">
                     <Link href={'/'} className="flex items-center gap-2 mb-4 hover:opacity-80 transition-opacity">
                         <Image
                             src="/logo.png"
@@ -110,7 +110,7 @@ export default function Footer() {
             </div>
 
             {/* Bottom */}
-            <div className="border-t border-white/10 mt-10 flex flex-col md:flex-row justify-center items-center gap-4 text-xs text-white/50">
+            <div className="border-t border-white/10 mt-10 flex flex-row justify-center items-center gap-4 text-xs text-white/50">
                 <p>© {new Date().getFullYear()} AppyScreen. All rights reserved.</p>
             </div>
         </footer>

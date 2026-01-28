@@ -7,7 +7,6 @@ import { toast } from "sonner";
 import Header from "./_shared/Header";
 import Hero from "./_shared/Hero";
 import StickyScrollFeatures from "./_shared/StickyScrollFeatures";
-import Features from "./_shared/Features";
 import Testimonial from "./_shared/Testimonial";
 import Footer from "./_shared/Footer";
 import StorySection from "./_shared/StorySection";
@@ -32,8 +31,6 @@ function HomePageContent() {
         <Header />
         <Hero />
         <StickyScrollFeatures />
-        <Features />
-
         <Testimonial />
         <div id="pricing">
           <PricingSection />

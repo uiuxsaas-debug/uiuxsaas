@@ -66,16 +66,9 @@ function Hero() {
 
                 {/* Badge */}
                 <div className='flex items-center justify-center w-full mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700'>
-                    <div className="group relative inline-flex items-center justify-center rounded-full px-4 py-1.5 transition-all duration-300 ease-out bg-orange-50/50 border border-orange-100 hover:border-orange-200 hover:bg-orange-50">
-                        <div className="flex -space-x-2 mr-3">
-                            {[1, 2, 3].map((i) => (
-                                <div key={i} className="w-5 h-5 rounded-full border border-white bg-gray-200 overflow-hidden">
-                                    <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 10}`} alt="User" />
-                                </div>
-                            ))}
-                        </div>
-                        <span className="text-xs font-semibold text-[#FF5200] tracking-wide">
-                            30k+ app founders build with AppyScreen
+                    <div className="inline-flex items-center justify-center rounded-full px-4 py-1.5 bg-orange-50 border border-orange-100/50 shadow-sm">
+                        <span className="text-sm font-semibold text-[#FF5200] tracking-wide">
+                            30k+ apps generated with AppyScreen
                         </span>
                     </div>
                 </div>
