@@ -1,6 +1,7 @@
 import { SignIn } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
+import AuthCarousel from '@/app/_shared/AuthCarousel'
 import { Star } from 'lucide-react'
 
 export default function Page() {
@@ -21,31 +22,8 @@ export default function Page() {
                 </Link>
 
                 {/* Content */}
-                <div className="relative z-10 max-w-lg">
-                    <h1 className='text-5xl font-black leading-tight mb-6'>
-                        Turn text into apps <br />
-                        <span className="text-white/80">in seconds.</span>
-                    </h1>
-                    <p className='text-white/80 text-xl leading-relaxed mb-8'>
-                        Join thousands of founders and designers building the next generation of mobile experiences with AI.
-                    </p>
-
-                    {/* Mini Testimonial */}
-                    <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-                        <div className="flex text-[#FFD700] mb-3 gap-1">
-                            {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="#FFD700" strokeWidth={0} />)}
-                        </div>
-                        <p className="text-lg font-medium mb-4">"The fastest way to validate an app idea. It feels like magic."</p>
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-bold text-sm">
-                                JS
-                            </div>
-                            <div>
-                                <div className="font-bold">Jason S.</div>
-                                <div className="text-sm opacity-70">Product Designer</div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="relative z-10 w-full max-w-lg flex flex-col items-center justify-center flex-1">
+                    <AuthCarousel />
                 </div>
 
                 {/* Footer */}

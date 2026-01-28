@@ -1,6 +1,7 @@
 import { SignUp } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
+import AuthCarousel from '@/app/_shared/AuthCarousel'
 import { Star } from 'lucide-react'
 
 export default function Page() {
@@ -17,30 +18,8 @@ export default function Page() {
                     <span className='text-2xl font-bold tracking-tight text-white'>AppyScreen</span>
                 </Link>
 
-                <div className="relative z-10 max-w-lg">
-                    <h1 className='text-5xl font-black leading-tight mb-6'>
-                        Start building <br />
-                        <span className="text-white/80">for free today.</span>
-                    </h1>
-                    <p className='text-white/80 text-xl leading-relaxed mb-8'>
-                        Create, iterate, and export production-ready mobile app designs with the power of AI.
-                    </p>
-
-                    <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-                        <div className="flex text-[#FFD700] mb-3 gap-1">
-                            {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="#FFD700" strokeWidth={0} />)}
-                        </div>
-                        <p className="text-lg font-medium mb-4">"I built my entire MVP UI in one afternoon. This tool is incredible."</p>
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-bold text-sm">
-                                MK
-                            </div>
-                            <div>
-                                <div className="font-bold">Maya K.</div>
-                                <div className="text-sm opacity-70">Startup Founder</div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="relative z-10 w-full max-w-lg flex flex-col items-center justify-center flex-1">
+                    <AuthCarousel />
                 </div>
 
                 <div className="relative z-10 text-sm opacity-60">

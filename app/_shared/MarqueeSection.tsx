@@ -23,34 +23,31 @@ export default function MarqueeSection() {
                         gap: 'var(--gap)'
                     } as React.CSSProperties}
                 >
-                    {/* Marquee Item 1 (Original) */}
-                    <div className="marquee-item flex flex-shrink-0 justify-around flex-row animate-marquee">
-                        {['vault', 'notes', 'hero', 'shopping', 'crypto', 'trans', 'onboarding', 'launchpad', 'edtech', 'course'].map((item, index) => (
-                            <div key={index} className="relative mx-1" style={{ height: '360px' }}>
-                                <img
-                                    alt={item}
-                                    width="360"
-                                    height="360"
-                                    className="shadow-custom-1 rounded-lg border border-black/10 object-cover h-full w-auto"
-                                    src={`/assets/images/${item}.png`}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                    {/* Marquee Item 2 (Duplicate for loop) */}
-                    <div className="marquee-item flex flex-shrink-0 justify-around flex-row animate-marquee" aria-hidden="true">
-                        {['vault', 'notes', 'hero', 'shopping', 'crypto', 'trans', 'onboarding', 'launchpad', 'edtech', 'course'].map((item, index) => (
-                            <div key={`dup-${index}`} className="relative mx-1" style={{ height: '360px' }}>
-                                <img
-                                    alt={item}
-                                    width="360"
-                                    height="360"
-                                    className="shadow-custom-1 rounded-lg border border-black/10 object-cover h-full w-auto"
-                                    src={`/assets/images/${item}.png`}
-                                />
-                            </div>
-                        ))}
-                    </div>
+                    {/* Define images once */}
+                    {[0, 1].map((_, containerIndex) => (
+                        <div
+                            key={containerIndex}
+                            className="marquee-item flex flex-shrink-0 justify-around flex-row animate-marquee"
+                            aria-hidden={containerIndex === 1}
+                        >
+                            {[
+                                "/thumbnail/img1.webp",
+                                "/thumbnail/img2.webp",
+                                "/thumbnail/img3.webp",
+                                "/thumbnail/img4.webp",
+                                "/thumbnail/img5.webp"
+                            ].map((src, index) => (
+                                <div key={`${containerIndex}-${index}`} className="relative mx-1" style={{ height: '360px' }}>
+                                    <img
+                                        alt={`Showcase ${index}`}
+                                        height="360"
+                                        className="shadow-custom-1 rounded-lg border border-black/10 object-cover h-full w-auto"
+                                        src={src}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    ))}
                 </div>
             </div>
 

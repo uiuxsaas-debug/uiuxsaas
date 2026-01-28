@@ -36,7 +36,7 @@ export default function StickyScrollFeatures() {
                                 <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#28C840] shadow-inner"></div>
                             </div>
                             <div className="flex-1 max-w-[60%] mx-auto h-6 md:h-8 bg-white border border-black/5 rounded-md shadow-sm flex items-center justify-center text-[10px] md:text-xs text-gray-400 font-medium tracking-wide">
-                                appyscreen.com/dashboard
+                                appyscreen.com
                             </div>
                         </div>
 

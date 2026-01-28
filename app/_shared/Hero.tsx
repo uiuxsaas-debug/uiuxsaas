@@ -124,15 +124,18 @@ function Hero() {
                 <div className="marquee-container flex overflow-hidden py-2 flex-row" style={{ '--duration': '60s', '--gap': '2rem', gap: 'var(--gap)' } as React.CSSProperties}>
                     {[1, 2].map((group) => (
                         <div key={group} className="marquee-item flex flex-shrink-0 flex-row gap-8 animate-marquee">
-                            {['vault', 'notes', 'hero', 'shopping', 'crypto', 'trans', 'onboarding', 'launchpad', 'edtech', 'course'].map((item, index) => (
-                                <div key={`${group}-${index}`} className="relative h-[300px] md:h-[450px] aspect-[9/19] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/50 bg-white">
+                            {[
+                                "/thumbnail/img1.webp",
+                                "/thumbnail/img2.webp",
+                                "/thumbnail/img3.webp",
+                                "/thumbnail/img4.webp",
+                                "/thumbnail/img5.webp"
+                            ].map((item, index) => (
+                                <div key={`${group}-${index}`} className="relative h-[220px] md:h-[400px] w-[320px] md:w-[600px] rounded-3xl overflow-hidden bg-gray-100 border-4 border-gray-100 shadow-xl py-6">
                                     <img
-                                        alt={item}
-                                        className="object-cover w-full h-full"
-                                        src="https://unsplash.com/photos/a-man-wearing-a-necklace-with-a-cross-on-it-nSBl2cfwnmE"
-                                        onError={(e) => {
-                                            e.currentTarget.src = `https://placehold.co/375x812/FF5200/FFFFFF?text=${item.charAt(0).toUpperCase() + item.slice(1)}`;
-                                        }}
+                                        alt={`App showcase ${index}`}
+                                        className="object-contain w-full h-full"
+                                        src={item}
                                     />
                                 </div>
                             ))}
