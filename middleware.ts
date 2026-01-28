@@ -4,6 +4,9 @@ const isPublicRoute = createRouteMatcher([
     '/sign-in(.*)',
     '/sign-up(.*)',
     '/',
+    '/privacy-policy(.*)',
+    '/terms-of-service(.*)',
+    '/cookie-policy(.*)',
     '/api/stripe/webhook(.*)' // Allow Stripe Webhooks to bypass Auth
 ])
 
