@@ -28,10 +28,6 @@ export default function StorySection() {
                     </div>
                 </div>
 
-                <button className="hidden md:block mx-auto py-2 px-6 text-white font-semibold border-2 border-white w-fit rounded-full hover:bg-white/10 bg-transparent mt-10 relative z-10">
-                    Learn More
-                </button>
-
                 {/* Desktop floating avatars (Placeholders) */}
                 <div className="hidden md:block absolute inset-0 pointer-events-none">
                     <div className="absolute left-[10%] top-[20%] animate-pulse">
