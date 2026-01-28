@@ -18,7 +18,7 @@ export default function Page() {
                     <span className='text-2xl font-bold tracking-tight text-white'>AppyScreen</span>
                 </Link>
 
-                <div className="relative z-10 w-full max-w-lg flex flex-col items-center justify-center flex-1">
+                <div className="relative z-10 w-full max-w-lg flex flex-col items-center justify-center flex-1 mx-auto">
                     <AuthCarousel />
                 </div>
 
