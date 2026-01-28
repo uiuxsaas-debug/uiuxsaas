@@ -47,9 +47,10 @@ export default function StickyScrollFeatures() {
                                 muted
                                 loop
                                 playsInline
+                                preload="auto"
                                 className="w-full h-full object-cover"
                             >
-                                <source src="/video.mp4" type="video/mp4" />
+                                <source src="/video.mp4?v=1" type="video/mp4" />
                             </video>
 
                             {/* Overlay Gradient for depth */}
