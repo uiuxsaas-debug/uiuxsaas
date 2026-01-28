@@ -46,7 +46,7 @@ export default function AuthCarousel() {
 
 
             {/* Carousel */}
-            <div className="relative w-full h-[60vh] max-h-[600px] flex items-center justify-center perspective-1000">
+            <div className="relative w-full h-[40vh] max-h-[400px] flex items-center justify-center perspective-1000">
                 <AnimatePresence mode='popLayout'>
                     {slides.map((slide, index) => {
                         // Calculate relative position

@@ -22,8 +22,19 @@ export default function Page() {
                 </Link>
 
                 {/* Content */}
-                <div className="relative z-10 w-full max-w-lg flex flex-col items-center justify-center flex-1 mx-auto">
-                    <AuthCarousel />
+                {/* Content */}
+                {/* Content */}
+                <div className="relative z-10 w-full max-w-xl flex flex-col justify-center flex-1 mx-auto gap-4 py-4">
+                    {/* Text header */}
+                    <div>
+                        <h1 className="text-4xl font-bold leading-tight mb-2">Turn text into apps in seconds.</h1>
+                        <p className="text-base text-white/90 leading-relaxed font-medium">Join thousands of founders and designers building the next generation of mobile experiences with AI.</p>
+                    </div>
+
+                    {/* Carousel */}
+                    <div className="flex-1 flex justify-center items-center w-full">
+                        <AuthCarousel />
+                    </div>
                 </div>
 
                 {/* Footer */}
