@@ -38,7 +38,7 @@ const features = [
 
 export default function WhyChooseSection() {
     return (
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="py-24 bg-white relative overflow-hidden" id="benefits">
             {/* Background Decoration */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-[#FF5200]/5 rounded-[100%] blur-3xl pointer-events-none" />
 

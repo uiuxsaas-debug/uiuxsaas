@@ -49,6 +49,18 @@ function Header() {
                     How it Works
                 </Link> */}
                 <Link
+                    href="/#features"
+                    className="text-black hover:text-[#FF5200] transition-colors text-sm font-medium"
+                >
+                    Features
+                </Link>
+                <Link
+                    href="/#benefits"
+                    className="text-black hover:text-[#FF5200] transition-colors text-sm font-medium"
+                >
+                    Benefits
+                </Link>
+                <Link
                     href="/#pricing"
                     className="text-black hover:text-[#FF5200] transition-colors text-sm font-medium"
                 >
