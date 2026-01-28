@@ -30,10 +30,6 @@ export default function FAQ() {
             answer: "Yes, you own 100% of the designs and code you generate. Use them for your startup, client projects, or commercial apps without any restrictions."
         },
         {
-            question: "Can I try generating an app for free?",
-            answer: "Yes, create a free account to get starter credits. You can generate your first few app screens and experience the magic of AI design before upgrading."
-        },
-        {
             question: "Is my app idea private?",
             answer: "Your privacy is our priority. Your app ideas and prompts are private to your account and are not shared or used to train public models without your permission."
         }
