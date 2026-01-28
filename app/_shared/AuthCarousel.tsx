@@ -6,11 +6,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const slides = [
-    { image: "/thumbnail/img1.png" },
-    { image: "/thumbnail/img2.png" },
-    { image: "/thumbnail/img3.png" },
-    { image: "/thumbnail/img4.png" },
-    { image: "/thumbnail/img5.png" }
+   { image: "/thumbnail/1.jpeg" },
+    { image: "/thumbnail/2.png" },
+    { image: "/thumbnail/3.jpeg" },
+    { image: "/thumbnail/4.png" },
+    { image: "/thumbnail/5.jpeg" },
+    { image: "/thumbnail/6.jpeg" },
+    { image: "/thumbnail/7.jpeg" },
+    { image: "/thumbnail/8.jpeg" },
+    { image: "/thumbnail/9.jpeg" },
+    { image: "/thumbnail/10.jpeg" }
+
 ];
 
 export default function AuthCarousel() {

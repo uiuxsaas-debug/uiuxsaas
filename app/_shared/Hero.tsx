@@ -120,18 +120,23 @@ function Hero() {
             </div>
 
             {/* Marquee Section */}
-            <div className="relative w-full items-center mt-12 mb-10 md:mb-20 z-10">
-                <div className="marquee-container flex overflow-hidden py-2 flex-row" style={{ '--duration': '60s', '--gap': '2rem', gap: 'var(--gap)' } as React.CSSProperties}>
+            <div className="relative w-full items-center mt-10 mb-8 md:mb-16 z-10">
+                <div className="marquee-container flex overflow-hidden py-2 flex-row" style={{ '--duration': '50s', '--gap': '1.5rem', gap: 'var(--gap)' } as React.CSSProperties}>
                     {[1, 2].map((group) => (
-                        <div key={group} className="marquee-item flex flex-shrink-0 flex-row gap-8 animate-marquee">
+                        <div key={group} className="marquee-item flex flex-shrink-0 flex-row gap-4 animate-marquee">
                             {[
-                                "/thumbnail/img1.png",
-                                "/thumbnail/img2.png",
-                                "/thumbnail/img3.png",
-                                "/thumbnail/img4.png",
-                                "/thumbnail/img5.png"
+                                "/thumbnail/1.jpeg",
+                                "/thumbnail/2.png",
+                                "/thumbnail/3.jpeg",
+                                "/thumbnail/4.png",
+                                "/thumbnail/5.jpeg",
+                                "/thumbnail/6.jpeg",
+                                "/thumbnail/7.jpeg",
+                                "/thumbnail/8.jpeg",
+                                "/thumbnail/9.jpeg",
+                                "/thumbnail/10.jpeg"
                             ].map((item, index) => (
-                                <div key={`${group}-${index}`} className="relative h-[220px] md:h-[400px] w-[320px] md:w-[600px] rounded-3xl overflow-hidden bg-white border-4 border-gray-100 shadow-xl">
+                                <div key={`${group}-${index}`} className="relative h-[160px] md:h-[280px] w-[240px] md:w-[420px] rounded-2xl overflow-hidden bg-white border-2 border-gray-100 shadow-lg">
                                     <img
                                         alt={`App showcase ${index}`}
                                         className="object-contain w-full h-full"
