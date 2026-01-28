@@ -82,7 +82,7 @@ export default function Footer() {
                 </div>
 
                 {/* Features Column */}
-                <div>
+                {/* <div>
                     <h4 className="font-semibold mb-4 text-white">Features</h4>
                     <ul className="text-white/60 text-sm space-y-3">
                         <li>
@@ -106,7 +106,7 @@ export default function Footer() {
                             </button>
                         </li>
                     </ul>
-                </div>
+                </div> */}
             </div>
 
             {/* Bottom */}
