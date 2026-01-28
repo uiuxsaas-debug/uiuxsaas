@@ -2,7 +2,6 @@ import { SignIn } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import AuthCarousel from '@/app/_shared/AuthCarousel'
-import { Star } from 'lucide-react'
 
 export default function Page() {
     return (
