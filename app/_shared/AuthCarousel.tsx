@@ -52,12 +52,12 @@ export default function AuthCarousel() {
                         className="relative w-full h-full flex items-center justify-center"
                     >
                         {/* Enlarged Image Container without border/bg */}
-                        <div className="relative w-full h-full flex items-center justify-center rounded-xl overflow-hidden shadow-2xl">
+                        <div className="relative w-full h-full flex items-center justify-center rounded-xl overflow-hidden">
                             <Image
                                 src={slides[currentIndex].image}
                                 alt={`App showcase ${currentIndex + 1}`}
                                 fill
-                                className="object-cover"
+                                className="object-contain"
                                 priority
                             />
                         </div>
