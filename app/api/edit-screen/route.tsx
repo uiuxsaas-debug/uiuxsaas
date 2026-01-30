@@ -45,10 +45,15 @@ export async function POST(req: NextRequest) {
     
     INSTRUCTIONS:
     1. Make changes as per the user's input: "${userInput}"
-    2. CRITICAL: Keep designs, themes, colors, and fonts EXACTLY the same as the original code. Do not introduce new styles unless requested.
-    3. CRITICAL: DO NOT use any animations (e.g., animate-spin, transition, duration, fade, slide, etc.) unless the user explicitly asks for them. The UI must be static.
+    2. CRITICAL - THEME PRESERVATION: 
+       - You MUST preserve the existing color theme. 
+       - USE ONLY the CSS variables present in the original code (e.g., bg-[var(--background)], text-[var(--foreground)], border-[var(--border)]).
+       - DO NOT replace them with hardcoded Tailwind colors like 'bg-white', 'bg-black', 'text-gray-900', 'bg-slate-50', etc.
+       - If you use hardcoded colors, the theme switching will break.
+    3. CRITICAL - NO ANIMATIONS: 
+       - DO NOT use any animations (e.g., animate-spin, transition, duration, fade, slide). The UI must be static.
     4. Only return valid HTML/TailwindCSS code. No raw text or markdown.
-    5. Maintain the existing structure and component logic.`
+    5. Maintain the existing structure and component logic unless the user explicitly asks to redesign layout.`
 
     try {
         const result = await geminiModel.generateContent({
