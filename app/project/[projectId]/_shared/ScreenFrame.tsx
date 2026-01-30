@@ -204,7 +204,7 @@ function ScreenFrame({
             disableDragging
             enableResizing={false}
         >
-            <div className="flex gap-2 items-center bg-[#0a0a0f] border border-yellow-500/20 rounded-xl p-4">
+            <div className="flex gap-2 items-center bg-white border border-black/10 rounded-xl p-4 shadow-sm">
                 <ScreenHandler
                     screen={screen}
                     theme={theme}
@@ -221,7 +221,7 @@ function ScreenFrame({
             <iframe
                 key={`iframe-${selectedThemeKey}`}
                 ref={iframeRef}
-                className="w-full rounded-2xl mt-3 border border-yellow-500/20 shadow-lg shadow-black/20"
+                className="w-full rounded-2xl mt-3 border border-black/10 shadow-lg shadow-black/10"
                 style={{ height: 'calc(100% - 52px)' }}
                 sandbox="allow-same-origin allow-scripts"
                 srcDoc={html}

@@ -41,8 +41,14 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Only the owner can edit screens. Viewers are read-only.' }, { status: 403 });
     }
 
-    const USER_INPUT = `${oldCode} Make changes as per user Input in this code, Keeping design and style same. 
-    Do not change it. Just make user requested changes. and keep all other code as it is. Only return HTML Tailwindcss code and no raw text. UserInput is:  +`+ userInput
+    const USER_INPUT = `${oldCode} 
+    
+    INSTRUCTIONS:
+    1. Make changes as per the user's input: "${userInput}"
+    2. CRITICAL: Keep designs, themes, colors, and fonts EXACTLY the same as the original code. Do not introduce new styles unless requested.
+    3. CRITICAL: DO NOT use any animations (e.g., animate-spin, transition, duration, fade, slide, etc.) unless the user explicitly asks for them. The UI must be static.
+    4. Only return valid HTML/TailwindCSS code. No raw text or markdown.
+    5. Maintain the existing structure and component logic.`
 
     try {
         const result = await geminiModel.generateContent({

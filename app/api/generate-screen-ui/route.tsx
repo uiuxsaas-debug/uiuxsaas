@@ -147,6 +147,7 @@ Always: Add bg-[var(--muted)] as fallback, use object-cover
 - bg-orange-*, bg-amber-*, bg-blue-*, bg-green-*, bg-red-*, bg-purple-*
 - text-orange-*, text-blue-*, text-gray-*, text-white, text-black
 - Any Tailwind color classes or hardcoded hex colors
+- ANIMATIONS: animate-*, transition-*, duration-*, ease-* (DO NOT USE ANIMATIONS)
 
 ═══════════════════════════════════════════════════════════════
 DESIGN QUALITY

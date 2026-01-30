@@ -153,10 +153,10 @@ function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, on
     return (
         <div className='flex justify-between items-center w-full'>
             <div className="flex items-center gap-2 min-w-0">
-                <GripVertical className="text-white/40 h-4 w-4 shrink-0" />
+                <GripVertical className="text-black/40 h-4 w-4 shrink-0" />
 
                 <h2
-                    className="min-w-0 flex-1 truncate whitespace-nowrap overflow-hidden text-white font-medium"
+                    className="min-w-0 flex-1 truncate whitespace-nowrap overflow-hidden text-black font-medium"
                     title={screen?.screenName}
                 >
                     {screen?.screenName}
@@ -166,13 +166,13 @@ function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, on
             <div className='flex'>
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant={'ghost'} className='text-white/70 hover:text-white hover:bg-yellow-500/10'><Code2Icon /></Button>
+                        <Button variant={'ghost'} className='text-black/60 hover:text-black hover:bg-[#FF5200]/10'><Code2Icon /></Button>
                     </DialogTrigger>
-                    <DialogContent className='max-w-5xl w-full h-[70vh] flex flex-col bg-[#0a0a0f] border-yellow-500/20'>
+                    <DialogContent className='max-w-5xl w-full h-[70vh] flex flex-col bg-white border-black/10'>
                         <DialogHeader>
                             <DialogTitle>HTML + Tailwindcss Code</DialogTitle>
                             <DialogDescription>
-                                <div className='flex-1 overflow-y-auto rounded-md border bg-muted p-4'>
+                                <div className='flex-1 overflow-y-auto rounded-md border border-black/10 bg-black/5 p-4'>
                                     {/* @ts-ignore  */}
                                     <SyntaxHighlighter
                                         language="html"
@@ -185,7 +185,7 @@ function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, on
                                             wordBreak: 'break-word',
                                             overflowX: 'hidden',
                                             height: '50vh',
-
+                                            backgroundColor: 'transparent'
                                         }}
                                         codeTagProps={{
                                             style: {
@@ -198,7 +198,7 @@ function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, on
                                     </SyntaxHighlighter>
 
                                 </div>
-                                <Button className='mt-3' onClick={() => {
+                                <Button className='mt-3 bg-[#FF5200] hover:bg-[#e04800] text-white' onClick={() => {
                                     navigator.clipboard.writeText(htmlCode as string);
                                     toast.success('Code Copied!')
                                 }}><Copy /> Copy </Button>
@@ -208,21 +208,21 @@ function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, on
                     </DialogContent>
                 </Dialog>
 
-                <Button variant={'ghost'} onClick={takeIframeScreenshot} className='text-white/70 hover:text-white hover:bg-yellow-500/10'>
+                <Button variant={'ghost'} onClick={takeIframeScreenshot} className='text-black/60 hover:text-black hover:bg-[#FF5200]/10'>
                     <Download />
                 </Button>
 
                 {!readOnly && (
                     <Popover open={isEditPopoverOpen} onOpenChange={setIsEditPopoverOpen}>
                         <PopoverTrigger asChild>
-                            <Button variant={'ghost'} className='text-white/70 hover:text-white hover:bg-yellow-500/10'> <SparkleIcon /> </Button>
+                            <Button variant={'ghost'} className='text-black/60 hover:text-black hover:bg-[#FF5200]/10'> <SparkleIcon /> </Button>
                         </PopoverTrigger>
-                        <PopoverContent className='bg-[#0a0a0f] border-yellow-500/20'>
+                        <PopoverContent className='bg-white border-black/10 shadow-xl w-80'>
                             <div>
-                                <Textarea placeholder='What changes you want to make?'
-                                    className='bg-[#0a0a0f] border-yellow-500/20 text-white placeholder:text-white/40'
+                                <Textarea placeholder='What changes do you want to make?'
+                                    className='bg-white border-black/10 text-black placeholder:text-black/40 focus:border-[#FF5200] focus:ring-[#FF5200]'
                                     onChange={(event) => setEditUserInput(event.target.value)} />
-                                <Button size={'sm'} className='mt-2 bg-gradient-to-r from-yellow-500 to-amber-500 text-black font-semibold hover:from-yellow-400 hover:to-amber-400'
+                                <Button size={'sm'} className='mt-2 bg-[#FF5200] text-white font-semibold hover:bg-[#e04800] w-full'
                                     disabled={loading}
                                     onClick={() => editScreen()}
                                 > {loading ? <Loader2Icon className='animate-spin' /> : <Sparkle />} Regenerate</Button>
@@ -232,7 +232,7 @@ function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, on
                 )}
 
                 {!readOnly && (
-                    <Button variant={'ghost'} size={'icon'} disabled={deleting} className="text-red-400 hover:text-red-300 hover:bg-red-500/10" onClick={() => onDelete()}>
+                    <Button variant={'ghost'} size={'icon'} disabled={deleting} className="text-red-500 hover:text-red-600 hover:bg-red-500/10" onClick={() => onDelete()}>
                         {deleting ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <Trash className="w-4 h-4" />}
                     </Button>
                 )}
