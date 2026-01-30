@@ -12,10 +12,9 @@ export default function Page() {
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
                 <Link href="/" className="flex items-center gap-2 relative z-10 w-fit hover:opacity-90 transition-opacity">
-                    <div className="bg-white rounded-lg p-1.5 shadow-lg shadow-black/10">
-                        <Image src="/logo.png" alt="AppyScreen Logo" width={32} height={32} className="w-8 h-8" />
+                    <div className="bg-white rounded-lg px-4 py-2 shadow-lg shadow-black/10">
+                        <Image src="/logo-full.png" alt="AppyScreen Logo" width={120} height={40} className="h-8 w-auto object-contain" />
                     </div>
-                    <span className='text-2xl font-bold tracking-tight text-white'>AppyScreen</span>
                 </Link>
 
                 {/* Content */}
@@ -40,8 +39,7 @@ export default function Page() {
             <div className='w-full lg:w-1/2 flex flex-col items-center justify-center p-8 relative'>
                 <div className='absolute top-6 left-6 lg:hidden'>
                     <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                        <Image src="/logo.png" alt="AppyScreen Logo" width={32} height={32} className="w-8 h-8" />
-                        <h2 className='text-xl font-bold font-sans tracking-tight'><span className='text-[#FF5200]'>Appy</span><span className='font-light text-black'>Screen</span></h2>
+                        <Image src="/logo-half.png" alt="AppyScreen Logo" width={40} height={40} className="h-10 w-auto object-contain" />
                     </Link>
                 </div>
 

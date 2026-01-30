@@ -54,8 +54,20 @@ function ViewPublicProject() {
             {/* View Only Header */}
             <div className='flex items-center justify-between p-3 bg-white border-b border-black/5'>
                 <div className='flex gap-2 items-center'>
-                    <Image src={'/logo.png'} alt='logo' width={40} height={40} />
-                    <h2 className='text-xl font-semibold'> <span className='text-[#FF5200]'>Appy</span> <span className='font-light text-black'>Screen</span></h2>
+                    <Image
+                        src={'/logo-full.png'}
+                        alt='logo'
+                        width={140}
+                        height={40}
+                        className="hidden md:block h-10 w-auto object-contain"
+                    />
+                    <Image
+                        src={'/logo-half.png'}
+                        alt='logo'
+                        width={40}
+                        height={40}
+                        className="block md:hidden h-8 w-auto object-contain"
+                    />
                     <span className='ml-4 px-2 py-0.5 rounded-full bg-[#FF5200]/10 text-[#FF5200] text-xs border border-[#FF5200]/20'>View Only</span>
                 </div>
                 <Button asChild className='bg-[#FF5200] hover:bg-[#e04800] text-white font-semibold'>

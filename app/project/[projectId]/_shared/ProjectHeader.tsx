@@ -173,8 +173,20 @@ function ProjectHeader() {
         <div className='flex items-center justify-between p-3 bg-white border-b border-black/5'>
             <Link href={'/dashboard'}>
                 <div className='flex gap-2 items-center hover:scale-105 transition-transform'>
-                    <Image src={'/logo.png'} alt='logo' width={40} height={40} />
-                    <h2 className='text-xl font-semibold'> <span className='text-[#FF5200]'>Appy</span> <span className='font-light text-black'>Screen</span></h2>
+                    <Image
+                        src={'/logo-full.png'}
+                        alt='logo'
+                        width={140}
+                        height={40}
+                        className="hidden md:block h-10 w-auto object-contain"
+                    />
+                    <Image
+                        src={'/logo-half.png'}
+                        alt='logo'
+                        width={40}
+                        height={40}
+                        className="block md:hidden h-8 w-auto object-contain"
+                    />
                 </div>
             </Link>
             <div className='flex gap-2 items-center'>

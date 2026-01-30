@@ -13,20 +13,18 @@ export default function Footer() {
 
     return (
         <footer className="w-full border-t border-white/10 bg-black py-10 px-6 text-white relative z-20">
-            <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 md:gap-10">
+            <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8 md:gap-10">
                 {/* Logo - Full width on mobile, 1 col on md+ */}
                 <div className="col-span-2 md:col-span-1">
                     <Link href={'/'} className="flex items-center gap-2 mb-4 hover:opacity-80 transition-opacity">
                         <Image
-                            src="/logo.png"
+                            src="/logo-full.png"
                             alt="AppyScreen Logo"
-                            width={32}
-                            height={32}
-                            className="object-contain w-8 h-8"
+                            width={140}
+                            height={40}
+                            className="bg-white rounded-sm h-8 w-auto object-contain"
                         />
-                        <h3 className="text-xl font-bold font-sans tracking-tight">
-                            <span className="text-[#FF5200]">Appy</span><span className="font-light text-white">Screen</span>
-                        </h3>
+
                     </Link>
                     <p className="text-white/60 text-sm mb-6 max-w-xs leading-relaxed">
                         The fastest AI UI generator for developers and founders.
