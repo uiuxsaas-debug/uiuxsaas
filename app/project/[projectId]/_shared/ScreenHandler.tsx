@@ -171,40 +171,46 @@ function ScreenHandler({ screen, theme, iframeRef, projectId, onScreenUpdate, on
                     <DialogContent className='max-w-5xl w-full h-[70vh] flex flex-col bg-white border-black/10'>
                         <DialogHeader>
                             <DialogTitle>HTML + Tailwindcss Code</DialogTitle>
-                            <DialogDescription>
-                                <div className='flex-1 overflow-y-auto rounded-md border border-black/10 bg-black/5 p-4'>
-                                    {/* @ts-ignore  */}
-                                    <SyntaxHighlighter
-                                        language="html"
-                                        style={docco}
-                                        wrapLongLines
-                                        customStyle={{
-                                            margin: 0,
-                                            padding: 5,
-                                            whiteSpace: 'pre-wrap',
-                                            wordBreak: 'break-word',
-                                            overflowX: 'hidden',
-                                            height: '50vh',
-                                            backgroundColor: 'transparent'
-                                        }}
-                                        codeTagProps={{
-                                            style: {
-                                                whiteSpace: 'pre-wrap',
-                                                wordBreak: "break-word"
-                                            }
-                                        }}
-                                    >
-                                        {htmlCode}
-                                    </SyntaxHighlighter>
-
-                                </div>
-                                <Button className='mt-3 bg-[#FF5200] hover:bg-[#e04800] text-white' onClick={() => {
-                                    navigator.clipboard.writeText(htmlCode as string);
-                                    toast.success('Code Copied!')
-                                }}><Copy /> Copy </Button>
-
+                            <DialogDescription className="text-black/50">
+                                Copy the code below to use in your project.
                             </DialogDescription>
                         </DialogHeader>
+
+                        <div className='flex-1 overflow-y-auto rounded-md border border-neutral-100 bg-white p-4 shadow-sm min-h-0'>
+                            {/* @ts-ignore  */}
+                            <SyntaxHighlighter
+                                language="html"
+                                style={docco}
+                                wrapLongLines
+                                customStyle={{
+                                    margin: 0,
+                                    padding: 10,
+                                    whiteSpace: 'pre-wrap',
+                                    wordBreak: 'break-word',
+                                    overflowX: 'hidden',
+                                    backgroundColor: '#ffffff',
+                                    border: 'none',
+                                    fontSize: '14px',
+                                    lineHeight: '1.5',
+                                    height: '100%',
+                                }}
+                                codeTagProps={{
+                                    style: {
+                                        whiteSpace: 'pre-wrap',
+                                        wordBreak: "break-word"
+                                    }
+                                }}
+                            >
+                                {htmlCode}
+                            </SyntaxHighlighter>
+                        </div>
+
+                        <div className="flex justify-start">
+                            <Button className='bg-[#FF5200] hover:bg-[#e04800] text-white' onClick={() => {
+                                navigator.clipboard.writeText(htmlCode as string);
+                                toast.success('Code Copied!')
+                            }}><Copy className="mr-2 h-4 w-4" /> Copy Code</Button>
+                        </div>
                     </DialogContent>
                 </Dialog>
 
