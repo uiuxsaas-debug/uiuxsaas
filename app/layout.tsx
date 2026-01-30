@@ -13,6 +13,9 @@ const appFont = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "AppyScreen | Design Mobile Apps with AI in Seconds",
   description: "Turn your idea into professional, developer-ready mobile app designs instantly. The #1 AI-powered interface generator for founders and teams.",
+  icons: {
+    icon: '/logo-half.png',
+  }
 };
 
 export default function RootLayout({
