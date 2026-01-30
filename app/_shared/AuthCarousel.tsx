@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const slides = [
-   { image: "/thumbnail/1.jpeg" },
+    { image: "/thumbnail/1.jpeg" },
     { image: "/thumbnail/2.png" },
     { image: "/thumbnail/3.jpeg" },
     { image: "/thumbnail/4.png" },
@@ -38,28 +38,26 @@ export default function AuthCarousel() {
     };
 
     return (
-        <div className="flex h-full flex-col items-center justify-center gap-8 w-full max-w-md mx-auto">
+        <div className="flex h-full flex-col items-center justify-center gap-4 w-full mx-auto flex-1 min-h-0">
             {/* Carousel Container */}
-            <div className="relative w-full aspect-[4/3] flex items-center justify-center">
-                {/* Background glow effect */}
-                <div className="absolute inset-0 rounded-3xl bg-[#FDFDFD] scale-90" />
+            <div className="relative w-full h-full flex items-center justify-center flex-1 min-h-0">
 
                 <AnimatePresence mode='wait'>
                     <motion.div
                         key={currentIndex}
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        initial={{ opacity: 0, scale: 0.95, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -10 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
                         className="relative w-full h-full flex items-center justify-center"
                     >
-                        {/* Phone Frame Container */}
-                        <div className="relative w-full h-full max-w-[90%] max-h-[90%] rounded-2xl overflow-hidden bg-white/10 backdrop-blur-sm shadow-2xl shadow-black/20 border border-white/20">
+                        {/* Enlarged Image Container without border/bg */}
+                        <div className="relative w-full h-full flex items-center justify-center rounded-xl overflow-hidden shadow-2xl">
                             <Image
                                 src={slides[currentIndex].image}
                                 alt={`App showcase ${currentIndex + 1}`}
                                 fill
-                                className="object-contain p-2"
+                                className="object-cover"
                                 priority
                             />
                         </div>
@@ -68,7 +66,7 @@ export default function AuthCarousel() {
             </div>
 
             {/* Navigation Controls */}
-            <div className="flex items-center justify-center gap-6 text-white">
+            <div className="flex items-center justify-center gap-6 text-white pb-6 bg-transparent">
                 <button
                     onClick={prevSlide}
                     className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-200 active:scale-95"
@@ -83,8 +81,8 @@ export default function AuthCarousel() {
                             key={idx}
                             onClick={() => setCurrentIndex(idx)}
                             className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex
-                                    ? 'w-8 bg-white'
-                                    : 'w-2 bg-white/30 hover:bg-white/50'
+                                ? 'w-8 bg-white'
+                                : 'w-2 bg-white/30 hover:bg-white/50'
                                 }`}
                             aria-label={`Go to slide ${idx + 1}`}
                         />

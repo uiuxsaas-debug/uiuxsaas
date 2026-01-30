@@ -25,12 +25,12 @@ export default function Page() {
                 <div className="relative z-10 w-full max-w-xl flex flex-col justify-center flex-1 mx-auto gap-4 py-4">
                     {/* Text header */}
                     <div>
-                        <h1 className="text-4xl font-bold leading-tight mb-2">Turn text into apps in seconds.</h1>
+                        <h1 className="text-4xl font-bold leading-tight mb-2">Turn text into apps in minutes.</h1>
                         <p className="text-base text-white/90 leading-relaxed font-medium">Join thousands of founders and designers building the next generation of mobile experiences with AI.</p>
                     </div>
 
                     {/* Carousel */}
-                    <div className="flex-1 flex justify-center items-center w-full">
+                    <div className="flex-1 flex justify-center items-center w-full min-h-0 h-full overflow-hidden">
                         <AuthCarousel />
                     </div>
                 </div>
